@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Senhas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      color: #666;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #007BFF;
+      word-break: break-all;
+    }
+    /* Espaço reservado para o anúncio do Google AdSense */
+    .adsense {
+      margin-top: 30px;
+      background-color: #e2e2e2;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Gerador de Senhas</h1>
+    <p>Gere uma senha aleatória com apenas um clique!</p>
+    <button onclick="generatePassword()">Gerar Senha</button>
+    <div class="result" id="passwordResult"></div>
+    
+    <!-- Espaço reservado para o código do Google AdSense -->
+    <div class="adsense">
+      <!-- Cole aqui o código do AdSense -->
+      Anúncio Google AdSense
+    </div>
+  </div>
+  <script>
+    function generatePassword() {
+      const length = 12; // Tamanho da senha
+      const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+      let password = "";
+      for (let i = 0, n = charset.length; i < length; ++i) {
+        password += charset.charAt(Math.floor(Math.random() * n));
+      }
+      document.getElementById("passwordResult").innerText = password;
+    }
+  </script>
+</body>
+</html>
