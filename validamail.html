@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Validador de E-mail</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #007BFF;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Validador de E-mail</h1>
+    <input type="text" id="emailInput" placeholder="Digite seu e-mail">
+    <br>
+    <button onclick="validateEmail()">Validar E-mail</button>
+    <div class="result" id="emailResult"></div>
+    <br>
+    <a href="index.html">Voltar para Página Inicial</a>
+  </div>
+  <script>
+    function validateEmail() {
+      const email = document.getElementById("emailInput").value;
+      // Expressão regular para validação simples de e-mail
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const resultEl = document.getElementById("emailResult");
+
+      if (regex.test(email)) {
+        resultEl.innerText = "E-mail válido!";
+        resultEl.style.color = "#28a745";
+      } else {
+        resultEl.innerText = "E-mail inválido. Verifique a formatação.";
+        resultEl.style.color = "#dc3545";
+      }
+    }
+  </script>
+</body>
+</html>
 
