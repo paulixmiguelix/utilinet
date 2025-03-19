@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title data-translate="title">Gerador de QR Code</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Incluindo a biblioteca QRCode.js via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+    }
+    #qrcode {
+      margin-top: 20px;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 data-translate="header">Gerador de QR Code</h1>
+    <input type="text" id="textInput" placeholder="" data-translate-placeholder="placeholder">
+    <br>
+    <button onclick="generateQRCode()" data-translate="button">Gerar QR Code</button>
+    <div id="qrcode"></div>
+    <br>
+    <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+  </div>
+  <script>
+    const translations = {
+      "pt": {
+        "title": "Gerador de QR Code",
+        "header": "Gerador de QR Code",
+        "placeholder": "Digite o texto ou URL",
+        "button": "Gerar QR Code",
+        "back": "Voltar para Página Inicial"
+      },
+      "en": {
+        "title": "QR Code Generator",
+        "header": "QR Code Generator",
+        "placeholder": "Enter text or URL",
+        "button": "Generate QR Code",
+        "back": "Back to Home Page"
+      },
+      "es": {
+        "title": "Generador de Código QR",
+        "header": "Generador de Código QR",
+        "placeholder": "Ingrese texto o URL",
+        "button": "Generar Código QR",
+        "back": "Volver a la Página Principal"
+      }
+    };
+
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+
+      // Atualiza os elementos com textos a traduzir
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      // Atualiza os placeholders
+      document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-translate-placeholder");
+        el.setAttribute("placeholder", translations[lang][key]);
+      });
+      // Atualiza o título da página
+      document.title = translations[lang]["title"];
+    }
+
+    function generateQRCode() {
+      const text = document.getElementById("textInput").value;
+      const qrCodeDiv = document.getElementById("qrcode");
+      // Limpa o QR Code anterior, se houver
+      qrCodeDiv.innerHTML = "";
+      if(text.trim() === "") {
+        qrCodeDiv.innerText = "Por favor, digite um texto ou URL.";
+        return;
+      }
+      new QRCode(qrCodeDiv, {
+        text: text,
+        width: 200,
+        height: 200
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", translatePage);
+  </script>
+</body>
+</html>
