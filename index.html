@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Gerador de Senhas</title>
+  <title data-translate="title">Gerador de Senhas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -32,8 +32,8 @@
       font-size: 18px;
       color: #007BFF;
       word-break: break-all;
+      cursor: pointer;
     }
-    /* Espaço reservado para o anúncio do Google AdSense */
     .adsense {
       margin-top: 30px;
       background-color: #e2e2e2;
@@ -46,21 +46,19 @@
 </head>
 <body>
   <div class="container">
-    <h1>Gerador de Senhas</h1>
-    <p>Gere uma senha aleatória com apenas um clique!</p>
-    <button onclick="generatePassword()">Gerar Senha</button>
-    <div class="result" id="passwordResult"></div>
+    <h1 data-translate="header">Gerador de Senhas</h1>
+    <p data-translate="description">Gere uma senha aleatória com apenas um clique!</p>
+    <button onclick="generatePassword()" data-translate="generate">Gerar Senha</button>
+    <div class="result" id="passwordResult" onclick="copyToClipboard()"></div>
     
-    <!-- Espaço reservado para o código do Google AdSense -->
     <div class="adsense">
-      <!-- Cole aqui o código do AdSense -->
-     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
      crossorigin="anonymous"></script>
     </div>
   </div>
   <script>
     function generatePassword() {
-      const length = 12; // Tamanho da senha
+      const length = 12;
       const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
       let password = "";
       for (let i = 0, n = charset.length; i < length; ++i) {
@@ -68,6 +66,42 @@
       }
       document.getElementById("passwordResult").innerText = password;
     }
+
+    function copyToClipboard() {
+      const passwordElement = document.getElementById("passwordResult");
+      if (passwordElement.innerText) {
+        navigator.clipboard.writeText(passwordElement.innerText).then(() => {
+          alert("Senha copiada!");
+        });
+      }
+    }
+
+    function translatePage() {
+      const translations = {
+        "en": {
+          "title": "Password Generator",
+          "header": "Password Generator",
+          "description": "Generate a random password with just one click!",
+          "generate": "Generate Password"
+        },
+        "es": {
+          "title": "Generador de Contraseñas",
+          "header": "Generador de Contraseñas",
+          "description": "¡Genera una contraseña aleatoria con un solo clic!",
+          "generate": "Generar Contraseña"
+        }
+      };
+
+      const userLang = navigator.language.split('-')[0];
+      if (translations[userLang]) {
+        document.querySelectorAll("[data-translate]").forEach(element => {
+          const key = element.getAttribute("data-translate");
+          element.innerText = translations[userLang][key];
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", translatePage);
   </script>
 </body>
 </html>
