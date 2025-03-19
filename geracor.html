@@ -1,1 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title data-translate="title">Gerador de Cores Aleatórias</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 15px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      display: inline-block;
+      border-radius: 8px;
+      word-break: break-all;
+    }
+    .color-box {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 data-translate="header">Gerador de Cores Aleatórias</h1>
+    <button onclick="generateColor()" data-translate="button">Gerar Cor</button>
+    <div class="result" id="colorResult"></div>
+    <div class="color-box" id="colorBox"></div>
+    <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+  </div>
+  <script>
+    const translations = {
+      "pt": {
+        "title": "Gerador de Cores Aleatórias",
+        "header": "Gerador de Cores Aleatórias",
+        "button": "Gerar Cor",
+        "back": "Voltar para Página Inicial",
+        "resultText": "Código da cor: "
+      },
+      "en": {
+        "title": "Random Color Generator",
+        "header": "Random Color Generator",
+        "button": "Generate Color",
+        "back": "Back to Home Page",
+        "resultText": "Color code: "
+      },
+      "es": {
+        "title": "Generador de Colores Aleatorios",
+        "header": "Generador de Colores Aleatorios",
+        "button": "Generar Color",
+        "back": "Volver a la Página Principal",
+        "resultText": "Código de color: "
+      }
+    };
+
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      
+      document.title = translations[lang]["title"];
+    }
+
+    function generateColor() {
+      // Gera um código hexadecimal aleatório
+      const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      const resultText = translations[lang]["resultText"];
+      
+      document.getElementById("colorResult").innerText = resultText + randomColor;
+      document.getElementById("colorBox").style.backgroundColor = randomColor;
+    }
+
+    document.addEventListener("DOMContentLoaded", translatePage);
+  </script>
+</body>
+</html>
 
