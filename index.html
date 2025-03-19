@@ -53,7 +53,9 @@
     <p data-translate="description">Selecione uma das ferramentas abaixo:</p>
     <a href="senha.html" class="tool-link" data-translate="passwordGenerator">Gerador de Senhas</a>
     <a href="qrcode.html" class="tool-link" data-translate="qrCodeGenerator">Gerador de QR Code</a>
+     <a href="geracor.html" class="tool-link" data-translate="colorGenerator">Gerador de Cores Aleatórias</a>
     <a href="validamail.html" class="tool-link" data-translate="emailValidator">Validador de E-mail</a>
+   
     
     <div class="adsense">
       <!-- Código Adsense -->
@@ -77,6 +79,7 @@
         "description": "Selecione uma das ferramentas abaixo:",
         "passwordGenerator": "Gerador de Senhas",
         "qrCodeGenerator": "Gerador de QR Code",
+         "colorGenerator": "Gerador de Cores Aleatórias",
         "emailValidator": "Validador de E-mail"
       },
       "en": {
@@ -85,7 +88,9 @@
         "description": "Select one of the tools below:",
         "passwordGenerator": "Password Generator",
         "qrCodeGenerator": "QR Code Generator",
+        "colorGenerator": "Random Color Generator",
         "emailValidator": "Email Validator"
+        
       },
       "es": {
         "title": "Página Principal - Herramientas",
@@ -93,7 +98,9 @@
         "description": "Seleccione una de las herramientas a continuación:",
         "passwordGenerator": "Generador de Contraseñas",
         "qrCodeGenerator": "Generador de Código QR",
+        "colorGenerator": "Generador de Colores Aleatorios",
         "emailValidator": "Validador de Correo"
+        
       }
     };
 
@@ -102,4 +109,16 @@
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
       
-      // Atualiza element
+      // Atualiza elementos com o atributo data-translate
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+
+      document.title = translations[lang]["title"];
+    }
+
+    document.addEventListener("DOMContentLoaded", translatePage);
+  </script>
+</body>
+</html>
