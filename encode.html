@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
+     crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <title data-translate="title">Encoder/Decoder Base64</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Codifique ou decodifique textos em Base64 de forma rápida e segura!" data-lang="pt">
+  <meta name="description" content="Encode or decode Base64 text quickly and securely!" data-lang="en">
+  <meta name="description" content="¡Codifica o decodifica textos en Base64 de forma rápida y segura!" data-lang="es">
+  
+  <meta name="keywords" content="encoder, decoder, base64, codificar, decodificar, ferramenta online" data-lang="pt">
+  <meta name="keywords" content="encoder, decoder, base64, encode, decode, online tool" data-lang="en">
+  <meta name="keywords" content="encoder, decoder, base64, codificar, decodificar, herramienta online" data-lang="es">
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      color: #666;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      box-sizing: border-box;
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #007BFF;
+      word-break: break-all;
+      cursor: pointer;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #ddd;
+    }
+    .adsense {
+      margin-top: 30px;
+      background-color: #e2e2e2;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
+     crossorigin="anonymous"></script>
+  <div class="container">
+    <h1 data-translate="header">Encoder/Decoder Base64</h1>
+    <p data-translate="description">Codifique ou decodifique seu texto em Base64 com apenas um clique!</p>
+    
+    <textarea id="base64-input" placeholder="Insira seu texto ou string Base64 aqui..." rows="5"></textarea>
+    
+    <div class="buttons">
+      <button onclick="encodeBase64()" data-translate="encode">Codificar</button>
+      <button onclick="decodeBase64()" data-translate="decode">Decodificar</button>
+    </div>
+    
+    <div class="result" id="base64-result" onclick="copyResult()">
+      <!-- O resultado aparecerá aqui -->
+    </div>
+    
+    <div class="adsense">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
+       crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
+  <script>
+    function encodeBase64() {
+      const input = document.getElementById("base64-input").value;
+      try {
+        const encoded = btoa(unescape(encodeURIComponent(input)));
+        document.getElementById("base64-result").innerText = encoded;
+      } catch (error) {
+        document.getElementById("base64-result").innerText = "Erro ao codificar. Verifique o texto inserido.";
+      }
+    }
+    
+    function decodeBase64() {
+      const input = document.getElementById("base64-input").value;
+      try {
+        const decoded = decodeURIComponent(escape(atob(input)));
+        document.getElementById("base64-result").innerText = decoded;
+      } catch (error) {
+        document.getElementById("base64-result").innerText = "Erro ao decodificar. Certifique-se que a string Base64 é válida.";
+      }
+    }
+    
+    function copyResult() {
+      const resultEl = document.getElementById("base64-result");
+      if (resultEl.innerText) {
+        navigator.clipboard.writeText(resultEl.innerText).then(() => {
+          alert("Texto copiado para a área de transferência!");
+        });
+      }
+    }
+    
+    function translatePage() {
+      const translations = {
+        "en": {
+          "title": "Base64 Encoder/Decoder",
+          "header": "Base64 Encoder/Decoder",
+          "description": "Encode or decode your text in Base64 with just one click!",
+          "encode": "Encode",
+          "decode": "Decode"
+        },
+        "es": {
+          "title": "Codificador/Decodificador Base64",
+          "header": "Codificador/Decodificador Base64",
+          "description": "¡Codifica o decodifica tu texto en Base64 con un solo clic!",
+          "encode": "Codificar",
+          "decode": "Decodificar"
+        }
+      };
+      
+      const userLang = navigator.language.split('-')[0];
+      if (translations[userLang]) {
+        document.querySelectorAll("[data-translate]").forEach(element => {
+          const key = element.getAttribute("data-translate");
+          element.innerText = translations[userLang][key];
+        });
+        document.title = translations[userLang]["title"];
+      }
+    }
+    
+    document.addEventListener("DOMContentLoaded", translatePage);
+  </script>
+</body>
+</html>
