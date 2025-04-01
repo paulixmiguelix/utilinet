@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teste online o funcionamento do seu microfone e webcam para garantir uma comunicação digital de qualidade.">
+  <meta name="keywords" content="teste de microfone, teste de webcam, ferramenta online, getUserMedia">
+  <title data-translate="title">Teste de Microfone e Webcam</title>
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .reflection {
+      margin: 20px 0;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .importance {
+      margin: 20px 0;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
+      color: #555;
+    }
+    .buttons-group {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+      background: #0073e6;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #005bb5;
+    }
+    video {
+      width: 100%;
+      max-width: 400px;
+      background: #000;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin: 10px auto;
+      display: block;
+    }
+    #micCanvas {
+      width: 100%;
+      max-width: 400px;
+      height: 30px;
+      background: #ddd;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin: 10px auto;
+      display: block;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 data-translate="header">Teste de Microfone e Webcam</h1>
+    
+    <!-- Reflexão aleatória -->
+    <p class="reflection" id="reflection"></p>
+    
+    <!-- Texto explicativo -->
+    <p class="importance" data-translate="importanceText"></p>
+    
+    <div class="buttons-group">
+      <button onclick="startTest()" data-translate="startTest">Iniciar Teste</button>
+      <button onclick="stopTest()" data-translate="stopTest">Parar Teste</button>
+    </div>
+    
+    <!-- Seção para Webcam -->
+    <h2 data-translate="webcamLabel">Webcam</h2>
+    <video id="webcamVideo" autoplay playsinline></video>
+    
+    <!-- Seção para Microfone -->
+    <h2 data-translate="microphoneLabel">Microfone</h2>
+    <canvas id="micCanvas"></canvas>
+    
+    <br>
+    <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+  </div>
+  
+  <script>
+    // Traduções multilíngues
+    const translations = {
+      "pt": {
+        "title": "Teste de Microfone e Webcam",
+        "header": "Teste de Microfone e Webcam",
+        "importanceText": "Testar seu microfone e webcam é essencial para garantir que suas comunicações online ocorram sem problemas. Certifique-se de que ambos os dispositivos estão funcionando corretamente.",
+        "startTest": "Iniciar Teste",
+        "stopTest": "Parar Teste",
+        "webcamLabel": "Webcam",
+        "microphoneLabel": "Microfone",
+        "back": "Voltar para Página Inicial",
+        "reflection": [
+          "Verifique seus dispositivos para uma comunicação digital sem falhas.",
+          "Testar seu microfone e webcam é o primeiro passo para uma reunião online de sucesso.",
+          "Dispositivos funcionando bem garantem interações virtuais de qualidade."
+        ]
+      },
+      "en": {
+        "title": "Microphone and Webcam Test",
+        "header": "Microphone and Webcam Test",
+        "importanceText": "Testing your microphone and webcam is essential to ensure smooth online communication. Make sure both devices are functioning properly.",
+        "startTest": "Start Test",
+        "stopTest": "Stop Test",
+        "webcamLabel": "Webcam",
+        "microphoneLabel": "Microphone",
+        "back": "Back to Home Page",
+        "reflection": [
+          "Check your devices for seamless digital communication.",
+          "Testing your microphone and webcam is the first step to a successful online meeting.",
+          "Properly functioning devices ensure quality virtual interactions."
+        ]
+      },
+      "es": {
+        "title": "Prueba de Micrófono y Webcam",
+        "header": "Prueba de Micrófono y Webcam",
+        "importanceText": "Probar tu micrófono y webcam es esencial para garantizar una comunicación en línea fluida. Asegúrate de que ambos dispositivos funcionen correctamente.",
+        "startTest": "Iniciar Prueba",
+        "stopTest": "Detener Prueba",
+        "webcamLabel": "Webcam",
+        "microphoneLabel": "Micrófono",
+        "back": "Volver a la Página Principal",
+        "reflection": [
+          "Verifica tus dispositivos para una comunicación digital sin interrupciones.",
+          "Probar tu micrófono y webcam es el primer paso para una reunión online exitosa.",
+          "Dispositivos que funcionan correctamente aseguran interacciones virtuales de calidad."
+        ]
+      }
+    };
+
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.title = translations[lang]["title"];
+      
+      // Atualiza o texto explicativo de importância
+      document.querySelectorAll("[data-translate='importanceText']").forEach(el => {
+        el.innerText = translations[lang]["importanceText"];
+      });
+    }
+
+    // Define a reflexão aleatória
+    function setReflection() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      const reflectionArray = translations[lang]["reflection"];
+      document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
+    }
+    
+    let mediaStream = null;
+    let audioContext = null;
+    let analyser = null;
+    let micAnimationFrame = null;
+    
+    function startTest() {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+          .then(stream => {
+            mediaStream = stream;
+            // Configura a webcam
+            const videoElement = document.getElementById("webcamVideo");
+            videoElement.srcObject = stream;
+            
+            // Configura o microfone
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const source = audioContext.createMediaStreamSource(stream);
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 256;
+            source.connect(analyser);
+            updateMicLevel();
+          })
+          .catch(err => {
+            alert("Erro ao acessar microfone e webcam: " + err);
+          });
+      } else {
+        alert("Seu navegador não suporta acesso a mídia.");
+      }
+    }
+    
+    function stopTest() {
+      if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+        mediaStream = null;
+      }
+      if (micAnimationFrame) {
+        cancelAnimationFrame(micAnimationFrame);
+      }
+      // Limpa o vídeo e o canvas do microfone
+      document.getElementById("webcamVideo").srcObject = null;
+      const canvas = document.getElementById("micCanvas");
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    
+    function updateMicLevel() {
+      const canvas = document.getElementById("micCanvas");
+      const ctx = canvas.getContext("2d");
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+      
+      function draw() {
+        micAnimationFrame = requestAnimationFrame(draw);
+        analyser.getByteFrequencyData(dataArray);
+        let sum = 0;
+        for(let i = 0; i < bufferLength; i++) {
+          sum += dataArray[i];
+        }
+        const avg = sum / bufferLength;
+        // Limpa o canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Desenha uma barra representando o nível do microfone
+        const barWidth = canvas.width;
+        const barHeight = (avg / 255) * canvas.height;
+        ctx.fillStyle = "#28a745";
+        ctx.fillRect(0, canvas.height - barHeight, barWidth, barHeight);
+      }
+      draw();
+    }
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      translatePage();
+      setReflection();
+    });
+  </script>
+</body>
+</html>
