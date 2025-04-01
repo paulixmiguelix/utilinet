@@ -26,12 +26,13 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    h1 {
+    h1, h2 {
       color: #333;
     }
     p {
       color: #666;
       font-size: 16px;
+      line-height: 1.5;
     }
     button {
       padding: 10px 20px;
@@ -53,6 +54,14 @@
       word-break: break-all;
       cursor: pointer;
     }
+    .reflection {
+      margin: 20px 0;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
     .adsense {
       margin-top: 30px;
       text-align: center;
@@ -67,6 +76,15 @@
 <body>
   <div class="container">
     <h1 data-translate="header">Gerador de Senhas</h1>
+    
+    <!-- Reflexão aleatória sobre segurança -->
+    <p class="reflection" id="reflection"></p>
+    
+    <!-- Texto explicativo sobre a importância de senhas seguras -->
+    <p class="importance" data-translate="importance">
+      A segurança online depende de senhas fortes. É fundamental evitar palavras comuns e sequências previsíveis. Combine letras maiúsculas, minúsculas, números e símbolos para criar senhas únicas. Lembre-se: quanto mais complexa, melhor estará sua proteção contra ataques cibernéticos.
+    </p>
+    
     <p data-translate="description">Gere uma senha aleatória com apenas um clique!</p>
     <button onclick="generatePassword()" data-translate="generate">Gerar Senha</button>
     <div class="result" id="passwordResult" onclick="copyToClipboard()"></div>
@@ -108,25 +126,38 @@
       }
     }
     
+    // Reflexões sobre a importância da segurança e senhas fortes
+    const reflections = [
+      "A segurança digital começa com senhas fortes: pense nelas como a primeira linha de defesa contra invasões.",
+      "Cada caractere em uma senha segura é um tijolo na muralha que protege seus dados online.",
+      "Em um mundo digital cada vez mais vulnerável, investir em senhas complexas é investir na sua própria segurança.",
+      "Uma senha forte é como uma chave única: ela abre a porta para a proteção dos seus dados mais valiosos.",
+      "A criação de senhas robustas é uma arte e uma ciência. Não subestime o poder de uma combinação imprevisível."
+    ];
+    document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
+    
     // Traduções multilíngues
     const translations = {
       "pt": {
         "title": "Gerador de Senhas",
         "header": "Gerador de Senhas",
         "description": "Gere uma senha aleatória com apenas um clique!",
-        "generate": "Gerar Senha"
+        "generate": "Gerar Senha",
+        "importance": "A segurança online depende de senhas fortes. É fundamental evitar palavras comuns e sequências previsíveis. Combine letras maiúsculas, minúsculas, números e símbolos para criar senhas únicas. Lembre-se: quanto mais complexa, melhor estará sua proteção contra ataques cibernéticos."
       },
       "en": {
         "title": "Password Generator",
         "header": "Password Generator",
         "description": "Generate a random password with just one click!",
-        "generate": "Generate Password"
+        "generate": "Generate Password",
+        "importance": "Online security relies on strong passwords. Avoid common words and predictable sequences. Combine uppercase, lowercase letters, numbers, and symbols to create unique passwords. Remember: the more complex, the better your protection against cyber attacks."
       },
       "es": {
         "title": "Generador de Contraseñas",
         "header": "Generador de Contraseñas",
         "description": "¡Genera una contraseña aleatoria con un solo clic!",
-        "generate": "Generar Contraseña"
+        "generate": "Generar Contraseña",
+        "importance": "La seguridad en línea depende de contraseñas fuertes. Evita palabras comunes y secuencias predecibles. Combina letras mayúsculas, minúsculas, números y símbolos para crear contraseñas únicas. Recuerda: cuanto más compleja, mejor será tu protección contra los ciberataques."
       }
     };
 
