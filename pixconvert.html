@@ -3,75 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conversor de Pixeis</title>
+  <meta name="description" content="Converta pixels para outras unidades de medida facilmente.">
+  <title data-translate="title">Conversor de Pixeis</title>
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
+  
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
       margin: 0;
       padding: 20px;
-      text-align: center;
     }
     .container {
-      max-width: 600px;
+      max-width: 800px;
       margin: auto;
+      text-align: center;
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+    h1, h2 {
+      color: #333;
+    }
+    p {
+      color: #666;
+      font-size: 16px;
+    }
+    .input-group {
+      margin: 10px 0;
+    }
     input, select, button {
       padding: 10px;
-      margin: 10px;
       font-size: 16px;
+      margin: 5px;
     }
     .result {
       margin-top: 20px;
       font-size: 18px;
+      font-weight: bold;
+    }
+    .reflection {
+      margin-top: 20px;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Conversor de Pixeis</h1>
-    <label for="pixels">Digite o valor em pixeis:</label>
-    <input type="number" id="pixels" placeholder="Insira o valor">
-    <br>
-    <label for="dpi">DPI (Resolução):</label>
-    <select id="dpi">
-      <option value="72">72 DPI</option>
-      <option value="96">96 DPI (Padrão)</option>
-      <option value="150">150 DPI</option>
-      <option value="300">300 DPI</option>
-    </select>
-    <br>
-    <button onclick="convertPixels()">Converter</button>
-    <div class="result" id="conversionResults"></div>
+    <h1 data-translate="header">Conversor de Pixeis</h1>
+    <p>Esta ferramenta permite converter pixels para diversas unidades como centímetros, milímetros e pontos, considerando a resolução (DPI).</p>
+    <p class="reflection" id="reflection"></p>
+    
+    <div class="input-group">
+      <input type="number" id="pixelInput" placeholder="Insira os pixels">
+      <select id="unitSelect">
+        <option value="cm">Centímetros</option>
+        <option value="mm">Milímetros</option>
+        <option value="pt">Pontos</option>
+        <option value="in">Polegadas</option>
+      </select>
+      <input type="number" id="dpiInput" placeholder="DPI (Padrão: 96)">
+      <button onclick="convertPixels()">Converter</button>
+    </div>
+    <div class="result" id="result"></div>
+    
+    <div class="adsense">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
   </div>
 
   <script>
     function convertPixels() {
-      const px = parseFloat(document.getElementById("pixels").value);
-      const dpi = parseFloat(document.getElementById("dpi").value);
-      if (isNaN(px) || px <= 0) {
-        document.getElementById("conversionResults").innerText = "Insira um valor válido.";
-        return;
+      const pixels = parseFloat(document.getElementById("pixelInput").value);
+      const dpi = parseFloat(document.getElementById("dpiInput").value) || 96;
+      const unit = document.getElementById("unitSelect").value;
+      let result;
+      
+      switch (unit) {
+        case "cm": result = pixels / dpi * 2.54; break;
+        case "mm": result = pixels / dpi * 25.4; break;
+        case "pt": result = pixels * (72 / dpi); break;
+        case "in": result = pixels / dpi; break;
+        default: result = 0;
       }
-      const inches = px / dpi;
-      const cm = inches * 2.54;
-      const mm = cm * 10;
-      const points = px * (72 / dpi);
-      const em = px / 16; // Assumindo 16px = 1em
-
-      document.getElementById("conversionResults").innerHTML = `
-        <p><strong>Resultados:</strong></p>
-        <p>${px} px = ${cm.toFixed(3)} cm</p>
-        <p>${px} px = ${mm.toFixed(3)} mm</p>
-        <p>${px} px = ${inches.toFixed(3)} in (polegadas)</p>
-        <p>${px} px = ${points.toFixed(3)} pt</p>
-        <p>${px} px = ${em.toFixed(3)} em</p>
-      `;
+      
+      document.getElementById("result").innerText = `Resultado: ${result.toFixed(4)} ${unit}`;
     }
+    
+    const reflections = [
+      "A resolução de uma imagem impacta diretamente na qualidade da impressão. Quanto maior a DPI, mais detalhes são preservados.",
+      "Nem todas as imagens precisam de alta resolução. Para web, 72-96 DPI são suficientes, enquanto para impressão é recomendado 300 DPI ou mais.",
+      "Converter pixels para centímetros ou milímetros sem considerar a DPI pode levar a resultados imprecisos. Sempre defina uma resolução adequada."
+    ];
+    document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
   </script>
 </body>
 </html>
