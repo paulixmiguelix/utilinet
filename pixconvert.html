@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Pixeis</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input, select, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Conversor de Pixeis</h1>
+    <label for="pixels">Digite o valor em pixeis:</label>
+    <input type="number" id="pixels" placeholder="Insira o valor">
+    <br>
+    <label for="dpi">DPI (Resolução):</label>
+    <select id="dpi">
+      <option value="72">72 DPI</option>
+      <option value="96">96 DPI (Padrão)</option>
+      <option value="150">150 DPI</option>
+      <option value="300">300 DPI</option>
+    </select>
+    <br>
+    <button onclick="convertPixels()">Converter</button>
+    <div class="result" id="conversionResults"></div>
+  </div>
+
+  <script>
+    function convertPixels() {
+      const px = parseFloat(document.getElementById("pixels").value);
+      const dpi = parseFloat(document.getElementById("dpi").value);
+      if (isNaN(px) || px <= 0) {
+        document.getElementById("conversionResults").innerText = "Insira um valor válido.";
+        return;
+      }
+      const inches = px / dpi;
+      const cm = inches * 2.54;
+      const mm = cm * 10;
+      const points = px * (72 / dpi);
+      const em = px / 16; // Assumindo 16px = 1em
+
+      document.getElementById("conversionResults").innerHTML = `
+        <p><strong>Resultados:</strong></p>
+        <p>${px} px = ${cm.toFixed(3)} cm</p>
+        <p>${px} px = ${mm.toFixed(3)} mm</p>
+        <p>${px} px = ${inches.toFixed(3)} in (polegadas)</p>
+        <p>${px} px = ${points.toFixed(3)} pt</p>
+        <p>${px} px = ${em.toFixed(3)} em</p>
+      `;
+    }
+  </script>
+</body>
+</html>
