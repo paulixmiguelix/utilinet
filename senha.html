@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
-     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
-  <title data-translate="title">Gerador de Senhas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Gerador de senhas seguras e rápidas. Crie senhas fortes em segundos!" data-lang="pt">
-  <meta name="description" content="Secure and fast password generator. Create strong passwords in seconds!" data-lang="en">
-  <meta name="description" content="Generador de contraseñas seguras y rápidas. ¡Crea contraseñas fuertes en segundos!" data-lang="es">
+  <meta name="description" content="Gerador de senhas seguras e rápidas. Crie senhas fortes em segundos!">
+  <meta name="keywords" content="gerador de senhas, senha segura, criar senha, proteção online">
+  <title data-translate="title">Gerador de Senhas</title>
   
-  <meta name="keywords" content="gerador de senhas, senha segura, criar senha, proteção online" data-lang="pt">
-  <meta name="keywords" content="password generator, secure password, create password, online protection" data-lang="en">
-  <meta name="keywords" content="generador de contraseñas, contraseña segura, crear contraseña, protección en línea" data-lang="es">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
     body {
@@ -25,17 +21,30 @@
       max-width: 600px;
       margin: 0 auto;
       text-align: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     h1 {
       color: #333;
     }
     p {
       color: #666;
+      font-size: 16px;
     }
     button {
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
+      background: #0073e6;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #005bb5;
     }
     .result {
       margin-top: 20px;
@@ -46,17 +55,16 @@
     }
     .adsense {
       margin-top: 30px;
-      background-color: #e2e2e2;
-      padding: 10px;
       text-align: center;
+    }
+    .footer {
+      margin-top: 30px;
       font-size: 14px;
-      color: #333;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
-     crossorigin="anonymous"></script>
   <div class="container">
     <h1 data-translate="header">Gerador de Senhas</h1>
     <p data-translate="description">Gere uma senha aleatória com apenas um clique!</p>
@@ -64,20 +72,22 @@
     <div class="result" id="passwordResult" onclick="copyToClipboard()"></div>
     
     <div class="adsense">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
-     crossorigin="anonymous"></script>
-
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-4883403187063112"
-     data-ad-slot="7460995783"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
     </div>
   </div>
+  
   <script>
     function generatePassword() {
       const length = 12;
@@ -97,29 +107,49 @@
         });
       }
     }
+    
+    // Traduções multilíngues
+    const translations = {
+      "pt": {
+        "title": "Gerador de Senhas",
+        "header": "Gerador de Senhas",
+        "description": "Gere uma senha aleatória com apenas um clique!",
+        "generate": "Gerar Senha"
+      },
+      "en": {
+        "title": "Password Generator",
+        "header": "Password Generator",
+        "description": "Generate a random password with just one click!",
+        "generate": "Generate Password"
+      },
+      "es": {
+        "title": "Generador de Contraseñas",
+        "header": "Generador de Contraseñas",
+        "description": "¡Genera una contraseña aleatoria con un solo clic!",
+        "generate": "Generar Contraseña"
+      }
+    };
 
     function translatePage() {
-      const translations = {
-        "en": {
-          "title": "Password Generator",
-          "header": "Password Generator",
-          "description": "Generate a random password with just one click!",
-          "generate": "Generate Password"
-        },
-        "es": {
-          "title": "Generador de Contraseñas",
-          "header": "Generador de Contraseñas",
-          "description": "¡Genera una contraseña aleatoria con un solo clic!",
-          "generate": "Generar Contraseña"
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.title = translations[lang]["title"];
+      
+      // Atualiza meta description e keywords se necessário
+      if(lang !== "pt") {
+        const metaDesc = document.querySelector("meta[name='description']");
+        const metaKeywords = document.querySelector("meta[name='keywords']");
+        if(lang === "en") {
+          metaDesc.setAttribute("content", "Secure and fast password generator. Create strong passwords in seconds!");
+          metaKeywords.setAttribute("content", "password generator, secure password, create password, online protection");
+        } else if(lang === "es") {
+          metaDesc.setAttribute("content", "Generador de contraseñas seguras y rápidas. ¡Crea contraseñas fuertes en segundos!");
+          metaKeywords.setAttribute("content", "generador de contraseñas, contraseña segura, crear contraseña, protección en línea");
         }
-      };
-
-      const userLang = navigator.language.split('-')[0];
-      if (translations[userLang]) {
-        document.querySelectorAll("[data-translate]").forEach(element => {
-          const key = element.getAttribute("data-translate");
-          element.innerText = translations[userLang][key];
-        });
       }
     }
 
