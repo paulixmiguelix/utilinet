@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
-     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
-  <title data-translate="title">Gerador de Cores Aleatórias</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gerador de cores aleatórias para inspirar seus designs e criações.">
+  <meta name="keywords" content="cores aleatórias, gerador de cores, inspiração, design, ferramenta online">
+  <title data-translate="title">Gerador de Cores Aleatórias</title>
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
+  
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,6 +21,10 @@
       max-width: 600px;
       margin: auto;
       text-align: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1 {
       color: #333;
@@ -26,6 +34,14 @@
       font-size: 16px;
       margin: 15px;
       cursor: pointer;
+      background: #0073e6;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #005bb5;
     }
     .result {
       margin-top: 20px;
@@ -49,66 +65,124 @@
       text-decoration: none;
       color: #007BFF;
     }
+    .reflection {
+      margin: 20px 0;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .importance {
+      margin: 20px 0;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
+      color: #555;
+      font-size: 16px;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1 data-translate="header">Gerador de Cores Aleatórias</h1>
+    
+    <!-- Reflexão aleatória -->
+    <p class="reflection" id="reflection"></p>
+    
+    <!-- Texto explicativo sobre a importância das cores -->
+    <p class="importance" data-translate="importance"></p>
+    
     <button onclick="generateColor()" data-translate="button">Gerar Cor</button>
     <div class="result" id="colorResult"></div>
     <div class="color-box" id="colorBox"></div>
     <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
   </div>
+  
   <script>
+    // Traduções multilíngues
     const translations = {
       "pt": {
         "title": "Gerador de Cores Aleatórias",
         "header": "Gerador de Cores Aleatórias",
         "button": "Gerar Cor",
         "back": "Voltar para Página Inicial",
-        "resultText": "Código da cor: "
+        "resultText": "Código da cor: ",
+        "importance": "As cores podem influenciar emoções e percepções. Use as cores geradas como inspiração para criar designs únicos e expressar sua criatividade."
       },
       "en": {
         "title": "Random Color Generator",
         "header": "Random Color Generator",
         "button": "Generate Color",
         "back": "Back to Home Page",
-        "resultText": "Color code: "
+        "resultText": "Color code: ",
+        "importance": "Colors can influence emotions and perceptions. Use the generated colors as inspiration to create unique designs and express your creativity."
       },
       "es": {
         "title": "Generador de Colores Aleatorios",
         "header": "Generador de Colores Aleatorios",
         "button": "Generar Color",
         "back": "Volver a la Página Principal",
-        "resultText": "Código de color: "
+        "resultText": "Código de color: ",
+        "importance": "Los colores pueden influir en las emociones y percepciones. Utiliza los colores generados como inspiración para crear diseños únicos y expresar tu creatividad."
       }
     };
 
+    // Função para traduzir a página
     function translatePage() {
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
-      
       document.querySelectorAll("[data-translate]").forEach(el => {
         const key = el.getAttribute("data-translate");
         el.innerText = translations[lang][key];
       });
-      
       document.title = translations[lang]["title"];
+      
+      // Atualiza o texto explicativo de importância
+      document.querySelectorAll("[data-translate='importance']").forEach(el => {
+        el.innerText = translations[lang]["importance"];
+      });
     }
-
+    
+    // Função para gerar cor aleatória
     function generateColor() {
-      // Gera um código hexadecimal aleatório
-      const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+      const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
       const resultText = translations[lang]["resultText"];
-      
       document.getElementById("colorResult").innerText = resultText + randomColor;
       document.getElementById("colorBox").style.backgroundColor = randomColor;
     }
-
-    document.addEventListener("DOMContentLoaded", translatePage);
+    
+    // Reflexões aleatórias sobre cores
+    const reflections = {
+      "pt": [
+        "A beleza da cor está na sua imprevisibilidade, inspirando novas ideias.",
+        "Cada cor gerada pode transformar a maneira como vemos o mundo."
+      ],
+      "en": [
+        "The beauty of color lies in its unpredictability, sparking new ideas.",
+        "Every generated color can transform the way we see the world."
+      ],
+      "es": [
+        "La belleza del color reside en su imprevisibilidad, inspirando nuevas ideas.",
+        "Cada color generado puede transformar la forma en que vemos el mundo."
+      ]
+    };
+    
+    function setReflection() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = reflections[userLang] ? userLang : "pt";
+      const reflectionArray = reflections[lang];
+      document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
+    }
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      translatePage();
+      setReflection();
+    });
   </script>
 </body>
 </html>
-
