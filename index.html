@@ -55,11 +55,20 @@
       font-size: 14px;
       color: #777;
     }
+    .reflection {
+      margin-top: 20px;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1 data-translate="header">UtilNet - Ferramentas Online</h1>
+    <p class="reflection" id="reflection"></p>
     <p data-translate="description">Encontre aqui ferramentas úteis para diversas finalidades.</p>
 
     <h2 data-translate="tools">Nossas ferramentas:</h2>
@@ -69,7 +78,7 @@
     <a href="geracor.html" class="tool-link" data-translate="colorGenerator">Gerador de Cores Aleatórias</a>
     <a href="validamail.html" class="tool-link" data-translate="emailValidator">Validador de E-mail</a>
     
-    <!-- Novos botões -->
+    <!-- Novos botões adicionais -->
     <a href="test-teclado.html" class="tool-link" data-translate="keyboardTester">Testar Teclado</a>
     <a href="test-micro-webcam.html" class="tool-link" data-translate="micWebcamTester">Testar Microfone e Webcam</a>
     <a href="converter-pixeis.html" class="tool-link" data-translate="pixelConverter">Converter Pixeis</a>
@@ -93,6 +102,17 @@
   </div>
   
   <script>
+    // Reflexões sobre a Lei de Moore (ampliadas)
+    const reflections = [
+      "A Lei de Moore previa que o poder de processamento dobraria a cada dois anos. Hoje, essa previsão enfrenta desafios com os limites físicos dos transistores, mas novas tecnologias abrem caminhos surpreendentes.",
+      "Se a Lei de Moore impulsionou uma revolução digital, o futuro se desenha com a computação quântica e a inteligência artificial, que prometem redefinir os limites do possível.",
+      "Estamos num ponto de inflexão: enquanto os transistores atingem seu limite, a inovação se reinventa em novas arquiteturas e materiais, apontando para uma nova era na tecnologia.",
+      "A evolução tecnológica que acompanhou a Lei de Moore inspira a busca por soluções mais eficientes e sustentáveis, onde a criatividade e a inovação superam as barreiras físicas.",
+      "A Lei de Moore foi um catalisador para a era digital, e hoje vemos que a verdadeira revolução está em como a inteligência artificial e a nanotecnologia podem transformar o futuro da computação."
+    ];
+    document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
+    
+    // Traduções multilingues
     const translations = {
       "pt": {
         "title": "UtilNet - Ferramentas Online",
@@ -121,6 +141,20 @@
         "keyboardTester": "Keyboard Tester",
         "micWebcamTester": "Test Microphone and Webcam",
         "pixelConverter": "Pixel Converter"
+      },
+      "es": {
+        "title": "UtilNet - Herramientas en Línea",
+        "header": "UtilNet - Herramientas en Línea",
+        "description": "Encuentra herramientas útiles para diversos propósitos.",
+        "tools": "Nuestras herramientas:",
+        "passwordGenerator": "Generador de Contraseñas",
+        "encoder": "Encoder/Decoder Base64",
+        "qrCodeGenerator": "Generador de Código QR",
+        "colorGenerator": "Generador de Colores Aleatorios",
+        "emailValidator": "Validador de Correo",
+        "keyboardTester": "Probador de Teclado",
+        "micWebcamTester": "Probar Micrófono y Webcam",
+        "pixelConverter": "Convertidor de Píxeles"
       }
     };
 
