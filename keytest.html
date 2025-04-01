@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Teste o funcionamento de todas as teclas do seu teclado online e melhore sua experiência digital.">
+  <meta name="keywords" content="teste de teclado, key tester, test keyboard, ferramenta online">
+  <title data-translate="title">Testador de Teclado</title>
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .reflection {
+      margin: 20px 0;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .importance {
+      margin: 20px 0;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
+      color: #555;
+    }
+    #keyResult {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: left;
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+    .buttons-group {
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+      background: #0073e6;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #005bb5;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 data-translate="header">Testador de Teclado</h1>
+    
+    <!-- Reflexão aleatória -->
+    <p class="reflection" id="reflection"></p>
+    
+    <!-- Texto explicativo sobre a importância de testar o teclado -->
+    <p class="importance" data-translate="importance">
+      Conhecer e testar o funcionamento de cada tecla do teclado é essencial para aprimorar a digitação e evitar erros em suas atividades digitais.
+    </p>
+    
+    <div id="keyResult">Pressione qualquer tecla para ver os detalhes aqui...</div>
+    
+    <div class="buttons-group">
+      <button onclick="clearResults()" data-translate="clear">Limpar Registros</button>
+    </div>
+    
+    <!-- Link para voltar à página inicial -->
+    <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+  </div>
+  
+  <script>
+    // Traduções multilíngues
+    const translations = {
+      "pt": {
+        "title": "Testador de Teclado",
+        "header": "Testador de Teclado",
+        "importance": "Conhecer e testar o funcionamento de cada tecla do teclado é essencial para aprimorar a digitação e evitar erros em suas atividades digitais.",
+        "clear": "Limpar Registros",
+        "back": "Voltar para Página Inicial",
+        "reflection": [
+          "Cada tecla conta uma história: teste e descubra a sua.",
+          "Um teclado bem testado é a chave para uma digitação eficiente.",
+          "Conhecer o funcionamento do seu teclado é o primeiro passo para uma comunicação digital sem erros."
+        ]
+      },
+      "en": {
+        "title": "Keyboard Tester",
+        "header": "Keyboard Tester",
+        "importance": "Knowing and testing the functionality of every key on your keyboard is essential to improve typing skills and avoid errors in your digital activities.",
+        "clear": "Clear Records",
+        "back": "Back to Home Page",
+        "reflection": [
+          "Every key tells a story: test and discover yours.",
+          "A well-tested keyboard is the key to efficient typing.",
+          "Knowing how your keyboard works is the first step toward error-free digital communication."
+        ]
+      },
+      "es": {
+        "title": "Probador de Teclado",
+        "header": "Probador de Teclado",
+        "importance": "Conocer y probar el funcionamiento de cada tecla en tu teclado es esencial para mejorar la mecanografía y evitar errores en tus actividades digitales.",
+        "clear": "Limpiar Registros",
+        "back": "Volver a la Página Principal",
+        "reflection": [
+          "Cada tecla cuenta una historia: pruébala y descúbrela.",
+          "Un teclado bien probado es la clave para una mecanografía eficiente.",
+          "Conocer el funcionamiento de tu teclado es el primer paso hacia una comunicación digital sin errores."
+        ]
+      }
+    };
+
+    // Função para traduzir a página
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.title = translations[lang]["title"];
+      
+      // Atualiza o texto de importância
+      document.querySelectorAll("[data-translate='importance']").forEach(el => {
+        el.innerText = translations[lang]["importance"];
+      });
+    }
+    
+    // Define a reflexão aleatória com base no idioma
+    function setReflection() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      const reflectionArray = translations[lang]["reflection"];
+      document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
+    }
+    
+    // Função para registrar os eventos de tecla
+    function handleKeyDown(event) {
+      const keyResult = document.getElementById("keyResult");
+      const timestamp = new Date().toLocaleTimeString();
+      const info = `[${timestamp}] Key: "${event.key}" | Code: "${event.code}"\n`;
+      keyResult.textContent += info;
+      keyResult.scrollTop = keyResult.scrollHeight;
+    }
+    
+    // Função para limpar os registros
+    function clearResults() {
+      document.getElementById("keyResult").textContent = "";
+    }
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      translatePage();
+      setReflection();
+      document.addEventListener("keydown", handleKeyDown);
+    });
+  </script>
+</body>
+</html>
