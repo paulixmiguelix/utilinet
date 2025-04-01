@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
-     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
-  <title data-translate="title">Encoder/Decoder Base64</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Codifique ou decodifique textos em Base64 de forma rápida e segura!" data-lang="pt">
-  <meta name="description" content="Encode or decode Base64 text quickly and securely!" data-lang="en">
-  <meta name="description" content="¡Codifica o decodifica textos en Base64 de forma rápida y segura!" data-lang="es">
+  <meta name="description" content="Codifique ou decodifique textos em Base64 de forma rápida e segura!">
+  <meta name="keywords" content="encoder, decoder, base64, codificar, decodificar, ferramenta online">
+  <title data-translate="title">Encoder/Decoder Base64</title>
   
-  <meta name="keywords" content="encoder, decoder, base64, codificar, decodificar, ferramenta online" data-lang="pt">
-  <meta name="keywords" content="encoder, decoder, base64, encode, decode, online tool" data-lang="en">
-  <meta name="keywords" content="encoder, decoder, base64, codificar, decodificar, herramienta online" data-lang="es">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
     body {
@@ -25,12 +21,33 @@
       max-width: 600px;
       margin: 0 auto;
       text-align: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    h1 {
+    h1, h2 {
       color: #333;
     }
     p {
       color: #666;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .reflection {
+      margin: 20px 0;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .importance {
+      margin: 20px 0;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
     }
     textarea {
       width: 100%;
@@ -47,6 +64,14 @@
       font-size: 16px;
       cursor: pointer;
       margin: 0 10px;
+      background: #0073e6;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #005bb5;
     }
     .result {
       margin-top: 20px;
@@ -60,19 +85,27 @@
     }
     .adsense {
       margin-top: 30px;
-      background-color: #e2e2e2;
-      padding: 10px;
       text-align: center;
+    }
+    .footer {
+      margin-top: 20px;
       font-size: 14px;
-      color: #333;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
-     crossorigin="anonymous"></script>
   <div class="container">
     <h1 data-translate="header">Encoder/Decoder Base64</h1>
+    
+    <!-- Reflexão aleatória sobre segurança -->
+    <p class="reflection" id="reflection"></p>
+    
+    <!-- Texto explicativo sobre a importância do Base64 -->
+    <p class="importance" data-translate="importance">
+      O Base64 é amplamente utilizado para converter dados binários em texto, facilitando a transmissão em sistemas que manipulam apenas texto. Embora não seja um método de criptografia, ele assegura a integridade dos dados e é essencial em diversos contextos digitais.
+    </p>
+    
     <p data-translate="description">Codifique ou decodifique seu texto em Base64 com apenas um clique!</p>
     
     <textarea id="base64-input" placeholder="Insira seu texto ou string Base64 aqui..." rows="5"></textarea>
@@ -87,8 +120,6 @@
     </div>
     
     <div class="adsense">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
-       crossorigin="anonymous"></script>
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-4883403187063112"
@@ -96,11 +127,16 @@
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
       <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
-      <a href="index.html" data-translate="back">Back </a>
+      <a href="index.html" data-translate="back">Voltar</a>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
     </div>
   </div>
+  
   <script>
     function encodeBase64() {
       const input = document.getElementById("base64-input").value;
@@ -118,7 +154,7 @@
         const decoded = decodeURIComponent(escape(atob(input)));
         document.getElementById("base64-result").innerText = decoded;
       } catch (error) {
-        document.getElementById("base64-result").innerText = "Erro ao decodificar. Certifique-se que a string Base64 é válida.";
+        document.getElementById("base64-result").innerText = "Erro ao decodificar. Certifique-se de que a string Base64 é válida.";
       }
     }
     
@@ -131,31 +167,67 @@
       }
     }
     
+    // Reflexões sobre segurança e integridade dos dados
+    const reflections = [
+      "A segurança dos dados começa com a integridade da informação transmitida, e o Base64 é um aliado na conversão segura de dados.",
+      "Embora o Base64 não seja criptografia, ele garante que dados sejam convertidos de forma consistente para ambientes que só aceitam texto.",
+      "Manter a integridade dos dados é fundamental; o Base64 ajuda a preservar a fidelidade da informação em diversas aplicações.",
+      "Em um mundo digital, a conversão correta dos dados assegura que informações importantes não se percam no caminho.",
+      "O uso do Base64 evidencia como técnicas simples podem contribuir para a segurança e integridade na transmissão de dados."
+    ];
+    document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
+    
+    // Traduções multilíngues
+    const translations = {
+      "pt": {
+        "title": "Encoder/Decoder Base64",
+        "header": "Encoder/Decoder Base64",
+        "description": "Codifique ou decodifique seu texto em Base64 com apenas um clique!",
+        "encode": "Codificar",
+        "decode": "Decodificar",
+        "importance": "O Base64 é amplamente utilizado para converter dados binários em texto, facilitando a transmissão em sistemas que manipulam apenas texto. Embora não seja um método de criptografia, ele assegura a integridade dos dados e é essencial em diversos contextos digitais.",
+        "back": "Voltar"
+      },
+      "en": {
+        "title": "Base64 Encoder/Decoder",
+        "header": "Base64 Encoder/Decoder",
+        "description": "Encode or decode your text in Base64 with just one click!",
+        "encode": "Encode",
+        "decode": "Decode",
+        "importance": "Base64 is widely used to convert binary data into text, making it easier to transmit information in text-only systems. While it is not a method of encryption, it ensures data integrity and is essential in various digital contexts.",
+        "back": "Back"
+      },
+      "es": {
+        "title": "Codificador/Decodificador Base64",
+        "header": "Codificador/Decodificador Base64",
+        "description": "¡Codifica o decodifica tu texto en Base64 con un solo clic!",
+        "encode": "Codificar",
+        "decode": "Decodificar",
+        "importance": "El Base64 se utiliza ampliamente para convertir datos binarios en texto, facilitando la transmisión de información en sistemas que solo manejan texto. Aunque no es un método de encriptación, garantiza la integridad de los datos y es esencial en diversos contextos digitales.",
+        "back": "Volver"
+      }
+    };
+
     function translatePage() {
-      const translations = {
-        "en": {
-          "title": "Base64 Encoder/Decoder",
-          "header": "Base64 Encoder/Decoder",
-          "description": "Encode or decode your text in Base64 with just one click!",
-          "encode": "Encode",
-          "decode": "Decode"
-        },
-        "es": {
-          "title": "Codificador/Decodificador Base64",
-          "header": "Codificador/Decodificador Base64",
-          "description": "¡Codifica o decodifica tu texto en Base64 con un solo clic!",
-          "encode": "Codificar",
-          "decode": "Decodificar"
-        }
-      };
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.title = translations[lang]["title"];
       
-      const userLang = navigator.language.split('-')[0];
-      if (translations[userLang]) {
-        document.querySelectorAll("[data-translate]").forEach(element => {
-          const key = element.getAttribute("data-translate");
-          element.innerText = translations[userLang][key];
-        });
-        document.title = translations[userLang]["title"];
+      // Atualiza meta description e keywords conforme o idioma
+      if(lang !== "pt") {
+        const metaDesc = document.querySelector("meta[name='description']");
+        const metaKeywords = document.querySelector("meta[name='keywords']");
+        if(lang === "en") {
+          metaDesc.setAttribute("content", "Encode or decode Base64 text quickly and securely!");
+          metaKeywords.setAttribute("content", "encoder, decoder, base64, encode, decode, online tool");
+        } else if(lang === "es") {
+          metaDesc.setAttribute("content", "¡Codifica o decodifica textos en Base64 de forma rápida y segura!");
+          metaKeywords.setAttribute("content", "encoder, decoder, base64, codificar, decodificar, herramienta online");
+        }
       }
     }
     
