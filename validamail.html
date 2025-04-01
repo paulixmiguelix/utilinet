@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112"
-     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
-  <title data-translate="title">Validador de E-mail</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Valide seu e-mail para garantir comunicações seguras e confiáveis.">
+  <meta name="keywords" content="validador de e-mail, e-mail seguro, validar e-mail, ferramenta online">
+  <title data-translate="title">Validador de E-mail</title>
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
+  
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,6 +21,10 @@
       max-width: 600px;
       margin: auto;
       text-align: center;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1 {
       color: #333;
@@ -25,10 +33,41 @@
       padding: 10px;
       font-size: 16px;
       margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      cursor: pointer;
+      background: #0073e6;
+      color: #fff;
+      border: none;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #005bb5;
     }
     .result {
       margin-top: 20px;
       font-size: 18px;
+    }
+    .reflection, .importance {
+      margin: 20px 0;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .reflection {
+      font-style: italic;
+      background: #eef;
+      color: #444;
+    }
+    .importance {
+      text-align: left;
+      background: #f0f8ff;
+      color: #555;
+      line-height: 1.5;
+    }
+    .buttons-group {
+      margin-top: 10px;
     }
     a {
       display: inline-block;
@@ -41,83 +80,159 @@
 <body>
   <div class="container">
     <h1 data-translate="header">Validador de E-mail</h1>
+    
+    <!-- Reflexão aleatória -->
+    <p class="reflection" id="reflection"></p>
+    
+    <!-- Texto explicativo sobre a importância da validação de e-mails -->
+    <p class="importance" data-translate="importanceText"></p>
+    
     <input type="text" id="emailInput" placeholder="" data-translate-placeholder="placeholder">
     <br>
-    <button onclick="validateEmail()" data-translate="button">Validar E-mail</button>
+    <div class="buttons-group">
+      <button onclick="validateEmail()" data-translate="button">Validar E-mail</button>
+      <button onclick="clearInput()" data-translate="clear">Limpar</button>
+      <button onclick="copyResult()" data-translate="copy">Copiar Resultado</button>
+    </div>
     <div class="result" id="emailResult"></div>
+    
     <br>
     <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
   </div>
+  
   <script>
-    // Traduções para PT, EN e ES
+    // Traduções para PT, EN e ES com novas funcionalidades
     const translations = {
       "pt": {
         "title": "Validador de E-mail",
         "header": "Validador de E-mail",
         "placeholder": "Digite seu e-mail",
         "button": "Validar E-mail",
+        "clear": "Limpar",
+        "copy": "Copiar Resultado",
         "valid": "E-mail válido!",
         "invalid": "E-mail inválido. Verifique a formatação.",
-        "back": "Voltar para Página Inicial"
+        "disposable": "E-mail válido, porém este parece ser um e-mail descartável. Considere utilizar um endereço permanente.",
+        "importanceText": "A validação de e-mails é fundamental para garantir comunicações seguras e confiáveis. Verifique sempre a formatação e evite e-mails descartáveis.",
+        "back": "Voltar para Página Inicial",
+        "reflection": [
+          "Utilize um e-mail confiável para proteger suas informações pessoais.",
+          "E-mails válidos são essenciais para uma comunicação online segura.",
+          "Confirme seus dados de e-mail para evitar fraudes e problemas de segurança."
+        ]
       },
       "en": {
         "title": "Email Validator",
         "header": "Email Validator",
         "placeholder": "Enter your email",
         "button": "Validate Email",
+        "clear": "Clear",
+        "copy": "Copy Result",
         "valid": "Valid email!",
         "invalid": "Invalid email. Check the format.",
-        "back": "Back to Home Page"
+        "disposable": "Valid email, but it appears to be disposable. Consider using a permanent email address for better security.",
+        "importanceText": "Email validation is crucial for ensuring secure and reliable online communications. Always check the format and avoid disposable emails.",
+        "back": "Back to Home Page",
+        "reflection": [
+          "Use a reliable email to safeguard your personal information.",
+          "Valid emails are essential for secure online communication.",
+          "Confirm your email details to prevent fraud and security issues."
+        ]
       },
       "es": {
         "title": "Validador de Correo",
         "header": "Validador de Correo",
         "placeholder": "Ingrese su correo",
         "button": "Validar Correo",
+        "clear": "Limpiar",
+        "copy": "Copiar Resultado",
         "valid": "¡Correo válido!",
         "invalid": "Correo inválido. Verifique el formato.",
-        "back": "Volver a la Página Principal"
+        "disposable": "Correo válido, pero parece ser desechable. Considere usar una dirección de correo permanente para mayor seguridad.",
+        "importanceText": "La validación de correos es fundamental para garantizar comunicaciones en línea seguras y confiables. Siempre verifique el formato y evite correos desechables.",
+        "back": "Volver a la Página Principal",
+        "reflection": [
+          "Utilice un correo confiable para proteger su información personal.",
+          "Los correos válidos son esenciales para una comunicación segura en línea.",
+          "Confirme sus datos de correo para prevenir fraudes y problemas de seguridad."
+        ]
       }
     };
 
+    // Função de tradução
     function translatePage() {
-      // Pega a língua do navegador e usa 'pt' como padrão
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
-
-      // Atualiza elementos com atributo data-translate
+      
       document.querySelectorAll("[data-translate]").forEach(el => {
         const key = el.getAttribute("data-translate");
         el.innerText = translations[lang][key];
       });
-      // Atualiza placeholders
       document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
         const key = el.getAttribute("data-translate-placeholder");
         el.setAttribute("placeholder", translations[lang][key]);
       });
-      // Atualiza o título da página
       document.title = translations[lang]["title"];
+      
+      // Atualiza o texto explicativo de importância
+      document.querySelectorAll("[data-translate='importanceText']").forEach(el => {
+        el.innerText = translations[lang]["importanceText"];
+      });
     }
 
-    function validateEmail() {
-      const email = document.getElementById("emailInput").value;
-      // Expressão regular para validação simples de e-mail
-      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const resultEl = document.getElementById("emailResult");
-      // Detecta a língua para mostrar o resultado na linguagem correta
+    // Função para definir a reflexão aleatória
+    function setReflection() {
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
+      const reflectionArray = translations[lang]["reflection"];
+      document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
+    }
 
+    // Função para validar o e-mail e verificar se é descartável
+    function validateEmail() {
+      const email = document.getElementById("emailInput").value;
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const resultEl = document.getElementById("emailResult");
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      
       if (regex.test(email)) {
-        resultEl.innerText = translations[lang]["valid"];
-        resultEl.style.color = "#28a745";
+        // Verifica se o e-mail é descartável
+        const disposableDomains = ["mailinator.com", "tempmail.com", "10minutemail.com", "guerrillamail.com", "dispostable.com"];
+        const domain = email.split("@")[1]?.toLowerCase();
+        if (disposableDomains.includes(domain)) {
+          resultEl.innerText = translations[lang]["disposable"];
+          resultEl.style.color = "#dc3545"; // Cor de alerta
+        } else {
+          resultEl.innerText = translations[lang]["valid"];
+          resultEl.style.color = "#28a745"; // Cor de sucesso
+        }
       } else {
         resultEl.innerText = translations[lang]["invalid"];
         resultEl.style.color = "#dc3545";
       }
     }
 
-    document.addEventListener("DOMContentLoaded", translatePage);
+    // Função para limpar o campo de entrada e o resultado
+    function clearInput() {
+      document.getElementById("emailInput").value = "";
+      document.getElementById("emailResult").innerText = "";
+    }
+
+    // Função para copiar o resultado para a área de transferência
+    function copyResult() {
+      const resultEl = document.getElementById("emailResult");
+      if(resultEl.innerText) {
+        navigator.clipboard.writeText(resultEl.innerText).then(() => {
+          alert("Resultado copiado!");
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      translatePage();
+      setReflection();
+    });
   </script>
 </body>
 </html>
