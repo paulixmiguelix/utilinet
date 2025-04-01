@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Teste o funcionamento de todas as teclas do seu teclado online e melhore sua experiência digital.">
-  <meta name="keywords" content="teste de teclado, key tester, test keyboard, ferramenta online">
+  <meta name="description" content="Teste online o funcionamento de todas as teclas do seu teclado e visualize um desenho interativo do mesmo.">
+  <meta name="keywords" content="teste de teclado, key tester, teclado online, desenho de teclado">
   <title data-translate="title">Testador de Teclado</title>
   
   <!-- Google AdSense -->
@@ -18,7 +18,7 @@
       padding: 20px;
     }
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
       text-align: center;
       background: #fff;
@@ -50,7 +50,7 @@
       border-radius: 6px;
       color: #555;
     }
-    #keyResult {
+    #keyLog {
       margin-top: 20px;
       font-size: 18px;
       text-align: left;
@@ -58,7 +58,7 @@
       padding: 15px;
       border: 1px solid #ccc;
       border-radius: 6px;
-      height: 200px;
+      height: 150px;
       overflow-y: auto;
       white-space: pre-wrap;
     }
@@ -85,6 +85,42 @@
       text-decoration: none;
       color: #007BFF;
     }
+    /* Estilos para o desenho do teclado */
+    #keyboard {
+      margin: 30px auto;
+      display: inline-block;
+      text-align: center;
+    }
+    .keyboard-row {
+      margin-bottom: 5px;
+    }
+    .key {
+      display: inline-block;
+      margin: 2px;
+      padding: 10px;
+      width: 40px;
+      height: 40px;
+      line-height: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #f0f0f0;
+      font-size: 14px;
+      vertical-align: middle;
+      text-align: center;
+      user-select: none;
+    }
+    /* Classes para teclas maiores */
+    .wide {
+      width: 80px;
+    }
+    .extra-wide {
+      width: 200px;
+    }
+    .active {
+      background: #28a745;
+      color: #fff;
+      border-color: #28a745;
+    }
   </style>
 </head>
 <body>
@@ -94,15 +130,93 @@
     <!-- Reflexão aleatória -->
     <p class="reflection" id="reflection"></p>
     
-    <!-- Texto explicativo sobre a importância de testar o teclado -->
+    <!-- Texto explicativo -->
     <p class="importance" data-translate="importance">
       Conhecer e testar o funcionamento de cada tecla do teclado é essencial para aprimorar a digitação e evitar erros em suas atividades digitais.
     </p>
     
-    <div id="keyResult">Pressione qualquer tecla para ver os detalhes aqui...</div>
+    <!-- Área de log de teclas pressionadas -->
+    <div id="keyLog">Pressione qualquer tecla para ver os detalhes aqui...</div>
     
     <div class="buttons-group">
-      <button onclick="clearResults()" data-translate="clear">Limpar Registros</button>
+      <button onclick="clearLog()" data-translate="clear">Limpar Registros</button>
+    </div>
+    
+    <!-- Desenho do teclado -->
+    <div id="keyboard">
+      <!-- Linha 1: Número e símbolos -->
+      <div class="keyboard-row">
+        <div class="key" data-key="`">~</div>
+        <div class="key" data-key="1">1</div>
+        <div class="key" data-key="2">2</div>
+        <div class="key" data-key="3">3</div>
+        <div class="key" data-key="4">4</div>
+        <div class="key" data-key="5">5</div>
+        <div class="key" data-key="6">6</div>
+        <div class="key" data-key="7">7</div>
+        <div class="key" data-key="8">8</div>
+        <div class="key" data-key="9">9</div>
+        <div class="key" data-key="0">0</div>
+        <div class="key" data-key="-">-</div>
+        <div class="key" data-key="=">=</div>
+        <div class="key wide" data-key="Backspace">Bksp</div>
+      </div>
+      <!-- Linha 2: QWERTY -->
+      <div class="keyboard-row">
+        <div class="key wide" data-key="Tab">Tab</div>
+        <div class="key" data-key="Q">Q</div>
+        <div class="key" data-key="W">W</div>
+        <div class="key" data-key="E">E</div>
+        <div class="key" data-key="R">R</div>
+        <div class="key" data-key="T">T</div>
+        <div class="key" data-key="Y">Y</div>
+        <div class="key" data-key="U">U</div>
+        <div class="key" data-key="I">I</div>
+        <div class="key" data-key="O">O</div>
+        <div class="key" data-key="P">P</div>
+        <div class="key" data-key="[">[</div>
+        <div class="key" data-key="]">]</div>
+        <div class="key wide" data-key="\\">\\</div>
+      </div>
+      <!-- Linha 3: ASDF -->
+      <div class="keyboard-row">
+        <div class="key wide" data-key="CapsLock">Caps</div>
+        <div class="key" data-key="A">A</div>
+        <div class="key" data-key="S">S</div>
+        <div class="key" data-key="D">D</div>
+        <div class="key" data-key="F">F</div>
+        <div class="key" data-key="G">G</div>
+        <div class="key" data-key="H">H</div>
+        <div class="key" data-key="J">J</div>
+        <div class="key" data-key="K">K</div>
+        <div class="key" data-key="L">L</div>
+        <div class="key" data-key=";">;</div>
+        <div class="key" data-key="'">'</div>
+        <div class="key wide" data-key="Enter">Enter</div>
+      </div>
+      <!-- Linha 4: ZXCV -->
+      <div class="keyboard-row">
+        <div class="key extra-wide" data-key="Shift">Shift</div>
+        <div class="key" data-key="Z">Z</div>
+        <div class="key" data-key="X">X</div>
+        <div class="key" data-key="C">C</div>
+        <div class="key" data-key="V">V</div>
+        <div class="key" data-key="B">B</div>
+        <div class="key" data-key="N">N</div>
+        <div class="key" data-key="M">M</div>
+        <div class="key" data-key=",">,</div>
+        <div class="key" data-key=".">.</div>
+        <div class="key" data-key="/">/</div>
+        <div class="key extra-wide" data-key="Shift">Shift</div>
+      </div>
+      <!-- Linha 5: Espaço -->
+      <div class="keyboard-row">
+        <div class="key wide" data-key="Ctrl">Ctrl</div>
+        <div class="key wide" data-key="Alt">Alt</div>
+        <div class="key extra-wide" data-key=" ">Space</div>
+        <div class="key wide" data-key="Alt">Alt</div>
+        <div class="key wide" data-key="Ctrl">Ctrl</div>
+      </div>
     </div>
     
     <!-- Link para voltar à página inicial -->
@@ -150,7 +264,6 @@
       }
     };
 
-    // Função para traduzir a página
     function translatePage() {
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
@@ -159,14 +272,17 @@
         el.innerText = translations[lang][key];
       });
       document.title = translations[lang]["title"];
-      
-      // Atualiza o texto de importância
       document.querySelectorAll("[data-translate='importance']").forEach(el => {
         el.innerText = translations[lang]["importance"];
       });
+      document.querySelectorAll("[data-translate='clear']").forEach(el => {
+        el.innerText = translations[lang]["clear"];
+      });
+      document.querySelectorAll("[data-translate='back']").forEach(el => {
+        el.innerText = translations[lang]["back"];
+      });
     }
     
-    // Define a reflexão aleatória com base no idioma
     function setReflection() {
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
@@ -174,18 +290,34 @@
       document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
     }
     
-    // Função para registrar os eventos de tecla
+    // Função para registrar e destacar teclas pressionadas
     function handleKeyDown(event) {
-      const keyResult = document.getElementById("keyResult");
+      // Log de tecla pressionada
+      const keyLog = document.getElementById("keyLog");
       const timestamp = new Date().toLocaleTimeString();
       const info = `[${timestamp}] Key: "${event.key}" | Code: "${event.code}"\n`;
-      keyResult.textContent += info;
-      keyResult.scrollTop = keyResult.scrollHeight;
+      keyLog.textContent += info;
+      keyLog.scrollTop = keyLog.scrollHeight;
+      
+      // Destaca a tecla correspondente no desenho
+      const pressedKey = event.key.length === 1 ? event.key.toUpperCase() : event.key;
+      const keys = document.querySelectorAll("#keyboard .key");
+      keys.forEach(key => {
+        // Comparação case-insensitive para letras
+        if(key.getAttribute("data-key").toUpperCase() === pressedKey) {
+          key.classList.add("active");
+          setTimeout(() => key.classList.remove("active"), 300);
+        }
+        // Tratamento para espaço (event.key é " " e data-key pode ser " ")
+        if(pressedKey === " " && key.getAttribute("data-key") === " ") {
+          key.classList.add("active");
+          setTimeout(() => key.classList.remove("active"), 300);
+        }
+      });
     }
     
-    // Função para limpar os registros
-    function clearResults() {
-      document.getElementById("keyResult").textContent = "";
+    function clearLog() {
+      document.getElementById("keyLog").textContent = "";
     }
     
     document.addEventListener("DOMContentLoaded", () => {
