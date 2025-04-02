@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Política de Privacidade do UtilNet.">
+  <title data-translate="title">Política de Privacidade - UtilNet</title>
+  
+  <!-- Google AdSense (se necessário, pode ser omitido nesta página) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
+  
+  <style>
+    /* Barra de navegação superior para links essenciais */
+    .top-nav {
+      background: #333;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      color: #333;
+    }
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .policy-content h2 {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .policy-content p {
+      text-align: justify;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #777;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra de navegação para páginas essenciais -->
+  <div class="top-nav">
+    <a href="index.html" data-translate="home">Início</a>
+    <a href="about.html" data-translate="about">Sobre</a>
+    <a href="contact.html" data-translate="contact">Contato</a>
+  </div>
+  
+  <div class="container">
+    <h1 data-translate="header">Política de Privacidade</h1>
+    <p data-translate="lastUpdate">Última atualização: 01/04/2025</p>
+    <div class="policy-content">
+      <h2>Introdução</h2>
+      <p>
+        Esta Política de Privacidade descreve como o UtilNet coleta, usa e protege suas informações pessoais quando você utiliza nosso site. Nosso objetivo é garantir a transparência e a segurança dos dados de nossos usuários.
+      </p>
+      
+      <h2>Coleta de Informações</h2>
+      <p>
+        Coletamos informações que você nos fornece diretamente ao interagir com nossos formulários de contato, ao se registrar ou ao utilizar nossos serviços. Também podemos coletar informações automaticamente por meio de cookies e outras tecnologias para melhorar sua experiência no site.
+      </p>
+      
+      <h2>Uso das Informações</h2>
+      <p>
+        As informações coletadas são utilizadas para fornecer, melhorar e personalizar nossos serviços, bem como para enviar comunicações relevantes. Não compartilhamos suas informações pessoais com terceiros, salvo quando exigido por lei ou com o seu consentimento.
+      </p>
+      
+      <h2>Segurança</h2>
+      <p>
+        Implementamos medidas de segurança adequadas para proteger suas informações contra acesso não autorizado, alteração ou destruição. Contudo, nenhum método de transmissão pela internet ou armazenamento eletrônico é 100% seguro.
+      </p>
+      
+      <h2>Seus Direitos</h2>
+      <p>
+        Você tem o direito de acessar, corrigir ou excluir suas informações pessoais que possuímos. Para exercer esses direitos, entre em contato conosco através da nossa página de Contato.
+      </p>
+      
+      <h2>Alterações nesta Política</h2>
+      <p>
+        Podemos atualizar esta Política de Privacidade periodicamente. Quando houver alterações significativas, notificaremos os usuários por meio do nosso site.
+      </p>
+      
+      <h2>Contato</h2>
+      <p>
+        Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em contato conosco através da nossa página de Contato.
+      </p>
+    </div>
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todos os direitos reservados.</p>
+    </div>
+  </div>
+  
+  <script>
+    // Traduções multilíngues
+    const translations = {
+      "pt": {
+        "title": "Política de Privacidade - UtilNet",
+        "header": "Política de Privacidade",
+        "lastUpdate": "Última atualização: 01/04/2025",
+        "home": "Início",
+        "about": "Sobre",
+        "contact": "Contato"
+      },
+      "en": {
+        "title": "Privacy Policy - UtilNet",
+        "header": "Privacy Policy",
+        "lastUpdate": "Last updated: 04/01/2025",
+        "home": "Home",
+        "about": "About",
+        "contact": "Contact"
+      },
+      "es": {
+        "title": "Política de Privacidad - UtilNet",
+        "header": "Política de Privacidad",
+        "lastUpdate": "Última actualización: 01/04/2025",
+        "home": "Inicio",
+        "about": "Sobre",
+        "contact": "Contacto"
+      }
+    };
+
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.title = translations[lang]["title"];
+    }
+
+    document.addEventListener("DOMContentLoaded", translatePage);
+  </script>
+</body>
+</html>
