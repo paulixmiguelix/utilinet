@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Converta pixels para outras unidades de medida facilmente.">
-  <title data-translate="title">Conversor de Pixeis</title>
+  <meta name="description" content="Converta pixels e dimensões para outras unidades de medida, considerando a resolução (DPI).">
+  <title data-translate="title">Conversor de Pixeis e Dimensões</title>
   
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
@@ -23,7 +23,7 @@
       background: #fff;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1, h2 {
       color: #333;
@@ -53,14 +53,30 @@
       padding: 10px;
       border-radius: 6px;
     }
+    .explanation {
+      margin-top: 20px;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
+      color: #555;
+      font-size: 15px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1 data-translate="header">Conversor de Pixeis</h1>
-    <p>Esta ferramenta permite converter pixels para diversas unidades como centímetros, milímetros e pontos, considerando a resolução (DPI).</p>
+    <h1 data-translate="header">Conversor de Pixeis e Dimensões</h1>
+    <p>Esta ferramenta permite converter pixels para diversas unidades como centímetros, milímetros, pontos e polegadas, considerando a resolução (DPI). Além disso, você pode converter dimensões (largura e altura) para obter medidas físicas precisas.</p>
+    
+    <!-- Reflexão dinâmica sobre resolução de imagens -->
     <p class="reflection" id="reflection"></p>
     
+    <!-- Explicação do cálculo -->
+    <p class="explanation" id="explanation"></p>
+    
+    <!-- Conversão Simples de Pixels -->
+    <h2>Conversão Simples</h2>
     <div class="input-group">
       <input type="number" id="pixelInput" placeholder="Insira os pixels">
       <select id="unitSelect">
@@ -74,6 +90,23 @@
     </div>
     <div class="result" id="result"></div>
     
+    <!-- Conversão de Dimensões (Largura e Altura) -->
+    <h2>Conversão de Dimensões</h2>
+    <div class="input-group">
+      <input type="number" id="widthInput" placeholder="Largura em pixels">
+      <input type="number" id="heightInput" placeholder="Altura em pixels">
+      <select id="unitSelectDim">
+        <option value="cm">Centímetros</option>
+        <option value="mm">Milímetros</option>
+        <option value="pt">Pontos</option>
+        <option value="in">Polegadas</option>
+      </select>
+      <input type="number" id="dpiInputDim" placeholder="DPI (Padrão: 96)">
+      <button onclick="convertDimensions()">Converter Dimensões</button>
+    </div>
+    <div class="result" id="dimResult"></div>
+    
+    <!-- Bloco do AdSense -->  
     <div class="adsense">
       <ins class="adsbygoogle"
            style="display:block"
@@ -81,19 +114,63 @@
            data-ad-slot="7460995783"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
   </div>
-
+  
   <script>
+    // Traduções multilíngues (PT, EN, ES)
+    const translations = {
+      "pt": {
+        "title": "Conversor de Pixeis e Dimensões",
+        "header": "Conversor de Pixeis e Dimensões",
+        "reflection": [
+          "A resolução determina o quão nítida uma imagem pode ser impressa; entender isso é crucial.",
+          "Converter pixels para medidas físicas ajuda a planejar layouts e impressões com precisão.",
+          "Definir a DPI correta é fundamental para transformar pixels em dimensões reais com exatidão."
+        ],
+        "explanation": "Como funciona o cálculo: Para converter pixels em uma unidade física, dividimos o número de pixels pela resolução (DPI) e multiplicamos pelo fator de conversão da unidade desejada. Por exemplo, para converter para centímetros, usamos: cm = (pixels / DPI) * 2.54."
+      },
+      "en": {
+        "title": "Pixel and Dimension Converter",
+        "header": "Pixel and Dimension Converter",
+        "reflection": [
+          "Resolution determines how sharp an image can be printed; understanding this is crucial.",
+          "Converting pixels to physical measurements helps in planning layouts and prints accurately.",
+          "Setting the correct DPI is key to accurately converting pixels into real-world dimensions."
+        ],
+        "explanation": "How the calculation works: To convert pixels to a physical unit, divide the number of pixels by the resolution (DPI) and multiply by the conversion factor for the desired unit. For example, to convert to centimeters, use: cm = (pixels / DPI) * 2.54."
+      },
+      "es": {
+        "title": "Convertidor de Píxeles y Dimensiones",
+        "header": "Convertidor de Píxeles y Dimensiones",
+        "reflection": [
+          "La resolución determina cuán nítida puede ser una imagen impresa; entender esto es crucial.",
+          "Convertir píxeles a medidas físicas ayuda a planificar diseños e impresiones con precisión.",
+          "Establecer el DPI correcto es clave para convertir con precisión los píxeles en dimensiones reales."
+        ],
+        "explanation": "Cómo funciona el cálculo: Para convertir píxeles a una unidad física, se divide el número de píxeles por la resolución (DPI) y se multiplica por el factor de conversión de la unidad deseada. Por ejemplo, para convertir a centímetros, se utiliza: cm = (píxeles / DPI) * 2.54."
+      }
+    };
+
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.title = translations[lang]["title"];
+      document.getElementById("explanation").innerText = translations[lang]["explanation"];
+      const reflectionArray = translations[lang]["reflection"];
+      document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
+    }
+    
     function convertPixels() {
       const pixels = parseFloat(document.getElementById("pixelInput").value);
       const dpi = parseFloat(document.getElementById("dpiInput").value) || 96;
       const unit = document.getElementById("unitSelect").value;
       let result;
-      
       switch (unit) {
         case "cm": result = pixels / dpi * 2.54; break;
         case "mm": result = pixels / dpi * 25.4; break;
@@ -101,16 +178,43 @@
         case "in": result = pixels / dpi; break;
         default: result = 0;
       }
-      
       document.getElementById("result").innerText = `Resultado: ${result.toFixed(4)} ${unit}`;
     }
     
-    const reflections = [
-      "A resolução de uma imagem impacta diretamente na qualidade da impressão. Quanto maior a DPI, mais detalhes são preservados.",
-      "Nem todas as imagens precisam de alta resolução. Para web, 72-96 DPI são suficientes, enquanto para impressão é recomendado 300 DPI ou mais.",
-      "Converter pixels para centímetros ou milímetros sem considerar a DPI pode levar a resultados imprecisos. Sempre defina uma resolução adequada."
-    ];
-    document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
+    function convertDimensions() {
+      const widthPx = parseFloat(document.getElementById("widthInput").value);
+      const heightPx = parseFloat(document.getElementById("heightInput").value);
+      const dpi = parseFloat(document.getElementById("dpiInputDim").value) || 96;
+      const unit = document.getElementById("unitSelectDim").value;
+      if (isNaN(widthPx) || isNaN(heightPx) || widthPx <= 0 || heightPx <= 0) {
+        document.getElementById("dimResult").innerText = "Insira valores válidos para largura e altura.";
+        return;
+      }
+      let widthResult, heightResult;
+      switch (unit) {
+        case "cm":
+          widthResult = widthPx / dpi * 2.54;
+          heightResult = heightPx / dpi * 2.54;
+          break;
+        case "mm":
+          widthResult = widthPx / dpi * 25.4;
+          heightResult = heightPx / dpi * 25.4;
+          break;
+        case "pt":
+          widthResult = widthPx * (72 / dpi);
+          heightResult = heightPx * (72 / dpi);
+          break;
+        case "in":
+          widthResult = widthPx / dpi;
+          heightResult = heightPx / dpi;
+          break;
+        default:
+          widthResult = heightResult = 0;
+      }
+      document.getElementById("dimResult").innerText = `Resultado: Largura: ${widthResult.toFixed(4)} ${unit}, Altura: ${heightResult.toFixed(4)} ${unit}`;
+    }
+    
+    document.addEventListener("DOMContentLoaded", translatePage);
   </script>
 </body>
 </html>
