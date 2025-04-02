@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sobre o UtilNet - Plataforma com ferramentas úteis online.">
+  <title data-translate="title">Sobre - UtilNet</title>
+  
+  <!-- Google AdSense (opcional para esta página) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
+  
+  <style>
+    /* Barra de navegação superior para links essenciais */
+    .top-nav {
+      background: #333;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      color: #333;
+    }
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: justify;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #777;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra de navegação para páginas essenciais -->
+  <div class="top-nav">
+    <a href="index.html" data-translate="home">Início</a>
+    <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
+    <a href="contact.html" data-translate="contact">Contato</a>
+  </div>
+  
+  <div class="container">
+    <h1 data-translate="header">Sobre o UtilNet</h1>
+    <p data-translate="aboutContent">
+      O UtilNet é uma plataforma dedicada a oferecer ferramentas online gratuitas e úteis para todos os usuários. Nosso objetivo é facilitar o acesso a serviços que vão desde geradores de senhas e conversores de unidades até validadores de e-mail, encoders e muito mais. Criamos o UtilNet com o intuito de promover a inovação digital e ajudar a simplificar tarefas do dia a dia, sempre com foco na transparência, segurança e usabilidade.
+    </p>
+    
+    <h2 data-translate="missionTitle">Nossa Missão</h2>
+    <p data-translate="missionContent">
+      Nossa missão é proporcionar uma experiência digital de qualidade, disponibilizando ferramentas que auxiliem na resolução de problemas cotidianos de forma prática e eficiente. Valorizamos a privacidade e a segurança dos nossos usuários e estamos comprometidos em manter um ambiente online confiável e acessível.
+    </p>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todos os direitos reservados.</p>
+    </div>
+  </div>
+  
+  <script>
+    // Traduções multilíngues
+    const translations = {
+      "pt": {
+        "title": "Sobre - UtilNet",
+        "header": "Sobre o UtilNet",
+        "home": "Início",
+        "privacyPolicy": "Política de Privacidade",
+        "contact": "Contato",
+        "aboutContent": "O UtilNet é uma plataforma dedicada a oferecer ferramentas online gratuitas e úteis para todos os usuários. Nosso objetivo é facilitar o acesso a serviços que vão desde geradores de senhas e conversores de unidades até validadores de e-mail, encoders e muito mais. Criamos o UtilNet com o intuito de promover a inovação digital e ajudar a simplificar tarefas do dia a dia, sempre com foco na transparência, segurança e usabilidade.",
+        "missionTitle": "Nossa Missão",
+        "missionContent": "Nossa missão é proporcionar uma experiência digital de qualidade, disponibilizando ferramentas que auxiliem na resolução de problemas cotidianos de forma prática e eficiente. Valorizamos a privacidade e a segurança dos nossos usuários e estamos comprometidos em manter um ambiente online confiável e acessível."
+      },
+      "en": {
+        "title": "About - UtilNet",
+        "header": "About UtilNet",
+        "home": "Home",
+        "privacyPolicy": "Privacy Policy",
+        "contact": "Contact",
+        "aboutContent": "UtilNet is a platform dedicated to providing free and useful online tools for everyone. Our goal is to simplify access to services ranging from password generators and unit converters to email validators, encoders, and much more. We created UtilNet to promote digital innovation and help simplify daily tasks, always focusing on transparency, security, and usability.",
+        "missionTitle": "Our Mission",
+        "missionContent": "Our mission is to provide a high-quality digital experience by offering tools that help solve everyday problems in a practical and efficient manner. We value our users' privacy and security, and we are committed to maintaining a reliable and accessible online environment."
+      },
+      "es": {
+        "title": "Sobre - UtilNet",
+        "header": "Sobre UtilNet",
+        "home": "Inicio",
+        "privacyPolicy": "Política de Privacidad",
+        "contact": "Contacto",
+        "aboutContent": "UtilNet es una plataforma dedicada a ofrecer herramientas en línea gratuitas y útiles para todos los usuarios. Nuestro objetivo es facilitar el acceso a servicios que van desde generadores de contraseñas y convertidores de unidades hasta validadores de correo, encoders y mucho más. Creamos UtilNet con el fin de promover la innovación digital y ayudar a simplificar las tareas diarias, siempre con un enfoque en la transparencia, la seguridad y la usabilidad.",
+        "missionTitle": "Nuestra Misión",
+        "missionContent": "Nuestra misión es proporcionar una experiencia digital de alta calidad al ofrecer herramientas que ayuden a resolver problemas cotidianos de manera práctica y eficiente. Valoramos la privacidad y la seguridad de nuestros usuarios, y estamos comprometidos a mantener un entorno en línea confiable y accesible."
+      }
+    };
+    
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.title = translations[lang]["title"];
+    }
+    
+    document.addEventListener("DOMContentLoaded", translatePage);
+  </script>
+</body>
+</html>
