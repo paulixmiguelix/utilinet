@@ -10,6 +10,23 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
+    /* Estilo para a barra superior de links essenciais */
+    .top-nav {
+      background: #333;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
+    
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
@@ -23,7 +40,7 @@
       background: #fff;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1, h2 {
       color: #333;
@@ -32,7 +49,7 @@
       color: #666;
       font-size: 16px;
     }
-    .tool-link, .essential-link {
+    .tool-link {
       display: block;
       padding: 12px;
       margin: 10px auto;
@@ -44,7 +61,7 @@
       transition: background 0.3s;
       max-width: 300px;
     }
-    .tool-link:hover, .essential-link:hover {
+    .tool-link:hover {
       background: #005bb5;
     }
     .adsense {
@@ -56,14 +73,29 @@
       font-size: 14px;
       color: #777;
     }
-    .essential-links {\n      margin-top: 20px;\n    }\n  </style>
+    .reflection {
+      margin-top: 20px;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
 </head>
 <body>
+  <!-- Barra de navegação para informações institucionais -->
+  <div class="top-nav">
+    <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
+    <a href="about.html" data-translate="about">Sobre</a>
+    <a href="contact.html" data-translate="contact">Contato</a>
+  </div>
+  
   <div class="container">
     <h1 data-translate="header">UtilNet - Ferramentas Online</h1>
     <p class="reflection" id="reflection"></p>
     <p data-translate="description">Encontre aqui ferramentas úteis para diversas finalidades.</p>
-
+    
     <h2 data-translate="tools">Nossas ferramentas:</h2>
     <a href="senha.html" class="tool-link" data-translate="passwordGenerator">Gerador de Senhas</a>
     <a href="encode.html" class="tool-link" data-translate="encoder">Encoder/Decoder Base64</a>
@@ -74,15 +106,8 @@
     <a href="camwebcheck.html" class="tool-link" data-translate="micWebcamTester">Testar Microfone e Webcam</a>
     <a href="pixconvert.html" class="tool-link" data-translate="pixelConverter">Converter Pixeis</a>
     
-    <!-- Páginas essenciais para transparência e credibilidade -->
-    <div class="essential-links">
-      <a href="privacy.html" class="essential-link" data-translate="privacyPolicy">Política de Privacidade</a>
-      <a href="about.html" class="essential-link" data-translate="about">Sobre</a>
-      <a href="contact.html" class="essential-link" data-translate="contact">Contato</a>
-    </div>
-    
     <div class="adsense">
-      <!-- Espaço reservado para anúncios -->
+      <!-- Espaço reservado para anúncios --> 
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-4883403187063112"
