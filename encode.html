@@ -11,6 +11,22 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
+    /* Barra de navegação superior para links institucionais */
+    .top-nav {
+      background: #333;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -19,12 +35,12 @@
     }
     .container {
       max-width: 600px;
-      margin: 0 auto;
+      margin: 20px auto 0;
       text-align: center;
       background: #fff;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1, h2 {
       color: #333;
@@ -40,13 +56,22 @@
       text-align: right;
       margin-bottom: 10px;
     }
-    .dynamic-tip {
-      background: #eef;
+    .dynamic-tip, .reflection {
+      margin: 20px 0;
+      font-style: italic;
       color: #444;
+      background: #eef;
       padding: 10px;
       border-radius: 6px;
-      font-style: italic;
-      margin-bottom: 20px;
+    }
+    .explanation {
+      margin: 20px 0;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
+      color: #555;
+      font-size: 15px;
     }
     textarea {
       width: 100%;
@@ -91,18 +116,17 @@
       font-size: 14px;
       color: #777;
     }
-    .explanation {
-      margin: 20px 0;
-      text-align: left;
-      background: #f0f8ff;
-      padding: 10px;
-      border-radius: 6px;
-      color: #555;
-      font-size: 15px;
-    }
   </style>
 </head>
 <body>
+  <!-- Barra de navegação superior -->
+  <div class="top-nav">
+    <a href="index.html" data-translate="home">Início</a>
+    <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
+    <a href="about.html" data-translate="about">Sobre</a>
+    <a href="contact.html" data-translate="contact">Contato</a>
+  </div>
+  
   <div class="container">
     <!-- Última atualização dinâmica -->
     <div class="update-info" id="updateInfo"></div>
@@ -115,10 +139,11 @@
     <!-- Reflexão aleatória sobre segurança e integridade dos dados -->
     <p class="reflection" id="reflection"></p>
     
-    <!-- Explicação adicional sobre Base64 -->
+    <!-- Explicação extra sobre Base64 -->
     <div class="explanation" id="explanation"></div>
     
     <p data-translate="description">Codifique ou decodifique seu texto em Base64 com apenas um clique!</p>
+    
     <textarea id="base64-input" placeholder="Insira seu texto ou string Base64 aqui..." rows="5"></textarea>
     
     <div class="buttons">
@@ -147,7 +172,7 @@
   </div>
   
   <script>
-    // Função para gerar senha (ou string) codificada
+    // Função para gerar string codificada em Base64
     function encodeBase64() {
       const input = document.getElementById("base64-input").value;
       try {
@@ -169,7 +194,7 @@
       }
     }
     
-    // Função para copiar o resultado para a área de transferência
+    // Função para copiar resultado para a área de transferência
     function copyResult() {
       const resultEl = document.getElementById("base64-result");
       if (resultEl.innerText) {
@@ -177,6 +202,50 @@
           alert("Texto copiado para a área de transferência!");
         });
       }
+    }
+    
+    // Atualiza dinamicamente a data de última atualização
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
+    
+    // Define dica dinâmica (Dica do Dia) para Base64
+    const dynamicTips = {
+      "pt": [
+        "Dica: Utilize o Base64 para garantir a integridade dos dados em transmissões de texto.",
+        "Dica: Lembre-se que o Base64 não é criptografia, mas um método de codificação.",
+        "Dica: Combine o uso do Base64 com outras práticas de segurança para proteção dos dados."
+      ],
+      "en": [
+        "Tip: Use Base64 to ensure data integrity in text transmissions.",
+        "Tip: Remember that Base64 is not encryption, but an encoding method.",
+        "Tip: Combine Base64 with other security practices to protect your data."
+      ],
+      "es": [
+        "Consejo: Utiliza Base64 para asegurar la integridad de los datos en transmisiones de texto.",
+        "Consejo: Recuerda que Base64 no es criptografía, sino un método de codificación.",
+        "Consejo: Combina Base64 con otras prácticas de seguridad para proteger tus datos."
+      ]
+    };
+    function setDynamicTip() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = dynamicTips[userLang] ? userLang : "pt";
+      const tipArray = dynamicTips[lang];
+      document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
+    }
+    
+    // Define explicação extra sobre Base64
+    const explanationTexts = {
+      "pt": "O Base64 converte dados binários em texto ASCII, facilitando sua transmissão em ambientes que manipulam apenas texto. Embora não ofereça segurança criptográfica, é fundamental para preservar a integridade dos dados.",
+      "en": "Base64 converts binary data into ASCII text, making it easier to transmit in text-only environments. Although it doesn't provide cryptographic security, it is essential for preserving data integrity.",
+      "es": "Base64 convierte datos binarios en texto ASCII, lo que facilita su transmisión en entornos que manejan solo texto. Aunque no ofrece seguridad criptográfica, es fundamental para preservar la integridad de los datos."
+    };
+    function setExplanation() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = explanationTexts[userLang] ? userLang : "pt";
+      document.getElementById("explanation").innerText = explanationTexts[lang];
     }
     
     // Reflexões sobre segurança e integridade dos dados
@@ -188,50 +257,6 @@
       "O uso do Base64 evidencia como técnicas simples podem contribuir para a segurança e integridade na transmissão de dados."
     ];
     document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
-    
-    // Dicas dinâmicas (Dica do Dia) para Base64
-    const dynamicTips = {
-      "pt": [
-        "Dica: Utilize o Base64 para garantir a integridade dos dados em transmissões de texto.",
-        "Dica: Lembre-se que o Base64 não é criptografia, mas sim um método de codificação.",
-        "Dica: Combine o uso do Base64 com outras práticas de segurança para proteção de informações."
-      ],
-      "en": [
-        "Tip: Use Base64 to ensure data integrity in text transmissions.",
-        "Tip: Remember that Base64 is not encryption, but an encoding method.",
-        "Tip: Combine Base64 with other security practices to protect your data."
-      ],
-      "es": [
-        "Consejo: Utiliza Base64 para asegurar la integridad de los datos en transmisiones de texto.",
-        "Consejo: Recuerda que Base64 no es criptografía, sino un método de codificación.",
-        "Consejo: Combina Base64 con otras prácticas de seguridad para proteger tu información."
-      ]
-    };
-    function setDynamicTip() {
-      const userLang = navigator.language.substr(0, 2);
-      const lang = dynamicTips[userLang] ? userLang : "pt";
-      const tipArray = dynamicTips[lang];
-      document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
-    }
-    
-    // Atualiza a data de última atualização automaticamente
-    function updateLastModified() {
-      const updateInfo = document.getElementById("updateInfo");
-      const now = new Date();
-      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
-    }
-    
-    // Conteúdo explicativo extra sobre o uso do Base64
-    const explanationTexts = {
-      "pt": "O Base64 converte dados binários em texto ASCII, o que facilita sua transmissão em ambientes que não suportam dados binários. Embora não ofereça segurança criptográfica, é uma ferramenta valiosa para garantir a integridade dos dados.",
-      "en": "Base64 converts binary data into ASCII text, making it easier to transmit in environments that do not support binary data. Although it doesn't provide cryptographic security, it is a valuable tool for ensuring data integrity.",
-      "es": "Base64 convierte datos binarios en texto ASCII, lo que facilita su transmisión en entornos que no admiten datos binarios. Aunque no proporciona seguridad criptográfica, es una herramienta valiosa para garantizar la integridad de los datos."
-    };
-    function setExplanation() {
-      const userLang = navigator.language.substr(0, 2);
-      const lang = explanationTexts[userLang] ? userLang : "pt";
-      document.getElementById("explanation").innerText = explanationTexts[lang];
-    }
     
     // Traduções multilíngues
     const translations = {
