@@ -11,6 +11,22 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
+    /* Barra de navegação superior */
+    .top-nav {
+      background: #333;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
@@ -19,20 +35,65 @@
     }
     .container {
       max-width: 600px;
-      margin: auto;
+      margin: 20px auto 0;
       text-align: center;
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h1 {
+    h1, h2 {
       color: #333;
+    }
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .update-info {
+      font-size: 14px;
+      color: #777;
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    .dynamic-tip, .reflection {
+      margin: 20px 0;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .explanation {
+      margin: 20px 0;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
+      color: #555;
+      font-size: 15px;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      word-break: break-all;
+    }
+    .color-box, .complementary-box {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
     }
     button {
       padding: 10px 20px;
       font-size: 16px;
-      margin: 15px;
+      margin: 10px 5px;
       cursor: pointer;
       background: #0073e6;
       color: #fff;
@@ -43,107 +104,117 @@
     button:hover {
       background: #005bb5;
     }
-    .result {
-      margin-top: 20px;
-      font-size: 18px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      display: inline-block;
-      border-radius: 8px;
-      word-break: break-all;
-    }
-    .color-box {
-      width: 100px;
-      height: 100px;
-      margin: 20px auto;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
     a {
       display: inline-block;
       margin-top: 20px;
       text-decoration: none;
       color: #007BFF;
     }
-    .reflection {
-      margin: 20px 0;
-      font-style: italic;
-      color: #444;
-      background: #eef;
-      padding: 10px;
-      border-radius: 6px;
+    .adsense {
+      margin-top: 30px;
+      text-align: center;
     }
-    .importance {
-      margin: 20px 0;
-      text-align: left;
-      background: #f0f8ff;
-      padding: 10px;
-      border-radius: 6px;
-      color: #555;
-      font-size: 16px;
-      line-height: 1.5;
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
     }
   </style>
 </head>
 <body>
+  <!-- Barra de navegação superior -->
+  <div class="top-nav">
+    <a href="index.html" data-translate="home">Início</a>
+    <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
+    <a href="about.html" data-translate="about">Sobre</a>
+    <a href="contact.html" data-translate="contact">Contato</a>
+  </div>
+  
   <div class="container">
+    <!-- (Opcional) Atualização dinâmica -->
+    <div class="update-info" id="updateInfo"></div>
+    
     <h1 data-translate="header">Gerador de Cores Aleatórias</h1>
+    
+    <!-- Dica do Dia dinâmica -->
+    <p class="dynamic-tip" id="dynamicTip"></p>
     
     <!-- Reflexão aleatória -->
     <p class="reflection" id="reflection"></p>
     
-    <!-- Texto explicativo sobre a importância das cores -->
-    <p class="importance" data-translate="importance"></p>
+    <!-- Explicação extra sobre cores -->
+    <div class="explanation" id="explanation"></div>
     
     <button onclick="generateColor()" data-translate="button">Gerar Cor</button>
     <div class="result" id="colorResult"></div>
     <div class="color-box" id="colorBox"></div>
+    
+    <!-- Funcionalidades extras -->
+    <button onclick="copyColorCode()" data-translate="copyCode">Copiar Código</button>
+    <button onclick="generateComplementaryColor()" data-translate="complementary">Cor Complementar</button>
+    <div class="result" id="complementaryResult"></div>
+    <div class="color-box" id="complementaryBox"></div>
+    
     <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+    
+    <div class="adsense">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
+    </div>
   </div>
   
   <script>
-    // Traduções multilíngues
-    const translations = {
-      "pt": {
-        "title": "Gerador de Cores Aleatórias",
-        "header": "Gerador de Cores Aleatórias",
-        "button": "Gerar Cor",
-        "back": "Voltar para Página Inicial",
-        "resultText": "Código da cor: ",
-        "importance": "As cores podem influenciar emoções e percepções. Use as cores geradas como inspiração para criar designs únicos e expressar sua criatividade."
-      },
-      "en": {
-        "title": "Random Color Generator",
-        "header": "Random Color Generator",
-        "button": "Generate Color",
-        "back": "Back to Home Page",
-        "resultText": "Color code: ",
-        "importance": "Colors can influence emotions and perceptions. Use the generated colors as inspiration to create unique designs and express your creativity."
-      },
-      "es": {
-        "title": "Generador de Colores Aleatorios",
-        "header": "Generador de Colores Aleatorios",
-        "button": "Generar Color",
-        "back": "Volver a la Página Principal",
-        "resultText": "Código de color: ",
-        "importance": "Los colores pueden influir en las emociones y percepciones. Utiliza los colores generados como inspiración para crear diseños únicos y expresar tu creatividad."
-      }
+    // Atualiza a data de última atualização (opcional)
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
+    
+    // Dica dinâmica (Dica do Dia)
+    const dynamicTips = {
+      "pt": [
+        "Dica: Experimente combinar cores para criar paletas harmoniosas.",
+        "Dica: Use cores vibrantes para destacar elementos importantes.",
+        "Dica: As cores podem influenciar as emoções; escolha com cuidado."
+      ],
+      "en": [
+        "Tip: Try combining colors to create harmonious palettes.",
+        "Tip: Use vibrant colors to highlight important elements.",
+        "Tip: Colors can influence emotions; choose them wisely."
+      ],
+      "es": [
+        "Consejo: Prueba combinar colores para crear paletas armoniosas.",
+        "Consejo: Usa colores vibrantes para resaltar elementos importantes.",
+        "Consejo: Los colores pueden influir en las emociones; elige con cuidado."
+      ]
     };
-
-    // Função para traduzir a página
-    function translatePage() {
+    function setDynamicTip() {
       const userLang = navigator.language.substr(0, 2);
-      const lang = translations[userLang] ? userLang : "pt";
-      document.querySelectorAll("[data-translate]").forEach(el => {
-        const key = el.getAttribute("data-translate");
-        el.innerText = translations[lang][key];
-      });
-      document.title = translations[lang]["title"];
-      
-      // Atualiza o texto explicativo de importância
-      document.querySelectorAll("[data-translate='importance']").forEach(el => {
-        el.innerText = translations[lang]["importance"];
-      });
+      const lang = dynamicTips[userLang] ? userLang : "pt";
+      const tipArray = dynamicTips[lang];
+      document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
+    }
+    
+    // Explicação extra sobre cores
+    const explanationTexts = {
+      "pt": "Este gerador cria uma cor aleatória e exibe seu código hexadecimal. Além disso, você pode copiar o código ou gerar a cor complementar, que é a cor oposta no círculo cromático, ideal para criar contrastes harmoniosos.",
+      "en": "This generator creates a random color and displays its hexadecimal code. Additionally, you can copy the code or generate the complementary color, which is the opposite color on the color wheel, ideal for creating harmonious contrasts.",
+      "es": "Este generador crea un color aleatorio y muestra su código hexadecimal. Además, puedes copiar el código o generar el color complementario, que es el color opuesto en el círculo cromático, ideal para crear contrastes armoniosos."
+    };
+    function setExplanation() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = explanationTexts[userLang] ? userLang : "pt";
+      document.getElementById("explanation").innerText = explanationTexts[lang];
     }
     
     // Função para gerar cor aleatória
@@ -154,9 +225,45 @@
       const resultText = translations[lang]["resultText"];
       document.getElementById("colorResult").innerText = resultText + randomColor;
       document.getElementById("colorBox").style.backgroundColor = randomColor;
+      // Armazena a cor atual para uso na geração complementar
+      window.currentColor = randomColor;
     }
     
-    // Reflexões aleatórias sobre cores
+    // Função para copiar o código da cor
+    function copyColorCode() {
+      const code = document.getElementById("colorResult").innerText;
+      if(code) {
+        navigator.clipboard.writeText(code).then(() => {
+          alert("Código da cor copiado!");
+        });
+      }
+    }
+    
+    // Função para gerar a cor complementar
+    function generateComplementaryColor() {
+      if (!window.currentColor) {
+        alert("Por favor, gere uma cor primeiro.");
+        return;
+      }
+      // Converte o hexadecimal para RGB
+      const hex = window.currentColor.substring(1);
+      const r = parseInt(hex.substring(0,2), 16);
+      const g = parseInt(hex.substring(2,4), 16);
+      const b = parseInt(hex.substring(4,6), 16);
+      // Calcula a cor complementar invertendo cada componente (255 - componente)
+      const compR = 255 - r;
+      const compG = 255 - g;
+      const compB = 255 - b;
+      // Converte o resultado para hexadecimal
+      const compHex = "#" + [compR, compG, compB].map(c => c.toString(16).padStart(2, '0')).join('');
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      const resultText = translations[lang]["resultText"];
+      document.getElementById("complementaryResult").innerText = "Cor complementar: " + compHex;
+      document.getElementById("complementaryBox").style.backgroundColor = compHex;
+    }
+    
+    // Reflexões sobre cores
     const reflections = {
       "pt": [
         "A beleza da cor está na sua imprevisibilidade, inspirando novas ideias.",
@@ -171,7 +278,6 @@
         "Cada color generado puede transformar la forma en que vemos el mundo."
       ]
     };
-    
     function setReflection() {
       const userLang = navigator.language.substr(0, 2);
       const lang = reflections[userLang] ? userLang : "pt";
@@ -179,9 +285,85 @@
       document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
     }
     
-    document.addEventListener("DOMContentLoaded", () => {
-      translatePage();
+    // Traduções multilíngues
+    const translations = {
+      "pt": {
+        "title": "Gerador de Cores Aleatórias",
+        "header": "Gerador de Cores Aleatórias",
+        "description": "Codifique informações em QR Code de forma rápida e segura!",
+        "placeholder": "Digite o texto ou URL",
+        "button": "Gerar QR Code",
+        "back": "Voltar para Página Inicial",
+        "resultText": "Código da cor: ",
+        "importance": "As cores podem influenciar emoções e percepções. Use as cores geradas como inspiração para criar designs únicos e expressar sua criatividade.",
+        "home": "Início",
+        "privacyPolicy": "Política de Privacidade",
+        "about": "Sobre",
+        "contact": "Contato"
+      },
+      "en": {
+        "title": "Random Color Generator",
+        "header": "Random Color Generator",
+        "description": "Generate random colors to inspire your designs and creations.",
+        "placeholder": "Enter text or URL",
+        "button": "Generate Color",
+        "back": "Back to Home Page",
+        "resultText": "Color code: ",
+        "importance": "Colors can influence emotions and perceptions. Use the generated colors as inspiration to create unique designs and express your creativity.",
+        "home": "Home",
+        "privacyPolicy": "Privacy Policy",
+        "about": "About",
+        "contact": "Contact"
+      },
+      "es": {
+        "title": "Generador de Colores Aleatorios",
+        "header": "Generador de Colores Aleatorios",
+        "description": "Genera colores aleatorios para inspirar tus diseños y creaciones.",
+        "placeholder": "Ingrese texto o URL",
+        "button": "Generar Color",
+        "back": "Volver a la Página Principal",
+        "resultText": "Código de color: ",
+        "importance": "Los colores pueden influir en las emociones y percepciones. Utiliza los colores generados como inspiración para crear diseños únicos y expresar tu creatividad.",
+        "home": "Inicio",
+        "privacyPolicy": "Política de Privacidad",
+        "about": "Sobre",
+        "contact": "Contacto"
+      }
+    };
+
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-translate-placeholder");
+        el.setAttribute("placeholder", translations[lang][key]);
+      });
+      document.title = translations[lang]["title"];
+      
+      // Atualiza meta description e keywords conforme o idioma
+      if (lang !== "pt") {
+        const metaDesc = document.querySelector("meta[name='description']");
+        const metaKeywords = document.querySelector("meta[name='keywords']");
+        if (lang === "en") {
+          metaDesc.setAttribute("content", "Generate random colors to inspire your designs and creations.");
+          metaKeywords.setAttribute("content", "random color generator, color inspiration, online tool, design");
+        } else if (lang === "es") {
+          metaDesc.setAttribute("content", "Genera colores aleatorios para inspirar tus diseños y creaciones.");
+          metaKeywords.setAttribute("content", "generador de colores aleatorios, inspiración de colores, herramienta online, diseño");
+        }
+      }
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      updateLastModified();
+      setDynamicTip();
+      setExplanation();
       setReflection();
+      translatePage();
     });
   </script>
 </body>
