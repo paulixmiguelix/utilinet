@@ -170,38 +170,6 @@
   </div>
   
   <script>
-    // Função para gerar string codificada em Base64
-    function encodeBase64() {
-      const input = document.getElementById("base64-input").value;
-      try {
-        const encoded = btoa(unescape(encodeURIComponent(input)));
-        document.getElementById("base64-result").innerText = encoded;
-      } catch (error) {
-        document.getElementById("base64-result").innerText = "Erro ao codificar. Verifique o texto inserido.";
-      }
-    }
-    
-    // Função para decodificar string Base64
-    function decodeBase64() {
-      const input = document.getElementById("base64-input").value;
-      try {
-        const decoded = decodeURIComponent(escape(atob(input)));
-        document.getElementById("base64-result").innerText = decoded;
-      } catch (error) {
-        document.getElementById("base64-result").innerText = "Erro ao decodificar. Certifique-se de que a string Base64 é válida.";
-      }
-    }
-    
-    // Função para copiar o resultado para a área de transferência
-    function copyResult() {
-      const resultEl = document.getElementById("base64-result");
-      if (resultEl.innerText) {
-        navigator.clipboard.writeText(resultEl.innerText).then(() => {
-          alert("Texto copiado para a área de transferência!");
-        });
-      }
-    }
-    
     // Atualiza dinamicamente a data de última atualização
     function updateLastModified() {
       const updateInfo = document.getElementById("updateInfo");
@@ -241,3 +209,126 @@
       "es": "Base64 convierte datos binarios en texto ASCII, lo que facilita su transmisión en entornos que manejan solo texto. Aunque no ofrece seguridad criptográfica, es fundamental para preservar la integridad de los datos."
     };
     function setExplanation() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = explanationTexts[userLang] ? userLang : "pt";
+      document.getElementById("explanation").innerText = explanationTexts[lang];
+    }
+    
+    // Define reflexão dinâmica
+    const reflections = [
+      "A segurança dos dados começa com a integridade da informação transmitida, e o Base64 é um aliado na conversão segura de dados.",
+      "Embora o Base64 não seja criptografia, ele garante que dados sejam convertidos de forma consistente para ambientes que só aceitam texto.",
+      "Manter a integridade dos dados é fundamental; o Base64 ajuda a preservar a fidelidade da informação em diversas aplicações.",
+      "Em um mundo digital, a conversão correta dos dados assegura que informações importantes não se percam no caminho.",
+      "O uso do Base64 evidencia como técnicas simples podem contribuir para a segurança e integridade na transmissão de dados."
+    ];
+    function setReflection() {
+      document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
+    }
+    
+    // Funções de codificação/decodificação
+    function encodeBase64() {
+      const input = document.getElementById("base64-input").value;
+      try {
+        const encoded = btoa(unescape(encodeURIComponent(input)));
+        document.getElementById("base64-result").innerText = encoded;
+      } catch (error) {
+        document.getElementById("base64-result").innerText = "Erro ao codificar. Verifique o texto inserido.";
+      }
+    }
+    
+    function decodeBase64() {
+      const input = document.getElementById("base64-input").value;
+      try {
+        const decoded = decodeURIComponent(escape(atob(input)));
+        document.getElementById("base64-result").innerText = decoded;
+      } catch (error) {
+        document.getElementById("base64-result").innerText = "Erro ao decodificar. Certifique-se de que a string Base64 é válida.";
+      }
+    }
+    
+    function copyResult() {
+      const resultEl = document.getElementById("base64-result");
+      if (resultEl.innerText) {
+        navigator.clipboard.writeText(resultEl.innerText).then(() => {
+          alert("Texto copiado para a área de transferência!");
+        });
+      }
+    }
+    
+    // Traduções multilíngues
+    const translations = {
+      "pt": {
+        "title": "Gerador de Senhas",
+        "header": "Gerador de Senhas",
+        "description": "Codifique ou decodifique seu texto em Base64 com apenas um clique!",
+        "encode": "Codificar",
+        "decode": "Decodificar",
+        "importance": "A segurança online depende de senhas fortes. É fundamental evitar palavras comuns e sequências previsíveis. Combine letras maiúsculas, minúsculas, números e símbolos para criar senhas únicas. Lembre-se: quanto mais complexa, melhor estará sua proteção contra ataques cibernéticos.",
+        "back": "Voltar",
+        "home": "Início",
+        "privacyPolicy": "Política de Privacidade",
+        "about": "Sobre",
+        "contact": "Contato"
+      },
+      "en": {
+        "title": "Password Generator",
+        "header": "Password Generator",
+        "description": "Generate a random password with just one click!",
+        "encode": "Encode",
+        "decode": "Decode",
+        "importance": "Online security relies on strong passwords. Avoid common words and predictable sequences. Combine uppercase, lowercase letters, numbers, and symbols to create unique passwords. Remember: the more complex, the better your protection against cyber attacks.",
+        "back": "Back",
+        "home": "Home",
+        "privacyPolicy": "Privacy Policy",
+        "about": "About",
+        "contact": "Contact"
+      },
+      "es": {
+        "title": "Generador de Contraseñas",
+        "header": "Generador de Contraseñas",
+        "description": "¡Genera una contraseña aleatoria con un solo clic!",
+        "encode": "Codificar",
+        "decode": "Decodificar",
+        "importance": "La seguridad en línea depende de contraseñas fuertes. Evita palabras comunes y secuencias predecibles. Combina letras mayúsculas, minúsculas, números y símbolos para crear contraseñas únicas. Recuerda: cuanto más compleja, mejor será tu protección contra los ciberataques.",
+        "back": "Volver",
+        "home": "Inicio",
+        "privacyPolicy": "Política de Privacidad",
+        "about": "Sobre",
+        "contact": "Contacto"
+      }
+    };
+
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.title = translations[lang]["title"];
+      
+      // Atualiza meta description e keywords conforme o idioma
+      if (lang !== "pt") {
+        const metaDesc = document.querySelector("meta[name='description']");
+        const metaKeywords = document.querySelector("meta[name='keywords']");
+        if (lang === "en") {
+          metaDesc.setAttribute("content", "Encode or decode Base64 text quickly and securely!");
+          metaKeywords.setAttribute("content", "encoder, decoder, base64, encode, decode, online tool");
+        } else if (lang === "es") {
+          metaDesc.setAttribute("content", "¡Codifica o decodifica textos en Base64 de forma rápida y segura!");
+          metaKeywords.setAttribute("content", "encoder, decoder, base64, codificar, decodificar, herramienta online");
+        }
+      }
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      updateLastModified();
+      setDynamicTip();
+      setExplanation();
+      setReflection();
+      translatePage();
+    });
+  </script>
+</body>
+</html>
