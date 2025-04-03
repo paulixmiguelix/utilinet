@@ -34,20 +34,19 @@
       font-size: 16px;
       line-height: 1.5;
     }
-    .reflection {
-      margin: 20px 0;
-      font-style: italic;
-      color: #444;
-      background: #eef;
-      padding: 10px;
-      border-radius: 6px;
+    .update-info {
+      font-size: 14px;
+      color: #777;
+      text-align: right;
+      margin-bottom: 10px;
     }
-    .importance {
-      margin: 20px 0;
-      text-align: left;
-      background: #f0f8ff;
+    .dynamic-tip {
+      background: #eef;
+      color: #444;
       padding: 10px;
       border-radius: 6px;
+      font-style: italic;
+      margin-bottom: 20px;
     }
     textarea {
       width: 100%;
@@ -92,22 +91,34 @@
       font-size: 14px;
       color: #777;
     }
+    .explanation {
+      margin: 20px 0;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
+      color: #555;
+      font-size: 15px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- Última atualização dinâmica -->
+    <div class="update-info" id="updateInfo"></div>
+    
     <h1 data-translate="header">Encoder/Decoder Base64</h1>
     
-    <!-- Reflexão aleatória sobre segurança -->
+    <!-- Dica do Dia dinâmica -->
+    <p class="dynamic-tip" id="dynamicTip"></p>
+    
+    <!-- Reflexão aleatória sobre segurança e integridade dos dados -->
     <p class="reflection" id="reflection"></p>
     
-    <!-- Texto explicativo sobre a importância do Base64 -->
-    <p class="importance" data-translate="importance">
-      O Base64 é amplamente utilizado para converter dados binários em texto, facilitando a transmissão em sistemas que manipulam apenas texto. Embora não seja um método de criptografia, ele assegura a integridade dos dados e é essencial em diversos contextos digitais.
-    </p>
+    <!-- Explicação adicional sobre Base64 -->
+    <div class="explanation" id="explanation"></div>
     
     <p data-translate="description">Codifique ou decodifique seu texto em Base64 com apenas um clique!</p>
-    
     <textarea id="base64-input" placeholder="Insira seu texto ou string Base64 aqui..." rows="5"></textarea>
     
     <div class="buttons">
@@ -126,9 +137,7 @@
            data-ad-slot="7460995783"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       <a href="index.html" data-translate="back">Voltar</a>
     </div>
     
@@ -138,6 +147,7 @@
   </div>
   
   <script>
+    // Função para gerar senha (ou string) codificada
     function encodeBase64() {
       const input = document.getElementById("base64-input").value;
       try {
@@ -148,6 +158,7 @@
       }
     }
     
+    // Função para decodificar string Base64
     function decodeBase64() {
       const input = document.getElementById("base64-input").value;
       try {
@@ -158,6 +169,7 @@
       }
     }
     
+    // Função para copiar o resultado para a área de transferência
     function copyResult() {
       const resultEl = document.getElementById("base64-result");
       if (resultEl.innerText) {
@@ -177,33 +189,77 @@
     ];
     document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
     
+    // Dicas dinâmicas (Dica do Dia) para Base64
+    const dynamicTips = {
+      "pt": [
+        "Dica: Utilize o Base64 para garantir a integridade dos dados em transmissões de texto.",
+        "Dica: Lembre-se que o Base64 não é criptografia, mas sim um método de codificação.",
+        "Dica: Combine o uso do Base64 com outras práticas de segurança para proteção de informações."
+      ],
+      "en": [
+        "Tip: Use Base64 to ensure data integrity in text transmissions.",
+        "Tip: Remember that Base64 is not encryption, but an encoding method.",
+        "Tip: Combine Base64 with other security practices to protect your data."
+      ],
+      "es": [
+        "Consejo: Utiliza Base64 para asegurar la integridad de los datos en transmisiones de texto.",
+        "Consejo: Recuerda que Base64 no es criptografía, sino un método de codificación.",
+        "Consejo: Combina Base64 con otras prácticas de seguridad para proteger tu información."
+      ]
+    };
+    function setDynamicTip() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = dynamicTips[userLang] ? userLang : "pt";
+      const tipArray = dynamicTips[lang];
+      document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
+    }
+    
+    // Atualiza a data de última atualização automaticamente
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
+    
+    // Conteúdo explicativo extra sobre o uso do Base64
+    const explanationTexts = {
+      "pt": "O Base64 converte dados binários em texto ASCII, o que facilita sua transmissão em ambientes que não suportam dados binários. Embora não ofereça segurança criptográfica, é uma ferramenta valiosa para garantir a integridade dos dados.",
+      "en": "Base64 converts binary data into ASCII text, making it easier to transmit in environments that do not support binary data. Although it doesn't provide cryptographic security, it is a valuable tool for ensuring data integrity.",
+      "es": "Base64 convierte datos binarios en texto ASCII, lo que facilita su transmisión en entornos que no admiten datos binarios. Aunque no proporciona seguridad criptográfica, es una herramienta valiosa para garantizar la integridad de los datos."
+    };
+    function setExplanation() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = explanationTexts[userLang] ? userLang : "pt";
+      document.getElementById("explanation").innerText = explanationTexts[lang];
+    }
+    
     // Traduções multilíngues
     const translations = {
       "pt": {
-        "title": "Encoder/Decoder Base64",
-        "header": "Encoder/Decoder Base64",
+        "title": "Gerador de Senhas",
+        "header": "Gerador de Senhas",
         "description": "Codifique ou decodifique seu texto em Base64 com apenas um clique!",
         "encode": "Codificar",
         "decode": "Decodificar",
-        "importance": "O Base64 é amplamente utilizado para converter dados binários em texto, facilitando a transmissão em sistemas que manipulam apenas texto. Embora não seja um método de criptografia, ele assegura a integridade dos dados e é essencial em diversos contextos digitais.",
+        "importance": "A segurança online depende de senhas fortes. É fundamental evitar palavras comuns e sequências previsíveis. Combine letras maiúsculas, minúsculas, números e símbolos para criar senhas únicas. Lembre-se: quanto mais complexa, melhor estará sua proteção contra ataques cibernéticos.",
         "back": "Voltar"
       },
       "en": {
-        "title": "Base64 Encoder/Decoder",
-        "header": "Base64 Encoder/Decoder",
-        "description": "Encode or decode your text in Base64 with just one click!",
+        "title": "Password Generator",
+        "header": "Password Generator",
+        "description": "Generate a random password with just one click!",
         "encode": "Encode",
         "decode": "Decode",
-        "importance": "Base64 is widely used to convert binary data into text, making it easier to transmit information in text-only systems. While it is not a method of encryption, it ensures data integrity and is essential in various digital contexts.",
+        "importance": "Online security relies on strong passwords. Avoid common words and predictable sequences. Combine uppercase, lowercase letters, numbers, and symbols to create unique passwords. Remember: the more complex, the better your protection against cyber attacks.",
         "back": "Back"
       },
       "es": {
-        "title": "Codificador/Decodificador Base64",
-        "header": "Codificador/Decodificador Base64",
-        "description": "¡Codifica o decodifica tu texto en Base64 con un solo clic!",
+        "title": "Generador de Contraseñas",
+        "header": "Generador de Contraseñas",
+        "description": "¡Genera una contraseña aleatoria con un solo clic!",
         "encode": "Codificar",
         "decode": "Decodificar",
-        "importance": "El Base64 se utiliza ampliamente para convertir datos binarios en texto, facilitando la transmisión de información en sistemas que solo manejan texto. Aunque no es un método de encriptación, garantiza la integridad de los datos y es esencial en diversos contextos digitales.",
+        "importance": "La seguridad en línea depende de contraseñas fuertes. Evita palabras comunes y secuencias predecibles. Combina letras mayúsculas, minúsculas, números y símbolos para crear contraseñas únicas. Recuerda: cuanto más compleja, mejor será tu protección contra los ciberataques.",
         "back": "Volver"
       }
     };
@@ -231,7 +287,12 @@
       }
     }
     
-    document.addEventListener("DOMContentLoaded", translatePage);
+    document.addEventListener("DOMContentLoaded", function() {
+      updateLastModified();
+      setDynamicTip();
+      setExplanation();
+      translatePage();
+    });
   </script>
 </body>
 </html>
