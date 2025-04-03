@@ -151,9 +151,7 @@
       <button onclick="decodeBase64()" data-translate="decode">Decodificar</button>
     </div>
     
-    <div class="result" id="base64-result" onclick="copyResult()">
-      <!-- O resultado aparecerá aqui -->
-    </div>
+    <div class="result" id="base64-result" onclick="copyResult()"></div>
     
     <div class="adsense">
       <ins class="adsbygoogle"
@@ -243,81 +241,3 @@
       "es": "Base64 convierte datos binarios en texto ASCII, lo que facilita su transmisión en entornos que manejan solo texto. Aunque no ofrece seguridad criptográfica, es fundamental para preservar la integridad de los datos."
     };
     function setExplanation() {
-      const userLang = navigator.language.substr(0, 2);
-      const lang = explanationTexts[userLang] ? userLang : "pt";
-      document.getElementById("explanation").innerText = explanationTexts[lang];
-    }
-    
-    // Reflexões sobre segurança e integridade dos dados
-    const reflections = [
-      "A segurança dos dados começa com a integridade da informação transmitida, e o Base64 é um aliado na conversão segura de dados.",
-      "Embora o Base64 não seja criptografia, ele garante que dados sejam convertidos de forma consistente para ambientes que só aceitam texto.",
-      "Manter a integridade dos dados é fundamental; o Base64 ajuda a preservar a fidelidade da informação em diversas aplicações.",
-      "Em um mundo digital, a conversão correta dos dados assegura que informações importantes não se percam no caminho.",
-      "O uso do Base64 evidencia como técnicas simples podem contribuir para a segurança e integridade na transmissão de dados."
-    ];
-    document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
-    
-    // Traduções multilíngues para o conteúdo da página
-    const translations = {
-      "pt": {
-        "title": "Gerador de Senhas",
-        "header": "Gerador de Senhas",
-        "description": "Codifique ou decodifique seu texto em Base64 com apenas um clique!",
-        "encode": "Codificar",
-        "decode": "Decodificar",
-        "importance": "A segurança online depende de senhas fortes. É fundamental evitar palavras comuns e sequências previsíveis. Combine letras maiúsculas, minúsculas, números e símbolos para criar senhas únicas. Lembre-se: quanto mais complexa, melhor estará sua proteção contra ataques cibernéticos.",
-        "back": "Voltar"
-      },
-      "en": {
-        "title": "Password Generator",
-        "header": "Password Generator",
-        "description": "Generate a random password with just one click!",
-        "encode": "Encode",
-        "decode": "Decode",
-        "importance": "Online security relies on strong passwords. Avoid common words and predictable sequences. Combine uppercase, lowercase letters, numbers, and symbols to create unique passwords. Remember: the more complex, the better your protection against cyber attacks.",
-        "back": "Back"
-      },
-      "es": {
-        "title": "Generador de Contraseñas",
-        "header": "Generador de Contraseñas",
-        "description": "¡Genera una contraseña aleatoria con un solo clic!",
-        "encode": "Codificar",
-        "decode": "Decodificar",
-        "importance": "La seguridad en línea depende de contraseñas fuertes. Evita palabras comunes y secuencias predecibles. Combina letras mayúsculas, minúsculas, números y símbolos para crear contraseñas únicas. Recuerda: cuanto más compleja, mejor será tu protección contra los ciberataques.",
-        "back": "Volver"
-      }
-    };
-
-    function translatePage() {
-      const userLang = navigator.language.substr(0, 2);
-      const lang = translations[userLang] ? userLang : "pt";
-      document.querySelectorAll("[data-translate]").forEach(el => {
-        const key = el.getAttribute("data-translate");
-        el.innerText = translations[lang][key];
-      });
-      document.title = translations[lang]["title"];
-      
-      // Atualiza meta description e keywords conforme o idioma
-      if(lang !== "pt") {
-        const metaDesc = document.querySelector("meta[name='description']");
-        const metaKeywords = document.querySelector("meta[name='keywords']");
-        if(lang === "en") {
-          metaDesc.setAttribute("content", "Encode or decode Base64 text quickly and securely!");
-          metaKeywords.setAttribute("content", "encoder, decoder, base64, encode, decode, online tool");
-        } else if(lang === "es") {
-          metaDesc.setAttribute("content", "¡Codifica o decodifica textos en Base64 de forma rápida y segura!");
-          metaKeywords.setAttribute("content", "encoder, decoder, base64, codificar, decodificar, herramienta online");
-        }
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-      updateLastModified();
-      setDynamicTip();
-      setExplanation();
-      translatePage();
-    });
-  </script>
-</body>
-</html>
