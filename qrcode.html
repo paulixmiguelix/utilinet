@@ -173,10 +173,10 @@
       updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
     }
     
-    // Dica dinâmica (Dica do Dia) para QR Code
+    // Dica dinâmica para QR Code
     const dynamicTips = {
       "pt": [
-        "Dica: Sempre verifique o destino do QR Code para garantir que ele seja seguro.",
+        "Dica: Verifique sempre o destino do QR Code para garantir que ele seja seguro.",
         "Dica: Utilize QR Codes para conectar o mundo físico ao digital de forma prática.",
         "Dica: Teste seus QR Codes antes de usá-los para evitar links maliciosos."
       ],
@@ -198,10 +198,10 @@
       document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
     }
     
-    // Define explicação extra sobre QR Code
+    // Explicação extra sobre QR Code
     const explanationTexts = {
       "pt": "Os QR Codes são códigos de barras bidimensionais que armazenam informações em formato digital. Eles permitem que dados, como URLs ou textos, sejam rapidamente acessados por meio de dispositivos móveis. É importante validar o destino para evitar links maliciosos.",
-      "en": "QR Codes are two-dimensional barcodes that store information in a digital format. They allow data, such as URLs or text, to be quickly accessed using mobile devices. It's important to verify the destination to avoid malicious links.",
+      "en": "QR Codes are two-dimensional barcodes that store information in digital format. They allow data, such as URLs or text, to be quickly accessed via mobile devices. It is important to verify the destination to avoid malicious links.",
       "es": "Los Códigos QR son códigos de barras bidimensionales que almacenan información en formato digital. Permiten acceder rápidamente a datos, como URLs o texto, mediante dispositivos móviles. Es importante verificar el destino para evitar enlaces maliciosos."
     };
     function setExplanation() {
@@ -210,7 +210,7 @@
       document.getElementById("explanation").innerText = explanationTexts[lang];
     }
     
-    // Reflexões sobre QR Codes
+    // Reflexão dinâmica sobre QR Codes
     const reflections = {
       "pt": [
         "Verifique sempre o destino do QR Code para garantir que ele seja seguro.",
@@ -232,7 +232,7 @@
       document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
     }
     
-    // Traduções multilíngues
+    // Traduções multilíngues unificadas
     const translations = {
       "pt": {
         "title": "Gerador de QR Code",
@@ -241,7 +241,11 @@
         "placeholder": "Digite o texto ou URL",
         "button": "Gerar QR Code",
         "back": "Voltar para Página Inicial",
-        "importance": "Os QR Codes facilitam a transmissão de informações entre o mundo físico e digital, mas é fundamental verificar o destino codificado para evitar links maliciosos."
+        "importance": "Os QR Codes facilitam a transmissão de informações entre o mundo físico e digital, mas é fundamental verificar o destino codificado para evitar links maliciosos.",
+        "home": "Início",
+        "privacyPolicy": "Política de Privacidade",
+        "about": "Sobre",
+        "contact": "Contato"
       },
       "en": {
         "title": "QR Code Generator",
@@ -250,7 +254,11 @@
         "placeholder": "Enter text or URL",
         "button": "Generate QR Code",
         "back": "Back to Home Page",
-        "importance": "QR Codes bridge the physical and digital worlds, but it is essential to verify the encoded destination to avoid malicious links."
+        "importance": "QR Codes bridge the physical and digital worlds, but it is essential to verify the encoded destination to avoid malicious links.",
+        "home": "Home",
+        "privacyPolicy": "Privacy Policy",
+        "about": "About",
+        "contact": "Contact"
       },
       "es": {
         "title": "Generador de Código QR",
@@ -259,7 +267,11 @@
         "placeholder": "Ingrese texto o URL",
         "button": "Generar Código QR",
         "back": "Volver a la Página Principal",
-        "importance": "Los Códigos QR unen el mundo físico y digital, pero es fundamental verificar el destino codificado para evitar enlaces maliciosos."
+        "importance": "Los Códigos QR unen el mundo físico y digital, pero es fundamental verificar el destino codificado para evitar enlaces maliciosos.",
+        "home": "Inicio",
+        "privacyPolicy": "Política de Privacidad",
+        "about": "Sobre",
+        "contact": "Contacto"
       }
     };
 
