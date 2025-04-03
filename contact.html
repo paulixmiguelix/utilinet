@@ -10,7 +10,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
-    /* Barra de navegação superior para informações institucionais */
+    /* Barra de navegação superior para links essenciais */
     .top-nav {
       background: #333;
       padding: 10px;
@@ -43,6 +43,7 @@
     }
     h1, h2 {
       color: #333;
+      text-align: center;
     }
     p {
       color: #666;
@@ -88,6 +89,21 @@
     button:hover {
       background: #005bb5;
     }
+    .update-info {
+      font-size: 14px;
+      color: #777;
+      text-align: right;
+      margin-top: 10px;
+    }
+    .dynamic-tip {
+      background: #eef;
+      color: #444;
+      padding: 10px;
+      border-radius: 6px;
+      font-style: italic;
+      margin-top: 20px;
+      text-align: center;
+    }
     .footer {
       margin-top: 30px;
       font-size: 14px;
@@ -97,7 +113,7 @@
   </style>
 </head>
 <body>
-  <!-- Barra de navegação superior para informações institucionais -->
+  <!-- Barra de navegação superior -->
   <div class="top-nav">
     <a href="index.html" data-translate="home">Início</a>
     <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
@@ -107,8 +123,14 @@
   <div class="container">
     <h1 data-translate="header">Contato</h1>
     <p data-translate="contactContent">
-      Se você tiver dúvidas, sugestões ou comentários, por favor, entre em contato conosco preenchendo o formulário abaixo. Sua opinião é muito importante para nós!
+      Se você tiver dúvidas, sugestões ou comentários, preencha o formulário abaixo. Sua opinião é fundamental para aprimorarmos nossos serviços.
     </p>
+    
+    <!-- Informação de atualização dinâmica -->
+    <div class="update-info" id="updateInfo"></div>
+    
+    <!-- Dica dinâmica -->
+    <div class="dynamic-tip" id="dynamicTip"></div>
     
     <form id="contactForm">
       <label for="name" data-translate="nameLabel">Nome:</label>
@@ -137,7 +159,7 @@
         "home": "Início",
         "privacyPolicy": "Política de Privacidade",
         "about": "Sobre",
-        "contactContent": "Se você tiver dúvidas, sugestões ou comentários, por favor, entre em contato conosco preenchendo o formulário abaixo. Sua opinião é muito importante para nós!",
+        "contactContent": "Se você tiver dúvidas, sugestões ou comentários, preencha o formulário abaixo. Sua opinião é fundamental para aprimorarmos nossos serviços.",
         "nameLabel": "Nome:",
         "emailLabel": "E-mail:",
         "messageLabel": "Mensagem:",
@@ -149,7 +171,7 @@
         "home": "Home",
         "privacyPolicy": "Privacy Policy",
         "about": "About",
-        "contactContent": "If you have any questions, suggestions or comments, please contact us by filling out the form below. Your feedback is very important to us!",
+        "contactContent": "If you have any questions, suggestions, or comments, please fill out the form below. Your feedback is essential for improving our services.",
         "nameLabel": "Name:",
         "emailLabel": "Email:",
         "messageLabel": "Message:",
@@ -161,7 +183,7 @@
         "home": "Inicio",
         "privacyPolicy": "Política de Privacidad",
         "about": "Sobre",
-        "contactContent": "Si tienes dudas, sugerencias o comentarios, por favor contáctanos llenando el formulario a continuación. ¡Tu opinión es muy importante para nosotros!",
+        "contactContent": "Si tienes dudas, sugerencias o comentarios, por favor completa el siguiente formulario. ¡Tu opinión es muy importante para mejorar nuestros servicios!",
         "nameLabel": "Nombre:",
         "emailLabel": "Correo:",
         "messageLabel": "Mensaje:",
@@ -181,11 +203,48 @@
     
     document.addEventListener("DOMContentLoaded", translatePage);
     
+    // Atualiza dinamicamente a data de atualização
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
+    
+    // Dica dinâmica sobre contato (pode ser atualizada automaticamente ou sorteada de uma lista)
+    function setDynamicTip() {
+      const tips = {
+        "pt": [
+          "Dica: Responda ao formulário com clareza para que possamos ajudá-lo da melhor forma.",
+          "Dica: Inclua detalhes específicos em sua mensagem para agilizar o atendimento.",
+          "Dica: Seu feedback é essencial para melhorarmos nossos serviços."
+        ],
+        "en": [
+          "Tip: Provide clear information in the form so we can assist you effectively.",
+          "Tip: Include specific details in your message to speed up our response.",
+          "Tip: Your feedback is crucial for improving our services."
+        ],
+        "es": [
+          "Consejo: Proporcione información clara en el formulario para que podamos ayudarlo de manera efectiva.",
+          "Consejo: Incluya detalles específicos en su mensaje para agilizar la respuesta.",
+          "Consejo: Su opinión es esencial para mejorar nuestros servicios."
+        ]
+      };
+      const userLang = navigator.language.substr(0, 2);
+      const lang = tips[userLang] ? userLang : "pt";
+      const tipArray = tips[lang];
+      document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
+    }
+    
+    updateLastModified();
+    setDynamicTip();
+    
     // Manipulador de envio do formulário
     document.getElementById("contactForm").addEventListener("submit", function(event) {
       event.preventDefault();
       alert("Mensagem enviada! Em breve entraremos em contato.");
       this.reset();
+      updateLastModified();
+      setDynamicTip();
     });
   </script>
 </body>
