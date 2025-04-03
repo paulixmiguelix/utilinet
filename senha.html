@@ -34,6 +34,12 @@
       font-size: 16px;
       line-height: 1.5;
     }
+    .update-info {
+      font-size: 14px;
+      color: #777;
+      text-align: right;
+      margin-top: 10px;
+    }
     button {
       padding: 10px 20px;
       font-size: 16px;
@@ -54,7 +60,7 @@
       word-break: break-all;
       cursor: pointer;
     }
-    .reflection {
+    .reflection, .dynamic-tip {
       margin: 20px 0;
       font-style: italic;
       color: #444;
@@ -77,8 +83,14 @@
   <div class="container">
     <h1 data-translate="header">Gerador de Senhas</h1>
     
+    <!-- Última atualização dinâmica -->
+    <div class="update-info" id="updateInfo"></div>
+    
     <!-- Reflexão aleatória sobre segurança -->
     <p class="reflection" id="reflection"></p>
+    
+    <!-- Dica do Dia dinâmica -->
+    <p class="dynamic-tip" id="dynamicTip"></p>
     
     <!-- Texto explicativo sobre a importância de senhas seguras -->
     <p class="importance" data-translate="importance">
@@ -96,9 +108,7 @@
            data-ad-slot="7460995783"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
     
     <div class="footer">
@@ -107,6 +117,7 @@
   </div>
   
   <script>
+    // Função para gerar senha aleatória
     function generatePassword() {
       const length = 12;
       const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
@@ -117,6 +128,7 @@
       document.getElementById("passwordResult").innerText = password;
     }
 
+    // Função para copiar senha para a área de transferência
     function copyToClipboard() {
       const passwordElement = document.getElementById("passwordResult");
       if (passwordElement.innerText) {
@@ -126,7 +138,7 @@
       }
     }
     
-    // Reflexões sobre a importância da segurança e senhas fortes
+    // Reflexões sobre a segurança e senhas fortes
     const reflections = [
       "A segurança digital começa com senhas fortes: pense nelas como a primeira linha de defesa contra invasões.",
       "Cada caractere em uma senha segura é um tijolo na muralha que protege seus dados online.",
@@ -135,6 +147,38 @@
       "A criação de senhas robustas é uma arte e uma ciência. Não subestime o poder de uma combinação imprevisível."
     ];
     document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
+    
+    // Dicas dinâmicas (Dica do Dia)
+    const dynamicTips = {
+      "pt": [
+        "Dica: Atualize suas senhas regularmente para manter sua segurança em dia.",
+        "Dica: Use senhas diferentes para contas distintas e evite repeti-las.",
+        "Dica: Considere o uso de gerenciadores de senhas para armazenar suas credenciais com segurança."
+      ],
+      "en": [
+        "Tip: Update your passwords regularly to maintain your security.",
+        "Tip: Use different passwords for different accounts and avoid reusing them.",
+        "Tip: Consider using password managers to securely store your credentials."
+      ],
+      "es": [
+        "Consejo: Actualiza tus contraseñas regularmente para mantener tu seguridad.",
+        "Consejo: Utiliza contraseñas diferentes para cuentas distintas y evita reutilizarlas.",
+        "Consejo: Considera usar administradores de contraseñas para almacenar tus credenciales de forma segura."
+      ]
+    };
+    function setDynamicTip() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = dynamicTips[userLang] ? userLang : "pt";
+      const tipArray = dynamicTips[lang];
+      document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
+    }
+    
+    // Atualiza a data de última atualização automaticamente
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
     
     // Traduções multilíngues
     const translations = {
@@ -184,7 +228,11 @@
       }
     }
 
-    document.addEventListener("DOMContentLoaded", translatePage);
+    document.addEventListener("DOMContentLoaded", function() {
+      updateLastModified();
+      setDynamicTip();
+      translatePage();
+    });
   </script>
 </body>
 </html>
