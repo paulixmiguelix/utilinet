@@ -14,6 +14,22 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
+    /* Barra de navegação superior */
+    .top-nav {
+      background: #333;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
@@ -22,15 +38,43 @@
     }
     .container {
       max-width: 600px;
-      margin: auto;
+      margin: 20px auto 0;
       text-align: center;
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h1 {
+    h1, h2 {
       color: #333;
+    }
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .update-info {
+      font-size: 14px;
+      color: #777;
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    .dynamic-tip, .reflection {
+      margin: 20px 0;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .explanation {
+      margin: 20px 0;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
+      color: #555;
+      font-size: 15px;
     }
     input, button {
       padding: 10px;
@@ -46,37 +90,42 @@
       text-decoration: none;
       color: #007BFF;
     }
-    .reflection {
-      margin: 20px 0;
-      font-style: italic;
-      color: #444;
-      background: #eef;
-      padding: 10px;
-      border-radius: 6px;
+    .adsense {
+      margin-top: 30px;
+      text-align: center;
     }
-    .importance {
-      margin: 20px 0;
-      text-align: left;
-      background: #f0f8ff;
-      padding: 10px;
-      border-radius: 6px;
-      color: #555;
-      font-size: 16px;
-      line-height: 1.5;
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
     }
   </style>
 </head>
 <body>
+  <!-- Barra de navegação superior -->
+  <div class="top-nav">
+    <a href="index.html" data-translate="home">Início</a>
+    <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
+    <a href="about.html" data-translate="about">Sobre</a>
+    <a href="contact.html" data-translate="contact">Contato</a>
+  </div>
+  
   <div class="container">
+    <!-- Última atualização dinâmica -->
+    <div class="update-info" id="updateInfo"></div>
+    
     <h1 data-translate="header">Gerador de QR Code</h1>
     
-    <!-- Reflexão aleatória sobre segurança em QR Codes -->
+    <!-- Dica do Dia dinâmica -->
+    <p class="dynamic-tip" id="dynamicTip"></p>
+    
+    <!-- Reflexão aleatória -->
     <p class="reflection" id="reflection"></p>
     
-    <!-- Texto explicativo sobre a importância dos QR Codes -->
-    <p class="importance" data-translate="importance">
-      Os QR Codes facilitam a transmissão de informações entre o mundo físico e digital, mas é fundamental verificar o destino codificado para evitar links maliciosos.
-    </p>
+    <!-- Explicação extra sobre QR Code -->
+    <div class="explanation" id="explanation"></div>
+    
+    <p data-translate="description">Codifique informações em QR Code de forma rápida e segura!</p>
     
     <input type="text" id="textInput" placeholder="" data-translate-placeholder="placeholder">
     <br>
@@ -84,53 +133,23 @@
     <div id="qrcode"></div>
     <br>
     <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+    
+    <div class="adsense">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
+    </div>
   </div>
   
   <script>
-    // Traduções multilíngues
-    const translations = {
-      "pt": {
-        "title": "Gerador de QR Code",
-        "header": "Gerador de QR Code",
-        "placeholder": "Digite o texto ou URL",
-        "button": "Gerar QR Code",
-        "back": "Voltar para Página Inicial",
-        "importance": "Os QR Codes facilitam a transmissão de informações entre o mundo físico e digital, mas é fundamental verificar o destino codificado para evitar links maliciosos."
-      },
-      "en": {
-        "title": "QR Code Generator",
-        "header": "QR Code Generator",
-        "placeholder": "Enter text or URL",
-        "button": "Generate QR Code",
-        "back": "Back to Home Page",
-        "importance": "QR Codes bridge the physical and digital worlds, but it is essential to verify the encoded destination to avoid malicious links."
-      },
-      "es": {
-        "title": "Generador de Código QR",
-        "header": "Generador de Código QR",
-        "placeholder": "Ingrese texto o URL",
-        "button": "Generar Código QR",
-        "back": "Volver a la Página Principal",
-        "importance": "Los Códigos QR unen el mundo físico y digital, pero es fundamental verificar el destino codificado para evitar enlaces maliciosos."
-      }
-    };
-
-    // Função para tradução da página
-    function translatePage() {
-      const userLang = navigator.language.substr(0, 2);
-      const lang = translations[userLang] ? userLang : "pt";
-
-      document.querySelectorAll("[data-translate]").forEach(el => {
-        const key = el.getAttribute("data-translate");
-        el.innerText = translations[lang][key];
-      });
-      document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
-        const key = el.getAttribute("data-translate-placeholder");
-        el.setAttribute("placeholder", translations[lang][key]);
-      });
-      document.title = translations[lang]["title"];
-    }
-    
     // Função para gerar o QR Code
     function generateQRCode() {
       const text = document.getElementById("textInput").value;
@@ -147,7 +166,51 @@
       });
     }
     
-    // Reflexões aleatórias sobre a segurança dos QR Codes em cada idioma
+    // Atualiza dinamicamente a data de última atualização
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
+    
+    // Dica dinâmica (Dica do Dia) para QR Code
+    const dynamicTips = {
+      "pt": [
+        "Dica: Sempre verifique o destino do QR Code para garantir que ele seja seguro.",
+        "Dica: Utilize QR Codes para conectar o mundo físico ao digital de forma prática.",
+        "Dica: Teste seus QR Codes antes de usá-los para evitar links maliciosos."
+      ],
+      "en": [
+        "Tip: Always verify the QR Code destination to ensure it is secure.",
+        "Tip: Use QR Codes to connect the physical and digital worlds effectively.",
+        "Tip: Test your QR Codes before use to avoid malicious links."
+      ],
+      "es": [
+        "Consejo: Verifica siempre el destino del Código QR para asegurarte de que sea seguro.",
+        "Consejo: Utiliza Códigos QR para conectar eficazmente el mundo físico con el digital.",
+        "Consejo: Prueba tus Códigos QR antes de usarlos para evitar enlaces maliciosos."
+      ]
+    };
+    function setDynamicTip() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = dynamicTips[userLang] ? userLang : "pt";
+      const tipArray = dynamicTips[lang];
+      document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
+    }
+    
+    // Define explicação extra sobre QR Code
+    const explanationTexts = {
+      "pt": "Os QR Codes são códigos de barras bidimensionais que armazenam informações em formato digital. Eles permitem que dados, como URLs ou textos, sejam rapidamente acessados por meio de dispositivos móveis. É importante validar o destino para evitar links maliciosos.",
+      "en": "QR Codes are two-dimensional barcodes that store information in a digital format. They allow data, such as URLs or text, to be quickly accessed using mobile devices. It's important to verify the destination to avoid malicious links.",
+      "es": "Los Códigos QR son códigos de barras bidimensionales que almacenan información en formato digital. Permiten acceder rápidamente a datos, como URLs o texto, mediante dispositivos móviles. Es importante verificar el destino para evitar enlaces maliciosos."
+    };
+    function setExplanation() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = explanationTexts[userLang] ? userLang : "pt";
+      document.getElementById("explanation").innerText = explanationTexts[lang];
+    }
+    
+    // Reflexões sobre QR Codes
     const reflections = {
       "pt": [
         "Verifique sempre o destino do QR Code para garantir que ele seja seguro.",
@@ -162,8 +225,6 @@
         "Los Códigos QR unen el mundo físico y digital; la precaución evita sorpresas no deseadas."
       ]
     };
-
-    // Define a reflexão aleatória baseada no idioma
     function setReflection() {
       const userLang = navigator.language.substr(0, 2);
       const lang = reflections[userLang] ? userLang : "pt";
@@ -171,9 +232,70 @@
       document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
     }
     
-    document.addEventListener("DOMContentLoaded", () => {
-      translatePage();
+    // Traduções multilíngues
+    const translations = {
+      "pt": {
+        "title": "Gerador de QR Code",
+        "header": "Gerador de QR Code",
+        "description": "Codifique informações em QR Code de forma rápida e segura!",
+        "placeholder": "Digite o texto ou URL",
+        "button": "Gerar QR Code",
+        "back": "Voltar para Página Inicial",
+        "importance": "Os QR Codes facilitam a transmissão de informações entre o mundo físico e digital, mas é fundamental verificar o destino codificado para evitar links maliciosos."
+      },
+      "en": {
+        "title": "QR Code Generator",
+        "header": "QR Code Generator",
+        "description": "Encode information into a QR Code quickly and securely!",
+        "placeholder": "Enter text or URL",
+        "button": "Generate QR Code",
+        "back": "Back to Home Page",
+        "importance": "QR Codes bridge the physical and digital worlds, but it is essential to verify the encoded destination to avoid malicious links."
+      },
+      "es": {
+        "title": "Generador de Código QR",
+        "header": "Generador de Código QR",
+        "description": "¡Codifica información en un Código QR de forma rápida y segura!",
+        "placeholder": "Ingrese texto o URL",
+        "button": "Generar Código QR",
+        "back": "Volver a la Página Principal",
+        "importance": "Los Códigos QR unen el mundo físico y digital, pero es fundamental verificar el destino codificado para evitar enlaces maliciosos."
+      }
+    };
+
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-translate-placeholder");
+        el.setAttribute("placeholder", translations[lang][key]);
+      });
+      document.title = translations[lang]["title"];
+      
+      // Atualiza meta description e keywords se necessário
+      if (lang !== "pt") {
+        const metaDesc = document.querySelector("meta[name='description']");
+        const metaKeywords = document.querySelector("meta[name='keywords']");
+        if (lang === "en") {
+          metaDesc.setAttribute("content", "Encode information into a QR Code quickly and securely!");
+          metaKeywords.setAttribute("content", "qr code, qr code generator, online tool, encode information");
+        } else if (lang === "es") {
+          metaDesc.setAttribute("content", "¡Codifica información en un Código QR de forma rápida y segura!");
+          metaKeywords.setAttribute("content", "código qr, generador de código qr, herramienta online, codificar información");
+        }
+      }
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      updateLastModified();
+      setDynamicTip();
+      setExplanation();
       setReflection();
+      translatePage();
     });
   </script>
 </body>
