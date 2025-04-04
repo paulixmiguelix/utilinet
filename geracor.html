@@ -10,6 +10,7 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
+  <!-- Estilo -->
   <style>
     /* Barra de navegação superior */
     .top-nav {
@@ -131,7 +132,7 @@
   </div>
   
   <div class="container">
-    <!-- (Opcional) Atualização dinâmica -->
+    <!-- Atualização dinâmica -->
     <div class="update-info" id="updateInfo"></div>
     
     <h1 data-translate="header">Gerador de Cores Aleatórias</h1>
@@ -142,7 +143,7 @@
     <!-- Reflexão aleatória -->
     <p class="reflection" id="reflection"></p>
     
-    <!-- Explicação extra sobre cores -->
+    <!-- Explicação extra -->
     <div class="explanation" id="explanation"></div>
     
     <button onclick="generateColor()" data-translate="button">Gerar Cor</button>
@@ -153,7 +154,7 @@
     <button onclick="copyColorCode()" data-translate="copyCode">Copiar Código</button>
     <button onclick="generateComplementaryColor()" data-translate="complementary">Cor Complementar</button>
     <div class="result" id="complementaryResult"></div>
-    <div class="color-box" id="complementaryBox"></div>
+    <div class="complementary-box" id="complementaryBox"></div>
     
     <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
     
@@ -173,7 +174,7 @@
   </div>
   
   <script>
-    // Atualiza a data de última atualização (opcional)
+    // Atualiza a data de última atualização
     function updateLastModified() {
       const updateInfo = document.getElementById("updateInfo");
       const now = new Date();
@@ -205,11 +206,11 @@
       document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
     }
     
-    // Explicação extra sobre cores
+    // Explicação extra sobre o gerador de cores
     const explanationTexts = {
       "pt": "Este gerador cria uma cor aleatória e exibe seu código hexadecimal. Além disso, você pode copiar o código ou gerar a cor complementar, que é a cor oposta no círculo cromático, ideal para criar contrastes harmoniosos.",
-      "en": "This generator creates a random color and displays its hexadecimal code. Additionally, you can copy the code or generate the complementary color, which is the opposite color on the color wheel, ideal for creating harmonious contrasts.",
-      "es": "Este generador crea un color aleatorio y muestra su código hexadecimal. Además, puedes copiar el código o generar el color complementario, que es el color opuesto en el círculo cromático, ideal para crear contrastes armoniosos."
+      "en": "This generator creates a random color and displays its hexadecimal code. You can also copy the code or generate the complementary color, which is the opposite color on the color wheel, ideal for creating harmonious contrasts.",
+      "es": "Este generador crea un color aleatorio y muestra su código hexadecimal. También puedes copiar el código o generar el color complementario, que es el color opuesto en el círculo cromático, ideal para crear contrastes armoniosos."
     };
     function setExplanation() {
       const userLang = navigator.language.substr(0, 2);
@@ -225,7 +226,7 @@
       const resultText = translations[lang]["resultText"];
       document.getElementById("colorResult").innerText = resultText + randomColor;
       document.getElementById("colorBox").style.backgroundColor = randomColor;
-      // Armazena a cor atual para uso na geração complementar
+      // Armazena a cor atual para gerar a cor complementar
       window.currentColor = randomColor;
     }
     
@@ -245,20 +246,14 @@
         alert("Por favor, gere uma cor primeiro.");
         return;
       }
-      // Converte o hexadecimal para RGB
       const hex = window.currentColor.substring(1);
       const r = parseInt(hex.substring(0,2), 16);
       const g = parseInt(hex.substring(2,4), 16);
       const b = parseInt(hex.substring(4,6), 16);
-      // Calcula a cor complementar invertendo cada componente (255 - componente)
       const compR = 255 - r;
       const compG = 255 - g;
       const compB = 255 - b;
-      // Converte o resultado para hexadecimal
       const compHex = "#" + [compR, compG, compB].map(c => c.toString(16).padStart(2, '0')).join('');
-      const userLang = navigator.language.substr(0, 2);
-      const lang = translations[userLang] ? userLang : "pt";
-      const resultText = translations[lang]["resultText"];
       document.getElementById("complementaryResult").innerText = "Cor complementar: " + compHex;
       document.getElementById("complementaryBox").style.backgroundColor = compHex;
     }
@@ -290,21 +285,23 @@
       "pt": {
         "title": "Gerador de Cores Aleatórias",
         "header": "Gerador de Cores Aleatórias",
-        "description": "Codifique informações em QR Code de forma rápida e segura!",
+        "description": "Gerador de cores aleatórias para inspirar seus designs e criações.",
         "placeholder": "Digite o texto ou URL",
-        "button": "Gerar QR Code",
+        "button": "Gerar Cor",
         "back": "Voltar para Página Inicial",
         "resultText": "Código da cor: ",
         "importance": "As cores podem influenciar emoções e percepções. Use as cores geradas como inspiração para criar designs únicos e expressar sua criatividade.",
         "home": "Início",
         "privacyPolicy": "Política de Privacidade",
         "about": "Sobre",
-        "contact": "Contato"
+        "contact": "Contato",
+        "copyCode": "Copiar Código",
+        "complementary": "Cor Complementar"
       },
       "en": {
         "title": "Random Color Generator",
         "header": "Random Color Generator",
-        "description": "Generate random colors to inspire your designs and creations.",
+        "description": "Random color generator to inspire your designs and creations.",
         "placeholder": "Enter text or URL",
         "button": "Generate Color",
         "back": "Back to Home Page",
@@ -313,12 +310,14 @@
         "home": "Home",
         "privacyPolicy": "Privacy Policy",
         "about": "About",
-        "contact": "Contact"
+        "contact": "Contact",
+        "copyCode": "Copy Code",
+        "complementary": "Complementary Color"
       },
       "es": {
         "title": "Generador de Colores Aleatorios",
         "header": "Generador de Colores Aleatorios",
-        "description": "Genera colores aleatorios para inspirar tus diseños y creaciones.",
+        "description": "Generador de colores aleatorios para inspirar tus diseños y creaciones.",
         "placeholder": "Ingrese texto o URL",
         "button": "Generar Color",
         "back": "Volver a la Página Principal",
@@ -327,7 +326,9 @@
         "home": "Inicio",
         "privacyPolicy": "Política de Privacidad",
         "about": "Sobre",
-        "contact": "Contacto"
+        "contact": "Contacto",
+        "copyCode": "Copiar Código",
+        "complementary": "Color Complementario"
       }
     };
 
@@ -344,15 +345,15 @@
       });
       document.title = translations[lang]["title"];
       
-      // Atualiza meta description e keywords conforme o idioma
+      // Atualiza meta description e keywords se necessário
       if (lang !== "pt") {
         const metaDesc = document.querySelector("meta[name='description']");
         const metaKeywords = document.querySelector("meta[name='keywords']");
         if (lang === "en") {
-          metaDesc.setAttribute("content", "Generate random colors to inspire your designs and creations.");
+          metaDesc.setAttribute("content", "Random color generator to inspire your designs and creations.");
           metaKeywords.setAttribute("content", "random color generator, color inspiration, online tool, design");
         } else if (lang === "es") {
-          metaDesc.setAttribute("content", "Genera colores aleatorios para inspirar tus diseños y creaciones.");
+          metaDesc.setAttribute("content", "Generador de colores aleatorios para inspirar tus diseños y creaciones.");
           metaKeywords.setAttribute("content", "generador de colores aleatorios, inspiración de colores, herramienta online, diseño");
         }
       }
