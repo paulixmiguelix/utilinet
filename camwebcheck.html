@@ -11,6 +11,22 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
+    /* Barra de navegação superior */
+    .top-nav {
+      background: #333;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
@@ -20,13 +36,13 @@
     .container {
       max-width: 900px;
       margin: auto;
-      text-align: center;
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
     }
-    h1 {
+    h1, h2 {
       color: #333;
     }
     p {
@@ -34,7 +50,13 @@
       font-size: 16px;
       line-height: 1.5;
     }
-    .reflection {
+    .update-info {
+      font-size: 14px;
+      color: #777;
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    .dynamic-tip, .reflection {
       margin: 20px 0;
       font-style: italic;
       color: #444;
@@ -49,23 +71,6 @@
       padding: 10px;
       border-radius: 6px;
       color: #555;
-    }
-    .buttons-group {
-      margin-top: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin: 5px;
-      cursor: pointer;
-      background: #0073e6;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #005bb5;
     }
     video {
       width: 100%;
@@ -86,17 +91,57 @@
       margin: 10px auto;
       display: block;
     }
+    .buttons-group {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+      background: #0073e6;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #005bb5;
+    }
     a {
       display: inline-block;
       margin-top: 20px;
       text-decoration: none;
       color: #007BFF;
     }
+    .adsense {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
   </style>
 </head>
 <body>
+  <!-- Barra de navegação superior -->
+  <div class="top-nav">
+    <a href="index.html" data-translate="home">Início</a>
+    <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
+    <a href="about.html" data-translate="about">Sobre</a>
+    <a href="contact.html" data-translate="contact">Contato</a>
+  </div>
+  
   <div class="container">
+    <!-- Última atualização dinâmica -->
+    <div class="update-info" id="updateInfo"></div>
+    
     <h1 data-translate="header">Teste de Microfone e Webcam</h1>
+    
+    <!-- Dica do Dia dinâmica -->
+    <p class="dynamic-tip" id="dynamicTip"></p>
     
     <!-- Reflexão aleatória -->
     <p class="reflection" id="reflection"></p>
@@ -119,10 +164,24 @@
     
     <br>
     <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+    
+    <div class="adsense">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
+    </div>
   </div>
   
   <script>
-    // Traduções multilíngues
+    // Objeto de traduções unificado para evitar undefined
     const translations = {
       "pt": {
         "title": "Teste de Microfone e Webcam",
@@ -133,10 +192,14 @@
         "webcamLabel": "Webcam",
         "microphoneLabel": "Microfone",
         "back": "Voltar para Página Inicial",
+        "home": "Início",
+        "privacyPolicy": "Política de Privacidade",
+        "about": "Sobre",
+        "contact": "Contato",
         "reflection": [
-          "Verifique seus dispositivos para uma comunicação digital sem falhas.",
-          "Testar seu microfone e webcam é o primeiro passo para uma reunião online de sucesso.",
-          "Dispositivos funcionando bem garantem interações virtuais de qualidade."
+          "Utilize dispositivos de qualidade para uma comunicação sem falhas.",
+          "Teste seu microfone e webcam antes de reuniões importantes.",
+          "Dispositivos funcionando corretamente garantem interações virtuais de qualidade."
         ]
       },
       "en": {
@@ -148,9 +211,13 @@
         "webcamLabel": "Webcam",
         "microphoneLabel": "Microphone",
         "back": "Back to Home Page",
+        "home": "Home",
+        "privacyPolicy": "Privacy Policy",
+        "about": "About",
+        "contact": "Contact",
         "reflection": [
-          "Check your devices for seamless digital communication.",
-          "Testing your microphone and webcam is the first step to a successful online meeting.",
+          "Check your devices for seamless communication.",
+          "Test your microphone and webcam before important meetings.",
           "Properly functioning devices ensure quality virtual interactions."
         ]
       },
@@ -163,31 +230,46 @@
         "webcamLabel": "Webcam",
         "microphoneLabel": "Micrófono",
         "back": "Volver a la Página Principal",
+        "home": "Inicio",
+        "privacyPolicy": "Política de Privacidad",
+        "about": "Sobre",
+        "contact": "Contacto",
         "reflection": [
-          "Verifica tus dispositivos para una comunicación digital sin interrupciones.",
-          "Probar tu micrófono y webcam es el primer paso para una reunión online exitosa.",
+          "Verifica tus dispositivos para una comunicación sin interrupciones.",
+          "Prueba tu micrófono y webcam antes de reuniones importantes.",
           "Dispositivos que funcionan correctamente aseguran interacciones virtuales de calidad."
         ]
       }
     };
 
+    // Função para tradução da página
     function translatePage() {
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
-      
       document.querySelectorAll("[data-translate]").forEach(el => {
         const key = el.getAttribute("data-translate");
         el.innerText = translations[lang][key];
       });
+      document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-translate-placeholder");
+        el.setAttribute("placeholder", translations[lang][key]);
+      });
       document.title = translations[lang]["title"];
       
-      // Atualiza o texto explicativo de importância
+      // Atualiza o texto de importância
       document.querySelectorAll("[data-translate='importanceText']").forEach(el => {
         el.innerText = translations[lang]["importanceText"];
       });
     }
-
-    // Define a reflexão aleatória
+    
+    // Atualiza data de última atualização
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
+    
+    // Define reflexão aleatória
     function setReflection() {
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
@@ -195,6 +277,36 @@
       document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
     }
     
+    // Dica dinâmica (pode ser adicionada se desejar)
+    const dynamicTips = {
+      "pt": [
+        "Tip: Mantenha seus dispositivos atualizados para melhor desempenho.",
+        "Tip: Ajuste seu microfone para evitar ruídos indesejados.",
+        "Tip: Teste sua webcam em ambientes com boa iluminação."
+      ],
+      "en": [
+        "Tip: Keep your devices updated for optimal performance.",
+        "Tip: Adjust your microphone to avoid unwanted noise.",
+        "Tip: Test your webcam in well-lit environments."
+      ],
+      "es": [
+        "Consejo: Mantén tus dispositivos actualizados para un rendimiento óptimo.",
+        "Consejo: Ajusta tu micrófono para evitar ruidos no deseados.",
+        "Consejo: Prueba tu webcam en entornos con buena iluminación."
+      ]
+    };
+    function setDynamicTip() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = dynamicTips[userLang] ? userLang : "pt";
+      const tipArray = dynamicTips[lang];
+      // Exibindo a dica no final da seção de importância
+      const tip = tipArray[Math.floor(Math.random() * tipArray.length)];
+      // Se desejar, concatene essa dica à importância
+      const importanceEl = document.querySelector("[data-translate='importanceText']");
+      importanceEl.innerText += "\n\n" + tip;
+    }
+    
+    // Funções de acesso à mídia (microfone e webcam)
     let mediaStream = null;
     let audioContext = null;
     let analyser = null;
@@ -208,7 +320,6 @@
             // Configura a webcam
             const videoElement = document.getElementById("webcamVideo");
             videoElement.srcObject = stream;
-            
             // Configura o microfone
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const source = audioContext.createMediaStreamSource(stream);
@@ -254,9 +365,7 @@
           sum += dataArray[i];
         }
         const avg = sum / bufferLength;
-        // Limpa o canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // Desenha uma barra representando o nível do microfone
         const barWidth = canvas.width;
         const barHeight = (avg / 255) * canvas.height;
         ctx.fillStyle = "#28a745";
@@ -265,10 +374,60 @@
       draw();
     }
     
-    document.addEventListener("DOMContentLoaded", () => {
+    // Eventos para tradução, reflexão e dinâmicas
+    document.addEventListener("DOMContentLoaded", function() {
+      updateLastModified();
+      setDynamicTip();
       translatePage();
       setReflection();
+      document.addEventListener("keydown", handleKeyDown);
     });
+    
+    // Tradução e registro de teclas (não interfere no teste de microfone/webcam, mas mantive se for necessário)
+    function handleKeyDown(event) {
+      // Este código pode ser removido se não for necessário para o teste de microfone/webcam
+    }
+    
+    // Função para limpar log (não utilizada, pois o teste de microfone/webcam não possui log de teclas)
+    
+    // Funções de tradução (já implementadas acima)
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-translate-placeholder");
+        el.setAttribute("placeholder", translations[lang][key]);
+      });
+      document.title = translations[lang]["title"];
+      
+      // Atualiza meta description e keywords conforme o idioma
+      if(lang !== "pt") {
+        const metaDesc = document.querySelector("meta[name='description']");
+        const metaKeywords = document.querySelector("meta[name='keywords']");
+        if(lang === "en") {
+          metaDesc.setAttribute("content", "Test your microphone and webcam to ensure smooth online communication.");
+          metaKeywords.setAttribute("content", "microphone test, webcam test, online tool, getUserMedia");
+        } else if(lang === "es") {
+          metaDesc.setAttribute("content", "Prueba tu micrófono y webcam para garantizar una comunicación en línea fluida.");
+          metaKeywords.setAttribute("content", "prueba de micrófono, prueba de webcam, herramienta online, getUserMedia");
+        }
+      }
+    }
   </script>
+  
+  <!-- Elementos de teste para microfone -->
+  <video id="webcamVideo" autoplay playsinline></video>
+  <canvas id="micCanvas"></canvas>
+  
+  <!-- Botões para iniciar e parar teste -->
+  <div class="buttons-group">
+    <button onclick="startTest()" data-translate="startTest">Iniciar Teste</button>
+    <button onclick="stopTest()" data-translate="stopTest">Parar Teste</button>
+  </div>
+  
 </body>
 </html>
