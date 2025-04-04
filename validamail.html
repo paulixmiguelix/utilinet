@@ -11,6 +11,22 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
+    /* Barra de navegação superior */
+    .top-nav {
+      background: #333;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
@@ -20,14 +36,42 @@
     .container {
       max-width: 600px;
       margin: auto;
-      text-align: center;
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
     }
-    h1 {
+    h1, h2 {
       color: #333;
+    }
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .update-info {
+      font-size: 14px;
+      color: #777;
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    .dynamic-tip, .reflection {
+      margin: 20px 0;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .explanation {
+      margin: 20px 0;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
+      color: #555;
+      font-size: 15px;
     }
     input, button {
       padding: 10px;
@@ -46,28 +90,13 @@
     button:hover {
       background: #005bb5;
     }
+    .buttons-group {
+      margin-top: 10px;
+    }
     .result {
       margin-top: 20px;
       font-size: 18px;
-    }
-    .reflection, .importance {
-      margin: 20px 0;
-      padding: 10px;
-      border-radius: 6px;
-    }
-    .reflection {
-      font-style: italic;
-      background: #eef;
-      color: #444;
-    }
-    .importance {
-      text-align: left;
-      background: #f0f8ff;
-      color: #555;
-      line-height: 1.5;
-    }
-    .buttons-group {
-      margin-top: 10px;
+      font-weight: bold;
     }
     a {
       display: inline-block;
@@ -75,17 +104,40 @@
       text-decoration: none;
       color: #007BFF;
     }
+    .adsense {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
   </style>
 </head>
 <body>
+  <!-- Barra de navegação superior -->
+  <div class="top-nav">
+    <a href="index.html" data-translate="home">Início</a>
+    <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
+    <a href="about.html" data-translate="about">Sobre</a>
+    <a href="contact.html" data-translate="contact">Contato</a>
+  </div>
+  
   <div class="container">
+    <!-- Atualização dinâmica -->
+    <div class="update-info" id="updateInfo"></div>
+    
     <h1 data-translate="header">Validador de E-mail</h1>
+    
+    <!-- Dica do Dia dinâmica -->
+    <p class="dynamic-tip" id="dynamicTip"></p>
     
     <!-- Reflexão aleatória -->
     <p class="reflection" id="reflection"></p>
     
-    <!-- Texto explicativo sobre a importância da validação de e-mails -->
-    <p class="importance" data-translate="importanceText"></p>
+    <!-- Explicação extra sobre a importância da validação de e-mails -->
+    <div class="explanation" id="explanation"></div>
     
     <input type="text" id="emailInput" placeholder="" data-translate-placeholder="placeholder">
     <br>
@@ -98,10 +150,109 @@
     
     <br>
     <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+    
+    <div class="adsense">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
+    </div>
   </div>
   
   <script>
-    // Traduções para PT, EN e ES com novas funcionalidades
+    // Atualiza a data de última atualização
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
+    
+    // Dica dinâmica (Dica do Dia) para validação de e-mails
+    const dynamicTips = {
+      "pt": [
+        "Dica: Utilize um e-mail pessoal confiável para suas comunicações.",
+        "Dica: Verifique sempre a formatação do seu e-mail para evitar erros.",
+        "Dica: Evite e-mails descartáveis para garantir a segurança das suas informações."
+      ],
+      "en": [
+        "Tip: Use a reliable personal email for your communications.",
+        "Tip: Always check your email format to avoid errors.",
+        "Tip: Avoid disposable emails to ensure the security of your information."
+      ],
+      "es": [
+        "Consejo: Utiliza un correo personal confiable para tus comunicaciones.",
+        "Consejo: Verifica siempre el formato de tu correo para evitar errores.",
+        "Consejo: Evita correos desechables para garantizar la seguridad de tu información."
+      ]
+    };
+    function setDynamicTip() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = dynamicTips[userLang] ? userLang : "pt";
+      const tipArray = dynamicTips[lang];
+      document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
+    }
+    
+    // Explicação extra sobre a validação de e-mails
+    const explanationTexts = {
+      "pt": "A validação de e-mails ajuda a garantir que as comunicações sejam enviadas para endereços corretos e confiáveis, evitando fraudes e melhorando a segurança online.",
+      "en": "Email validation helps ensure that communications are sent to correct and reliable addresses, preventing fraud and enhancing online security.",
+      "es": "La validación de correos ayuda a garantizar que las comunicaciones se envíen a direcciones correctas y confiables, evitando fraudes y mejorando la seguridad en línea."
+    };
+    function setExplanation() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = explanationTexts[userLang] ? userLang : "pt";
+      document.getElementById("explanation").innerText = explanationTexts[lang];
+    }
+    
+    // Função para validar o e-mail e verificar se é descartável
+    function validateEmail() {
+      const email = document.getElementById("emailInput").value;
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const resultEl = document.getElementById("emailResult");
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      
+      if (regex.test(email)) {
+        // Verifica se o e-mail é descartável
+        const disposableDomains = ["mailinator.com", "tempmail.com", "10minutemail.com", "guerrillamail.com", "dispostable.com"];
+        const domain = email.split("@")[1]?.toLowerCase();
+        if (disposableDomains.includes(domain)) {
+          resultEl.innerText = translations[lang]["disposable"];
+          resultEl.style.color = "#dc3545";
+        } else {
+          resultEl.innerText = translations[lang]["valid"];
+          resultEl.style.color = "#28a745";
+        }
+      } else {
+        resultEl.innerText = translations[lang]["invalid"];
+        resultEl.style.color = "#dc3545";
+      }
+    }
+    
+    // Função para limpar o campo de entrada e o resultado
+    function clearInput() {
+      document.getElementById("emailInput").value = "";
+      document.getElementById("emailResult").innerText = "";
+    }
+    
+    // Função para copiar o resultado para a área de transferência
+    function copyResult() {
+      const resultEl = document.getElementById("emailResult");
+      if(resultEl.innerText) {
+        navigator.clipboard.writeText(resultEl.innerText).then(() => {
+          alert("Resultado copiado!");
+        });
+      }
+    }
+    
+    // Traduções multilíngues unificadas
     const translations = {
       "pt": {
         "title": "Validador de E-mail",
@@ -115,6 +266,10 @@
         "disposable": "E-mail válido, porém este parece ser um e-mail descartável. Considere utilizar um endereço permanente.",
         "importanceText": "A validação de e-mails é fundamental para garantir comunicações seguras e confiáveis. Verifique sempre a formatação e evite e-mails descartáveis.",
         "back": "Voltar para Página Inicial",
+        "home": "Início",
+        "privacyPolicy": "Política de Privacidade",
+        "about": "Sobre",
+        "contact": "Contato",
         "reflection": [
           "Utilize um e-mail confiável para proteger suas informações pessoais.",
           "E-mails válidos são essenciais para uma comunicação online segura.",
@@ -133,6 +288,10 @@
         "disposable": "Valid email, but it appears to be disposable. Consider using a permanent email address for better security.",
         "importanceText": "Email validation is crucial for ensuring secure and reliable online communications. Always check the format and avoid disposable emails.",
         "back": "Back to Home Page",
+        "home": "Home",
+        "privacyPolicy": "Privacy Policy",
+        "about": "About",
+        "contact": "Contact",
         "reflection": [
           "Use a reliable email to safeguard your personal information.",
           "Valid emails are essential for secure online communication.",
@@ -151,6 +310,10 @@
         "disposable": "Correo válido, pero parece ser desechable. Considere usar una dirección de correo permanente para mayor seguridad.",
         "importanceText": "La validación de correos es fundamental para garantizar comunicaciones en línea seguras y confiables. Siempre verifique el formato y evite correos desechables.",
         "back": "Volver a la Página Principal",
+        "home": "Inicio",
+        "privacyPolicy": "Política de Privacidad",
+        "about": "Sobre",
+        "contact": "Contacto",
         "reflection": [
           "Utilice un correo confiable para proteger su información personal.",
           "Los correos válidos son esenciales para una comunicación segura en línea.",
@@ -159,11 +322,9 @@
       }
     };
 
-    // Função de tradução
     function translatePage() {
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
-      
       document.querySelectorAll("[data-translate]").forEach(el => {
         const key = el.getAttribute("data-translate");
         el.innerText = translations[lang][key];
@@ -174,64 +335,26 @@
       });
       document.title = translations[lang]["title"];
       
-      // Atualiza o texto explicativo de importância
-      document.querySelectorAll("[data-translate='importanceText']").forEach(el => {
-        el.innerText = translations[lang]["importanceText"];
-      });
-    }
-
-    // Função para definir a reflexão aleatória
-    function setReflection() {
-      const userLang = navigator.language.substr(0, 2);
-      const lang = translations[userLang] ? userLang : "pt";
-      const reflectionArray = translations[lang]["reflection"];
-      document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
-    }
-
-    // Função para validar o e-mail e verificar se é descartável
-    function validateEmail() {
-      const email = document.getElementById("emailInput").value;
-      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const resultEl = document.getElementById("emailResult");
-      const userLang = navigator.language.substr(0, 2);
-      const lang = translations[userLang] ? userLang : "pt";
-      
-      if (regex.test(email)) {
-        // Verifica se o e-mail é descartável
-        const disposableDomains = ["mailinator.com", "tempmail.com", "10minutemail.com", "guerrillamail.com", "dispostable.com"];
-        const domain = email.split("@")[1]?.toLowerCase();
-        if (disposableDomains.includes(domain)) {
-          resultEl.innerText = translations[lang]["disposable"];
-          resultEl.style.color = "#dc3545"; // Cor de alerta
-        } else {
-          resultEl.innerText = translations[lang]["valid"];
-          resultEl.style.color = "#28a745"; // Cor de sucesso
+      // Atualiza meta description e keywords conforme o idioma
+      if(lang !== "pt") {
+        const metaDesc = document.querySelector("meta[name='description']");
+        const metaKeywords = document.querySelector("meta[name='keywords']");
+        if(lang === "en") {
+          metaDesc.setAttribute("content", "Validate your email to ensure secure and reliable online communications.");
+          metaKeywords.setAttribute("content", "email validator, secure email, validate email, online tool");
+        } else if(lang === "es") {
+          metaDesc.setAttribute("content", "Valida tu correo para garantizar comunicaciones en línea seguras y confiables.");
+          metaKeywords.setAttribute("content", "validador de correo, correo seguro, validar correo, herramienta online");
         }
-      } else {
-        resultEl.innerText = translations[lang]["invalid"];
-        resultEl.style.color = "#dc3545";
       }
     }
-
-    // Função para limpar o campo de entrada e o resultado
-    function clearInput() {
-      document.getElementById("emailInput").value = "";
-      document.getElementById("emailResult").innerText = "";
-    }
-
-    // Função para copiar o resultado para a área de transferência
-    function copyResult() {
-      const resultEl = document.getElementById("emailResult");
-      if(resultEl.innerText) {
-        navigator.clipboard.writeText(resultEl.innerText).then(() => {
-          alert("Resultado copiado!");
-        });
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      translatePage();
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      updateLastModified();
+      setDynamicTip();
+      setExplanation();
       setReflection();
+      translatePage();
     });
   </script>
 </body>
