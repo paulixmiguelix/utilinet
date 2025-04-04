@@ -4,12 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Converta pixels e dimensões para outras unidades de medida, considerando a resolução (DPI).">
+  <meta name="keywords" content="conversor de pixels, conversor de dimensões, DPI, ferramenta online">
   <title data-translate="title">Conversor de Pixeis e Dimensões</title>
   
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
+    /* Barra de navegação superior */
+    .top-nav {
+      background: #333;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
@@ -19,11 +36,11 @@
     .container {
       max-width: 800px;
       margin: auto;
-      text-align: center;
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
     }
     h1, h2 {
       color: #333;
@@ -31,6 +48,29 @@
     p {
       color: #666;
       font-size: 16px;
+      line-height: 1.5;
+    }
+    .update-info {
+      font-size: 14px;
+      color: #777;
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    .reflection {
+      margin: 20px 0;
+      font-style: italic;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .explanation {
+      margin: 20px 0;
+      text-align: left;
+      background: #f0f8ff;
+      padding: 10px;
+      border-radius: 6px;
+      color: #555;
+      font-size: 15px;
     }
     .input-group {
       margin: 10px 0;
@@ -39,74 +79,104 @@
       padding: 10px;
       font-size: 16px;
       margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
     .result {
       margin-top: 20px;
       font-size: 18px;
       font-weight: bold;
-    }
-    .reflection {
-      margin-top: 20px;
-      font-style: italic;
-      color: #444;
-      background: #eef;
       padding: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
       border-radius: 6px;
     }
-    .explanation {
+    .buttons-group {
+      margin-top: 10px;
+    }
+    button {
+      cursor: pointer;
+      background: #0073e6;
+      color: #fff;
+      border: none;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #005bb5;
+    }
+    a {
+      display: inline-block;
       margin-top: 20px;
-      text-align: left;
-      background: #f0f8ff;
-      padding: 10px;
-      border-radius: 6px;
-      color: #555;
-      font-size: 15px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+    .adsense {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #777;
     }
   </style>
 </head>
 <body>
+  <!-- Barra de Navegação Superior -->
+  <div class="top-nav">
+    <a href="index.html" data-translate="home">Início</a>
+    <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
+    <a href="about.html" data-translate="about">Sobre</a>
+    <a href="contact.html" data-translate="contact">Contato</a>
+  </div>
+  
   <div class="container">
+    <!-- Atualização Dinâmica -->
+    <div class="update-info" id="updateInfo"></div>
+    
     <h1 data-translate="header">Conversor de Pixeis e Dimensões</h1>
     <p>Esta ferramenta permite converter pixels para diversas unidades como centímetros, milímetros, pontos e polegadas, considerando a resolução (DPI). Além disso, você pode converter dimensões (largura e altura) para obter medidas físicas precisas.</p>
     
-    <!-- Reflexão dinâmica sobre resolução de imagens -->
+    <!-- Reflexão Dinâmica -->
     <p class="reflection" id="reflection"></p>
     
-    <!-- Explicação do cálculo -->
+    <!-- Explicação Extra -->
     <p class="explanation" id="explanation"></p>
     
-    <!-- Conversão Simples de Pixels -->
+    <!-- Seção de Conversão Simples -->
     <h2>Conversão Simples</h2>
     <div class="input-group">
-      <input type="number" id="pixelInput" placeholder="Insira os pixels">
+      <input type="number" id="pixelInput" placeholder="Insira os pixels" data-translate-placeholder="pixelPlaceholder">
       <select id="unitSelect">
         <option value="cm">Centímetros</option>
         <option value="mm">Milímetros</option>
         <option value="pt">Pontos</option>
         <option value="in">Polegadas</option>
       </select>
-      <input type="number" id="dpiInput" placeholder="DPI (Padrão: 96)">
-      <button onclick="convertPixels()">Converter</button>
+      <input type="number" id="dpiInput" placeholder="DPI (Padrão: 96)" data-translate-placeholder="dpiPlaceholder">
+      <button onclick="convertPixels()" data-translate="convertButton">Converter</button>
+      <button onclick="copyResult('result')" data-translate="copyButton">Copiar Resultado</button>
     </div>
     <div class="result" id="result"></div>
     
-    <!-- Conversão de Dimensões (Largura e Altura) -->
+    <!-- Seção de Conversão de Dimensões -->
     <h2>Conversão de Dimensões</h2>
     <div class="input-group">
-      <input type="number" id="widthInput" placeholder="Largura em pixels">
-      <input type="number" id="heightInput" placeholder="Altura em pixels">
+      <input type="number" id="widthInput" placeholder="Largura em pixels" data-translate-placeholder="widthPlaceholder">
+      <input type="number" id="heightInput" placeholder="Altura em pixels" data-translate-placeholder="heightPlaceholder">
       <select id="unitSelectDim">
         <option value="cm">Centímetros</option>
         <option value="mm">Milímetros</option>
         <option value="pt">Pontos</option>
         <option value="in">Polegadas</option>
       </select>
-      <input type="number" id="dpiInputDim" placeholder="DPI (Padrão: 96)">
-      <button onclick="convertDimensions()">Converter Dimensões</button>
+      <input type="number" id="dpiInputDim" placeholder="DPI (Padrão: 96)" data-translate-placeholder="dpiPlaceholder">
+      <button onclick="convertDimensions()" data-translate="convertDimButton">Converter Dimensões</button>
+      <button onclick="copyResult('dimResult')" data-translate="copyButton">Copiar Resultado</button>
     </div>
     <div class="result" id="dimResult"></div>
     
-    <!-- Bloco do AdSense -->  
+    <!-- Bloco do AdSense -->
     <div class="adsense">
       <ins class="adsbygoogle"
            style="display:block"
@@ -114,16 +184,36 @@
            data-ad-slot="7460995783"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+    
+    <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
     </div>
   </div>
   
   <script>
-    // Traduções multilíngues (PT, EN, ES)
+    // Objeto de traduções unificado
     const translations = {
       "pt": {
         "title": "Conversor de Pixeis e Dimensões",
         "header": "Conversor de Pixeis e Dimensões",
+        "home": "Início",
+        "privacyPolicy": "Política de Privacidade",
+        "about": "Sobre",
+        "contact": "Contato",
+        "convertButton": "Converter",
+        "copyButton": "Copiar Resultado",
+        "convertDimButton": "Converter Dimensões",
+        "back": "Voltar para Página Inicial",
+        "pixelPlaceholder": "Insira os pixels",
+        "dpiPlaceholder": "DPI (Padrão: 96)",
+        "widthPlaceholder": "Largura em pixels",
+        "heightPlaceholder": "Altura em pixels",
         "reflection": [
           "A resolução determina o quão nítida uma imagem pode ser impressa; entender isso é crucial.",
           "Converter pixels para medidas físicas ajuda a planejar layouts e impressões com precisão.",
@@ -134,25 +224,50 @@
       "en": {
         "title": "Pixel and Dimension Converter",
         "header": "Pixel and Dimension Converter",
+        "home": "Home",
+        "privacyPolicy": "Privacy Policy",
+        "about": "About",
+        "contact": "Contact",
+        "convertButton": "Convert",
+        "copyButton": "Copy Result",
+        "convertDimButton": "Convert Dimensions",
+        "back": "Back to Home Page",
+        "pixelPlaceholder": "Enter pixels",
+        "dpiPlaceholder": "DPI (Default: 96)",
+        "widthPlaceholder": "Width in pixels",
+        "heightPlaceholder": "Height in pixels",
         "reflection": [
           "Resolution determines how sharp an image can be printed; understanding this is crucial.",
           "Converting pixels to physical measurements helps in planning layouts and prints accurately.",
-          "Setting the correct DPI is key to accurately converting pixels into real-world dimensions."
+          "Setting the correct DPI is key to converting pixels into real-world dimensions accurately."
         ],
         "explanation": "How the calculation works: To convert pixels to a physical unit, divide the number of pixels by the resolution (DPI) and multiply by the conversion factor for the desired unit. For example, to convert to centimeters, use: cm = (pixels / DPI) * 2.54."
       },
       "es": {
         "title": "Convertidor de Píxeles y Dimensiones",
         "header": "Convertidor de Píxeles y Dimensiones",
+        "home": "Inicio",
+        "privacyPolicy": "Política de Privacidad",
+        "about": "Sobre",
+        "contact": "Contacto",
+        "convertButton": "Convertir",
+        "copyButton": "Copiar Resultado",
+        "convertDimButton": "Convertir Dimensiones",
+        "back": "Volver a la Página Principal",
+        "pixelPlaceholder": "Ingrese los píxeles",
+        "dpiPlaceholder": "DPI (Predeterminado: 96)",
+        "widthPlaceholder": "Ancho en píxeles",
+        "heightPlaceholder": "Alto en píxeles",
         "reflection": [
           "La resolución determina cuán nítida puede ser una imagen impresa; entender esto es crucial.",
           "Convertir píxeles a medidas físicas ayuda a planificar diseños e impresiones con precisión.",
-          "Establecer el DPI correcto es clave para convertir con precisión los píxeles en dimensiones reales."
+          "Establecer el DPI correcto es clave para convertir los píxeles en dimensiones reales con exactitud."
         ],
         "explanation": "Cómo funciona el cálculo: Para convertir píxeles a una unidad física, se divide el número de píxeles por la resolución (DPI) y se multiplica por el factor de conversión de la unidad deseada. Por ejemplo, para convertir a centímetros, se utiliza: cm = (píxeles / DPI) * 2.54."
       }
     };
 
+    // Função para tradução da página
     function translatePage() {
       const userLang = navigator.language.substr(0, 2);
       const lang = translations[userLang] ? userLang : "pt";
@@ -160,12 +275,35 @@
         const key = el.getAttribute("data-translate");
         el.innerText = translations[lang][key];
       });
+      document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-translate-placeholder");
+        el.setAttribute("placeholder", translations[lang][key]);
+      });
       document.title = translations[lang]["title"];
       document.getElementById("explanation").innerText = translations[lang]["explanation"];
+      // Define a reflexão
       const reflectionArray = translations[lang]["reflection"];
       document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
     }
     
+    // Atualiza a data de última atualização
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
+    
+    // Função para copiar o resultado (para ambas as seções, usando o id fornecido)
+    function copyResult(id) {
+      const resultEl = document.getElementById(id);
+      if(resultEl.innerText) {
+        navigator.clipboard.writeText(resultEl.innerText).then(() => {
+          alert("Resultado copiado para a área de transferência!");
+        });
+      }
+    }
+    
+    // Função para converter pixels (Conversão Simples)
     function convertPixels() {
       const pixels = parseFloat(document.getElementById("pixelInput").value);
       const dpi = parseFloat(document.getElementById("dpiInput").value) || 96;
@@ -181,6 +319,7 @@
       document.getElementById("result").innerText = `Resultado: ${result.toFixed(4)} ${unit}`;
     }
     
+    // Função para converter dimensões (Largura e Altura)
     function convertDimensions() {
       const widthPx = parseFloat(document.getElementById("widthInput").value);
       const heightPx = parseFloat(document.getElementById("heightInput").value);
@@ -214,7 +353,63 @@
       document.getElementById("dimResult").innerText = `Resultado: Largura: ${widthResult.toFixed(4)} ${unit}, Altura: ${heightResult.toFixed(4)} ${unit}`;
     }
     
-    document.addEventListener("DOMContentLoaded", translatePage);
+    document.addEventListener("DOMContentLoaded", function() {
+      updateLastModified();
+      translatePage();
+    });
   </script>
+  
+  <!-- Seção de Conversão Simples -->
+  <div class="container">
+    <h2>Conversão Simples</h2>
+    <div class="input-group">
+      <input type="number" id="pixelInput" placeholder="" data-translate-placeholder="pixelPlaceholder">
+      <select id="unitSelect">
+        <option value="cm">Centímetros</option>
+        <option value="mm">Milímetros</option>
+        <option value="pt">Pontos</option>
+        <option value="in">Polegadas</option>
+      </select>
+      <input type="number" id="dpiInput" placeholder="" data-translate-placeholder="dpiPlaceholder">
+      <button onclick="convertPixels()" data-translate="convertButton">Converter</button>
+      <button onclick="copyResult('result')" data-translate="copyButton">Copiar Resultado</button>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+  
+  <!-- Seção de Conversão de Dimensões -->
+  <div class="container">
+    <h2>Conversão de Dimensões</h2>
+    <div class="input-group">
+      <input type="number" id="widthInput" placeholder="" data-translate-placeholder="widthPlaceholder">
+      <input type="number" id="heightInput" placeholder="" data-translate-placeholder="heightPlaceholder">
+      <select id="unitSelectDim">
+        <option value="cm">Centímetros</option>
+        <option value="mm">Milímetros</option>
+        <option value="pt">Pontos</option>
+        <option value="in">Polegadas</option>
+      </select>
+      <input type="number" id="dpiInputDim" placeholder="" data-translate-placeholder="dpiPlaceholder">
+      <button onclick="convertDimensions()" data-translate="convertDimButton">Converter Dimensões</button>
+      <button onclick="copyResult('dimResult')" data-translate="copyButton">Copiar Resultado</button>
+    </div>
+    <div class="result" id="dimResult"></div>
+    
+    <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+    
+    <div class="adsense">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
+    </div>
+  </div>
 </body>
 </html>
