@@ -11,6 +11,22 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4883403187063112" crossorigin="anonymous"></script>
   
   <style>
+    /* Barra de navegação superior */
+    .top-nav {
+      background: #333;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      color: #fff;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .top-nav a:hover {
+      text-decoration: underline;
+    }
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
@@ -20,13 +36,13 @@
     .container {
       max-width: 900px;
       margin: auto;
-      text-align: center;
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
     }
-    h1 {
+    h1, h2 {
       color: #333;
     }
     p {
@@ -37,8 +53,8 @@
     .reflection {
       margin: 20px 0;
       font-style: italic;
-      color: #444;
       background: #eef;
+      color: #444;
       padding: 10px;
       border-radius: 6px;
     }
@@ -46,9 +62,9 @@
       margin: 20px 0;
       text-align: left;
       background: #f0f8ff;
+      color: #555;
       padding: 10px;
       border-radius: 6px;
-      color: #555;
     }
     #keyLog {
       margin-top: 20px;
@@ -63,7 +79,7 @@
       white-space: pre-wrap;
     }
     .buttons-group {
-      margin-top: 5px;
+      margin-top: 10px;
     }
     button {
       padding: 8px 18px;
@@ -97,19 +113,18 @@
     .key {
       display: inline-block;
       margin: 2px;
-      padding: 10px;
-      width: 40px;
-      height: 40px;
-      line-height: 20px;
+      padding: 12px;
+      width: 45px;
+      height: 45px;
+      line-height: 21px;
       border: 1px solid #ccc;
       border-radius: 4px;
       background: #f0f0f0;
       font-size: 14px;
-      vertical-align: middle;
       text-align: center;
       user-select: none;
+      transition: background 0.2s;
     }
-    /* Classes para teclas maiores */
     .wide {
       width: 80px;
     }
@@ -121,9 +136,26 @@
       color: #fff;
       border-color: #28a745;
     }
+    .adsense {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
   </style>
 </head>
 <body>
+  <!-- Barra de navegação superior -->
+  <div class="top-nav">
+    <a href="index.html" data-translate="home">Início</a>
+    <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
+    <a href="about.html" data-translate="about">Sobre</a>
+    <a href="contact.html" data-translate="contact">Contato</a>
+  </div>
+  
   <div class="container">
     <h1 data-translate="header">Testador de Teclado</h1>
     
@@ -140,6 +172,8 @@
     
     <div class="buttons-group">
       <button onclick="clearLog()" data-translate="clear">Limpar Registros</button>
+      <button onclick="copyLog()" data-translate="copyLog">Copiar Log</button>
+      <button onclick="downloadLog()" data-translate="downloadLog">Baixar Log</button>
     </div>
     
     <!-- Desenho do teclado -->
@@ -221,10 +255,58 @@
     
     <!-- Link para voltar à página inicial -->
     <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+    
+    <div class="adsense">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
+    </div>
   </div>
   
   <script>
-    // Traduções multilíngues
+    // Atualiza dinamicamente a data de última atualização (opcional)
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
+    
+    // Dica dinâmica (Dica do Dia) para o testador de teclado
+    const dynamicTips = {
+      "pt": [
+        "Cada tecla conta uma história: teste e descubra a sua.",
+        "Um teclado bem testado é a chave para uma digitação eficiente.",
+        "Conhecer o funcionamento do seu teclado é o primeiro passo para uma comunicação digital sem erros."
+      ],
+      "en": [
+        "Every key tells a story: test and discover yours.",
+        "A well-tested keyboard is the key to efficient typing.",
+        "Knowing how your keyboard works is the first step toward error-free digital communication."
+      ],
+      "es": [
+        "Cada tecla cuenta una historia: pruébala y descúbrela.",
+        "Un teclado bien probado es la clave para una mecanografía eficiente.",
+        "Conocer el funcionamiento de tu teclado es el primer paso hacia una comunicación digital sin errores."
+      ]
+    };
+    function setDynamicTip() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = dynamicTips[userLang] ? userLang : "pt";
+      const tipArray = dynamicTips[lang];
+      // Para a página do teclado, podemos optar por exibir a dica na área de reflexão, por exemplo.
+      // Mas aqui usamos um efeito combinado com a reflexão
+      document.getElementById("reflection").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
+    }
+    
+    // Tradução unificada
     const translations = {
       "pt": {
         "title": "Testador de Teclado",
@@ -232,6 +314,10 @@
         "importance": "Conhecer e testar o funcionamento de cada tecla do teclado é essencial para aprimorar a digitação e evitar erros em suas atividades digitais.",
         "clear": "Limpar Registros",
         "back": "Voltar para Página Inicial",
+        "home": "Início",
+        "privacyPolicy": "Política de Privacidade",
+        "about": "Sobre",
+        "contact": "Contato",
         "reflection": [
           "Cada tecla conta uma história: teste e descubra a sua.",
           "Um teclado bem testado é a chave para uma digitação eficiente.",
@@ -244,6 +330,10 @@
         "importance": "Knowing and testing the functionality of every key on your keyboard is essential to improve typing skills and avoid errors in your digital activities.",
         "clear": "Clear Records",
         "back": "Back to Home Page",
+        "home": "Home",
+        "privacyPolicy": "Privacy Policy",
+        "about": "About",
+        "contact": "Contact",
         "reflection": [
           "Every key tells a story: test and discover yours.",
           "A well-tested keyboard is the key to efficient typing.",
@@ -256,6 +346,10 @@
         "importance": "Conocer y probar el funcionamiento de cada tecla en tu teclado es esencial para mejorar la mecanografía y evitar errores en tus actividades digitales.",
         "clear": "Limpiar Registros",
         "back": "Volver a la Página Principal",
+        "home": "Inicio",
+        "privacyPolicy": "Política de Privacidad",
+        "about": "Sobre",
+        "contact": "Contacto",
         "reflection": [
           "Cada tecla cuenta una historia: pruébala y descúbrela.",
           "Un teclado bien probado es la clave para una mecanografía eficiente.",
@@ -283,16 +377,8 @@
       });
     }
     
-    function setReflection() {
-      const userLang = navigator.language.substr(0, 2);
-      const lang = translations[userLang] ? userLang : "pt";
-      const reflectionArray = translations[lang]["reflection"];
-      document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
-    }
-    
     // Função para registrar e destacar teclas pressionadas
     function handleKeyDown(event) {
-      // Log de tecla pressionada
       const keyLog = document.getElementById("keyLog");
       const timestamp = new Date().toLocaleTimeString();
       const info = `[${timestamp}] Key: "${event.key}" | Code: "${event.code}"\n`;
@@ -303,12 +389,10 @@
       const pressedKey = event.key.length === 1 ? event.key.toUpperCase() : event.key;
       const keys = document.querySelectorAll("#keyboard .key");
       keys.forEach(key => {
-        // Comparação case-insensitive para letras
         if(key.getAttribute("data-key").toUpperCase() === pressedKey) {
           key.classList.add("active");
           setTimeout(() => key.classList.remove("active"), 300);
         }
-        // Tratamento para espaço (event.key é " " e data-key pode ser " ")
         if(pressedKey === " " && key.getAttribute("data-key") === " ") {
           key.classList.add("active");
           setTimeout(() => key.classList.remove("active"), 300);
@@ -320,10 +404,32 @@
       document.getElementById("keyLog").textContent = "";
     }
     
+    function copyLog() {
+      const log = document.getElementById("keyLog").textContent;
+      if(log) {
+        navigator.clipboard.writeText(log).then(() => {
+          alert("Log copiado para a área de transferência!");
+        });
+      }
+    }
+    
+    function downloadLog() {
+      const log = document.getElementById("keyLog").textContent;
+      const blob = new Blob([log], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "teclado_log.txt";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    
     document.addEventListener("DOMContentLoaded", () => {
       translatePage();
       setReflection();
       document.addEventListener("keydown", handleKeyDown);
+      updateLastModified();
+      setDynamicTip();
     });
   </script>
 </body>
