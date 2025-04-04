@@ -50,11 +50,17 @@
       font-size: 16px;
       line-height: 1.5;
     }
-    .reflection {
+    .update-info {
+      font-size: 14px;
+      color: #777;
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    .dynamic-tip, .reflection {
       margin: 20px 0;
       font-style: italic;
-      background: #eef;
       color: #444;
+      background: #eef;
       padding: 10px;
       border-radius: 6px;
     }
@@ -108,28 +114,28 @@
       text-align: center;
     }
     .keyboard-row {
-      margin-bottom: 5px;
+      margin-bottom: 3px;
     }
     .key {
       display: inline-block;
       margin: 2px;
-      padding: 12px;
-      width: 45px;
-      height: 45px;
-      line-height: 21px;
+      padding: 5px;
+      width: 35px;
+      height: 35px;
+      line-height: 25px;
       border: 1px solid #ccc;
       border-radius: 4px;
       background: #f0f0f0;
-      font-size: 14px;
+      font-size: 12px;
       text-align: center;
       user-select: none;
       transition: background 0.2s;
     }
     .wide {
-      width: 80px;
+      width: 55px;
     }
     .extra-wide {
-      width: 200px;
+      width: 120px;
     }
     .active {
       background: #28a745;
@@ -157,17 +163,14 @@
   </div>
   
   <div class="container">
+    <div class="update-info" id="updateInfo"></div>
+    
     <h1 data-translate="header">Testador de Teclado</h1>
     
-    <!-- Reflexão aleatória -->
     <p class="reflection" id="reflection"></p>
     
-    <!-- Texto explicativo -->
-    <p class="importance" data-translate="importance">
-      Conhecer e testar o funcionamento de cada tecla do teclado é essencial para aprimorar a digitação e evitar erros em suas atividades digitais.
-    </p>
+    <p class="importance" data-translate="importance">Conhecer e testar o funcionamento de cada tecla do teclado é essencial para aprimorar a digitação e evitar erros.</p>
     
-    <!-- Área de log de teclas pressionadas -->
     <div id="keyLog">Pressione qualquer tecla para ver os detalhes aqui...</div>
     
     <div class="buttons-group">
@@ -178,7 +181,7 @@
     
     <!-- Desenho do teclado -->
     <div id="keyboard">
-      <!-- Linha 1: Número e símbolos -->
+      <!-- Linha 1: Números e símbolos -->
       <div class="keyboard-row">
         <div class="key" data-key="`">~</div>
         <div class="key" data-key="1">1</div>
@@ -253,7 +256,6 @@
       </div>
     </div>
     
-    <!-- Link para voltar à página inicial -->
     <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
     
     <div class="adsense">
@@ -272,7 +274,7 @@
   </div>
   
   <script>
-    // Atualiza dinamicamente a data de última atualização (opcional)
+    // Atualiza a data de última atualização
     function updateLastModified() {
       const updateInfo = document.getElementById("updateInfo");
       const now = new Date();
@@ -301,18 +303,18 @@
       const userLang = navigator.language.substr(0, 2);
       const lang = dynamicTips[userLang] ? userLang : "pt";
       const tipArray = dynamicTips[lang];
-      // Para a página do teclado, podemos optar por exibir a dica na área de reflexão, por exemplo.
-      // Mas aqui usamos um efeito combinado com a reflexão
       document.getElementById("reflection").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
     }
     
-    // Tradução unificada
+    // Traduções unificadas
     const translations = {
       "pt": {
         "title": "Testador de Teclado",
         "header": "Testador de Teclado",
         "importance": "Conhecer e testar o funcionamento de cada tecla do teclado é essencial para aprimorar a digitação e evitar erros em suas atividades digitais.",
         "clear": "Limpar Registros",
+        "copyLog": "Copiar Log",
+        "downloadLog": "Baixar Log",
         "back": "Voltar para Página Inicial",
         "home": "Início",
         "privacyPolicy": "Política de Privacidade",
@@ -329,6 +331,8 @@
         "header": "Keyboard Tester",
         "importance": "Knowing and testing the functionality of every key on your keyboard is essential to improve typing skills and avoid errors in your digital activities.",
         "clear": "Clear Records",
+        "copyLog": "Copy Log",
+        "downloadLog": "Download Log",
         "back": "Back to Home Page",
         "home": "Home",
         "privacyPolicy": "Privacy Policy",
@@ -345,6 +349,8 @@
         "header": "Probador de Teclado",
         "importance": "Conocer y probar el funcionamiento de cada tecla en tu teclado es esencial para mejorar la mecanografía y evitar errores en tus actividades digitales.",
         "clear": "Limpiar Registros",
+        "copyLog": "Copiar Log",
+        "downloadLog": "Descargar Log",
         "back": "Volver a la Página Principal",
         "home": "Inicio",
         "privacyPolicy": "Política de Privacidad",
@@ -366,18 +372,9 @@
         el.innerText = translations[lang][key];
       });
       document.title = translations[lang]["title"];
-      document.querySelectorAll("[data-translate='importance']").forEach(el => {
-        el.innerText = translations[lang]["importance"];
-      });
-      document.querySelectorAll("[data-translate='clear']").forEach(el => {
-        el.innerText = translations[lang]["clear"];
-      });
-      document.querySelectorAll("[data-translate='back']").forEach(el => {
-        el.innerText = translations[lang]["back"];
-      });
     }
     
-    // Função para registrar e destacar teclas pressionadas
+    // Registra eventos de tecla e destaca a tecla no desenho
     function handleKeyDown(event) {
       const keyLog = document.getElementById("keyLog");
       const timestamp = new Date().toLocaleTimeString();
@@ -385,7 +382,6 @@
       keyLog.textContent += info;
       keyLog.scrollTop = keyLog.scrollHeight;
       
-      // Destaca a tecla correspondente no desenho
       const pressedKey = event.key.length === 1 ? event.key.toUpperCase() : event.key;
       const keys = document.querySelectorAll("#keyboard .key");
       keys.forEach(key => {
@@ -427,9 +423,9 @@
     document.addEventListener("DOMContentLoaded", () => {
       translatePage();
       setReflection();
-      document.addEventListener("keydown", handleKeyDown);
       updateLastModified();
       setDynamicTip();
+      document.addEventListener("keydown", handleKeyDown);
     });
   </script>
 </body>
