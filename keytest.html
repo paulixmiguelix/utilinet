@@ -169,7 +169,9 @@
     
     <p class="reflection" id="reflection"></p>
     
-    <p class="importance" data-translate="importance">Conhecer e testar o funcionamento de cada tecla do teclado é essencial para aprimorar a digitação e evitar erros.</p>
+    <p class="importance" data-translate="importance">
+      Conhecer e testar o funcionamento de cada tecla do teclado é essencial para aprimorar a digitação e evitar erros.
+    </p>
     
     <div id="keyLog">Pressione qualquer tecla para ver os detalhes aqui...</div>
     
@@ -274,14 +276,14 @@
   </div>
   
   <script>
-    // Atualiza a data de última atualização
+    // Atualiza dinamicamente a data de última atualização
     function updateLastModified() {
       const updateInfo = document.getElementById("updateInfo");
       const now = new Date();
       updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
     }
     
-    // Dica dinâmica (Dica do Dia) para o testador de teclado
+    // Dica dinâmica para o testador de teclado
     const dynamicTips = {
       "pt": [
         "Cada tecla conta uma história: teste e descubra a sua.",
@@ -303,6 +305,7 @@
       const userLang = navigator.language.substr(0, 2);
       const lang = dynamicTips[userLang] ? userLang : "pt";
       const tipArray = dynamicTips[lang];
+      // Para este exemplo, vamos exibir a dica na reflexão
       document.getElementById("reflection").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
     }
     
@@ -372,9 +375,32 @@
         el.innerText = translations[lang][key];
       });
       document.title = translations[lang]["title"];
+      document.querySelectorAll("[data-translate='importance']").forEach(el => {
+        el.innerText = translations[lang]["importance"];
+      });
+      document.querySelectorAll("[data-translate='clear']").forEach(el => {
+        el.innerText = translations[lang]["clear"];
+      });
+      document.querySelectorAll("[data-translate='copyLog']").forEach(el => {
+        el.innerText = translations[lang]["copyLog"];
+      });
+      document.querySelectorAll("[data-translate='downloadLog']").forEach(el => {
+        el.innerText = translations[lang]["downloadLog"];
+      });
+      document.querySelectorAll("[data-translate='back']").forEach(el => {
+        el.innerText = translations[lang]["back"];
+      });
     }
     
-    // Registra eventos de tecla e destaca a tecla no desenho
+    document.addEventListener("DOMContentLoaded", function() {
+      updateLastModified();
+      setDynamicTip();
+      translatePage();
+      setReflection();
+      document.addEventListener("keydown", handleKeyDown);
+    });
+    
+    // Função para registrar eventos de tecla e destacar teclas
     function handleKeyDown(event) {
       const keyLog = document.getElementById("keyLog");
       const timestamp = new Date().toLocaleTimeString();
@@ -420,13 +446,16 @@
       URL.revokeObjectURL(url);
     }
     
-    document.addEventListener("DOMContentLoaded", () => {
-      translatePage();
-      setReflection();
-      updateLastModified();
-      setDynamicTip();
-      document.addEventListener("keydown", handleKeyDown);
-    });
+    // Função para definir reflexão dinâmica
+    function setReflection() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      const reflectionArray = translations[lang]["reflection"];
+      document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
+    }
+    
+    // Função para atualizar data, dica, etc. (já implementada acima)
   </script>
 </body>
 </html>
+
