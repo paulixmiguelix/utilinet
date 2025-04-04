@@ -138,4 +138,198 @@
     
     <!-- Reflexão e Explicação Dinâmicas -->
     <p class="reflection" id="reflection"></p>
-    <p
+    <p class="explanation" id="explanation"></p>
+    
+    <!-- Seção de Upload e Seleção -->
+    <div class="input-group">
+      <input type="file" id="audioInput" accept="audio/*">
+    </div>
+    <div class="input-group">
+      <select id="targetFormat">
+        <option value="mp3">MP3</option>
+        <option value="wav">WAV</option>
+        <option value="ogg">OGG</option>
+      </select>
+      <button onclick="convertAudio()" data-translate="convertButton">Converter Áudio</button>
+      <button onclick="copyResult('audioResult')" data-translate="copyButton">Copiar Link</button>
+    </div>
+    <div class="result" id="audioResult">Resultado da conversão aparecerá aqui.</div>
+    
+    <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+    
+    <div class="adsense">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
+    </div>
+  </div>
+  
+  <script>
+    // Objeto de traduções unificado
+    const translations = {
+      "pt": {
+        "title": "Conversor de Áudio",
+        "header": "Conversor de Áudio",
+        "home": "Início",
+        "privacyPolicy": "Política de Privacidade",
+        "about": "Sobre",
+        "contact": "Contato",
+        "convertButton": "Converter Áudio",
+        "copyButton": "Copiar Link",
+        "back": "Voltar para Página Inicial",
+        "reflection": [
+          "A qualidade do áudio pode transformar a experiência musical e comunicacional.",
+          "Converter áudio com precisão é fundamental para manter a integridade dos dados.",
+          "Um áudio bem convertido garante uma comunicação clara e eficiente."
+        ],
+        "explanation": "Como funciona: Após selecionar um arquivo de áudio e o formato desejado, clique em 'Converter Áudio'. Esta ferramenta simula o processo de conversão e gera um link de download para o arquivo convertido."
+      },
+      "en": {
+        "title": "Audio Converter",
+        "header": "Audio Converter",
+        "home": "Home",
+        "privacyPolicy": "Privacy Policy",
+        "about": "About",
+        "contact": "Contact",
+        "convertButton": "Convert Audio",
+        "copyButton": "Copy Link",
+        "back": "Back to Home Page",
+        "reflection": [
+          "Audio quality can transform musical and communication experiences.",
+          "Accurate audio conversion is crucial to preserve data integrity.",
+          "Well-converted audio ensures clear and efficient communication."
+        ],
+        "explanation": "How it works: After selecting an audio file and the desired format, click on 'Convert Audio'. This tool simulates the conversion process and generates a download link for the converted file."
+      },
+      "es": {
+        "title": "Convertidor de Audio",
+        "header": "Convertidor de Audio",
+        "home": "Inicio",
+        "privacyPolicy": "Política de Privacidad",
+        "about": "Sobre",
+        "contact": "Contacto",
+        "convertButton": "Convertir Audio",
+        "copyButton": "Copiar Enlace",
+        "back": "Volver a la Página Principal",
+        "reflection": [
+          "La calidad del audio puede transformar la experiencia musical y de comunicación.",
+          "La conversión precisa de audio es crucial para preservar la integridad de los datos.",
+          "Un audio bien convertido garantiza una comunicación clara y eficiente."
+        ],
+        "explanation": "Cómo funciona: Después de seleccionar un archivo de audio y el formato deseado, haga clic en 'Convertir Audio'. Esta herramienta simula el proceso de conversión y genera un enlace de descarga para el archivo convertido."
+      }
+    };
+
+    // Função para tradução da página
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-translate-placeholder");
+        el.setAttribute("placeholder", translations[lang][key]);
+      });
+      document.title = translations[lang]["title"];
+      
+      // Define reflexão aleatória e explicação extra
+      const reflectionArray = translations[lang]["reflection"];
+      document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
+      document.getElementById("explanation").innerText = translations[lang]["explanation"];
+    }
+    
+    // Atualiza a data de última atualização
+    function updateLastModified() {
+      const updateInfo = document.getElementById("updateInfo");
+      const now = new Date();
+      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
+    }
+    
+    // Função para simular a conversão de áudio
+    function convertAudio() {
+      const fileInput = document.getElementById("audioInput");
+      const targetFormat = document.getElementById("targetFormat").value;
+      
+      if (!fileInput.files || fileInput.files.length === 0) {
+        alert("Por favor, selecione um arquivo de áudio.");
+        return;
+      }
+      
+      // Simula o processo de conversão
+      document.getElementById("audioResult").innerText = "Convertendo...";
+      
+      // Simula um tempo de espera para a conversão (ex: 2 segundos)
+      setTimeout(() => {
+        // Simula a criação de um link para download (apenas exemplo)
+        const downloadLink = "https://utilnet.pt/downloads/converted_audio." + targetFormat;
+        document.getElementById("audioResult").innerHTML = `Arquivo convertido com sucesso! <a href="${downloadLink}" target="_blank">Clique aqui para baixar</a>`;
+      }, 2000);
+    }
+    
+    // Função para copiar o link do resultado
+    function copyResult(id) {
+      const resultEl = document.getElementById(id);
+      if (resultEl.innerText) {
+        navigator.clipboard.writeText(resultEl.innerText).then(() => {
+          alert("Link copiado para a área de transferência!");
+        });
+      }
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      updateLastModified();
+      translatePage();
+    });
+  </script>
+  
+  <!-- Conteúdo da página -->
+  <div class="container">
+    <h2 data-translate="header">Conversor de Áudio</h2>
+    <p>Converta arquivos de áudio entre formatos como MP3, WAV, OGG, etc.</p>
+    
+    <!-- Input para seleção do arquivo -->
+    <div class="input-group">
+      <input type="file" id="audioInput" accept="audio/*">
+    </div>
+    <!-- Seleção do formato de destino -->
+    <div class="input-group">
+      <select id="targetFormat">
+        <option value="mp3">MP3</option>
+        <option value="wav">WAV</option>
+        <option value="ogg">OGG</option>
+      </select>
+      <button onclick="convertAudio()" data-translate="convertButton">Converter Áudio</button>
+      <button onclick="copyResult('audioResult')" data-translate="copyButton">Copiar Link</button>
+    </div>
+    <div class="result" id="audioResult">O resultado da conversão aparecerá aqui.</div>
+    
+    <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
+    
+    <div class="adsense">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4883403187063112"
+           data-ad-slot="7460995783"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    
+    <div class="footer">
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
+    </div>
+  </div>
+  
+</body>
+</html>
