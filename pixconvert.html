@@ -122,7 +122,7 @@
   </style>
 </head>
 <body>
-  <!-- Barra de Navegação Superior -->
+  <!-- Barra de navegação superior -->
   <div class="top-nav">
     <a href="index.html" data-translate="home">Início</a>
     <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
@@ -135,25 +135,23 @@
     <div class="update-info" id="updateInfo"></div>
     
     <h1 data-translate="header">Conversor de Pixeis e Dimensões</h1>
-    <p>Esta ferramenta permite converter pixels para diversas unidades como centímetros, milímetros, pontos e polegadas, considerando a resolução (DPI). Além disso, você pode converter dimensões (largura e altura) para obter medidas físicas precisas.</p>
+    <p>Esta ferramenta permite converter pixels e dimensões para outras unidades, considerando a resolução (DPI).</p>
     
-    <!-- Reflexão Dinâmica -->
+    <!-- Reflexão Dinâmica e Explicação Extra -->
     <p class="reflection" id="reflection"></p>
-    
-    <!-- Explicação Extra -->
     <p class="explanation" id="explanation"></p>
     
     <!-- Seção de Conversão Simples -->
     <h2>Conversão Simples</h2>
     <div class="input-group">
-      <input type="number" id="pixelInput" placeholder="Insira os pixels" data-translate-placeholder="pixelPlaceholder">
+      <input type="number" id="pixelInput" placeholder="" data-translate-placeholder="pixelPlaceholder">
       <select id="unitSelect">
         <option value="cm">Centímetros</option>
         <option value="mm">Milímetros</option>
         <option value="pt">Pontos</option>
         <option value="in">Polegadas</option>
       </select>
-      <input type="number" id="dpiInput" placeholder="DPI (Padrão: 96)" data-translate-placeholder="dpiPlaceholder">
+      <input type="number" id="dpiInput" placeholder="" data-translate-placeholder="dpiPlaceholder">
       <button onclick="convertPixels()" data-translate="convertButton">Converter</button>
       <button onclick="copyResult('result')" data-translate="copyButton">Copiar Resultado</button>
     </div>
@@ -162,15 +160,15 @@
     <!-- Seção de Conversão de Dimensões -->
     <h2>Conversão de Dimensões</h2>
     <div class="input-group">
-      <input type="number" id="widthInput" placeholder="Largura em pixels" data-translate-placeholder="widthPlaceholder">
-      <input type="number" id="heightInput" placeholder="Altura em pixels" data-translate-placeholder="heightPlaceholder">
+      <input type="number" id="widthInput" placeholder="" data-translate-placeholder="widthPlaceholder">
+      <input type="number" id="heightInput" placeholder="" data-translate-placeholder="heightPlaceholder">
       <select id="unitSelectDim">
         <option value="cm">Centímetros</option>
         <option value="mm">Milímetros</option>
         <option value="pt">Pontos</option>
         <option value="in">Polegadas</option>
       </select>
-      <input type="number" id="dpiInputDim" placeholder="DPI (Padrão: 96)" data-translate-placeholder="dpiPlaceholder">
+      <input type="number" id="dpiInputDim" placeholder="" data-translate-placeholder="dpiPlaceholder">
       <button onclick="convertDimensions()" data-translate="convertDimButton">Converter Dimensões</button>
       <button onclick="copyResult('dimResult')" data-translate="copyButton">Copiar Resultado</button>
     </div>
@@ -184,9 +182,7 @@
            data-ad-slot="7460995783"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
     
     <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
@@ -281,7 +277,6 @@
       });
       document.title = translations[lang]["title"];
       document.getElementById("explanation").innerText = translations[lang]["explanation"];
-      // Define a reflexão
       const reflectionArray = translations[lang]["reflection"];
       document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
     }
@@ -293,7 +288,7 @@
       updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
     }
     
-    // Função para copiar o resultado (para ambas as seções, usando o id fornecido)
+    // Função para copiar o resultado para a área de transferência
     function copyResult(id) {
       const resultEl = document.getElementById(id);
       if(resultEl.innerText) {
