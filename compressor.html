@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title data-translate="compressorTitle">Comprimir Imagens e PDFs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input[type="file"] {
+      margin-top: 20px;
+    }
+    .download-link {
+      margin-top: 20px;
+      display: none;
+    }
+    .btn {
+      background: #0073e6;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+    .btn:hover {
+      background: #005bb5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 data-translate="compressorHeader">Comprimir Imagens e PDFs</h1>
+    <p data-translate="compressorDesc">Selecione um ficheiro JPG, PNG ou PDF para reduzir o tamanho. O processamento é feito localmente no seu navegador.</p>
+
+    <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.pdf" />
+    <br>
+    <button class="btn" onclick="compressFile()" data-translate="compressButton">Comprimir</button>
+    <div class="download-link">
+      <p data-translate="downloadReady">Ficheiro comprimido pronto:</p>
+      <a id="downloadLink" class="btn" download>Download</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.17/dist/browser-image-compression.js"></script>
+  <script>
+    async function compressFile() {
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
+      if (!file) return alert('Selecione um ficheiro primeiro.');
+
+      if (file.type.startsWith("image/")) {
+        const options = {
+          maxSizeMB: 0.5,
+          useWebWorker: true
+        };
+        try {
+          const compressedFile = await imageCompression(file, options);
+          const blobURL = URL.createObjectURL(compressedFile);
+          document.getElementById("downloadLink").href = blobURL;
+          document.getElementById("downloadLink").download = "imagem_comprimida.jpg";
+          document.querySelector(".download-link").style.display = "block";
+        } catch (e) {
+          alert("Erro ao comprimir a imagem.");
+        }
+      } else if (file.type === "application/pdf") {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const uint8Array = new Uint8Array(e.target.result);
+          import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js').then(pdfLib => {
+            pdfLib.PDFDocument.load(uint8Array).then(async (pdfDoc) => {
+              const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
+              const blob = new Blob([pdfBytes], { type: "application/pdf" });
+              const blobURL = URL.createObjectURL(blob);
+              document.getElementById("downloadLink").href = blobURL;
+              document.getElementById("downloadLink").download = "ficheiro_comprimido.pdf";
+              document.querySelector(".download-link").style.display = "block";
+            });
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        alert("Ficheiro não suportado.");
+      }
+    }
+
+    const translations = {
+      "pt": {
+        "compressorTitle": "Comprimir Imagens e PDFs",
+        "compressorHeader": "Comprimir Imagens e PDFs",
+        "compressorDesc": "Selecione um ficheiro JPG, PNG ou PDF para reduzir o tamanho. O processamento é feito localmente no seu navegador.",
+        "compressButton": "Comprimir",
+        "downloadReady": "Ficheiro comprimido pronto:"
+      },
+      "en": {
+        "compressorTitle": "Compress Images and PDFs",
+        "compressorHeader": "Compress Images and PDFs",
+        "compressorDesc": "Select a JPG, PNG or PDF file to reduce its size. Processing is done locally in your browser.",
+        "compressButton": "Compress",
+        "downloadReady": "Compressed file ready:"
+      },
+      "es": {
+        "compressorTitle": "Comprimir Imágenes y PDFs",
+        "compressorHeader": "Comprimir Imágenes y PDFs",
+        "compressorDesc": "Seleccione un archivo JPG, PNG o PDF para reducir su tamaño. El procesamiento se realiza localmente en su navegador.",
+        "compressButton": "Comprimir",
+        "downloadReady": "Archivo comprimido listo:"
+      }
+    };
+
+    function translatePage() {
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        el.innerText = translations[lang][key];
+      });
+      document.title = translations[lang]["compressorTitle"];
+    }
+
+    document.addEventListener("DOMContentLoaded", translatePage);
+  </script>
+</body>
+</html>
