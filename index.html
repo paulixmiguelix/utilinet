@@ -73,21 +73,6 @@
       font-size: 15px;
       color: #d8ecff;
     }
-    .button {
-      display: inline-block;
-      padding: 12px 20px;
-      margin: 10px 0;
-      font-size: 16px;
-      background: #0073e6;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
-      text-align: center;
-      transition: background 0.3s;
-    }
-    .button:hover {
-      background: #005bb5;
-    }
     .adsense {
       margin-top: 30px;
       text-align: center;
@@ -113,14 +98,9 @@
     <p data-translate="description" style="text-align: center;">Encontre aqui ferramentas úteis para diversas finalidades.</p>
 
     <h2 data-translate="tools">Nossas ferramentas:</h2>
-    
-    <!-- Botão Compressão de Imagens e PDFs -->
-    <a href="compressor.html" class="button" data-translate="compressorButton">Comprimir Imagens e PDFs</a>
-
     <div class="tool-grid" id="toolGrid"></div>
 
     <div class="adsense">
-      <!-- Espaço reservado para anúncios -->
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-4883403187063112"
@@ -153,7 +133,8 @@
       { link: "validamail.html", key: "emailValidator" },
       { link: "keytest.html", key: "keyboardTester" },
       { link: "camwebcheck.html", key: "micWebcamTester" },
-      { link: "pixconvert.html", key: "pixelConverter" }
+      { link: "pixconvert.html", key: "pixelConverter" },
+      { link: "compressor.html", key: "compressor" }
     ];
 
     const translations = {
@@ -173,7 +154,7 @@
         "keyboardTester": "Testar Teclado",
         "micWebcamTester": "Testar Microfone e Webcam",
         "pixelConverter": "Converter Pixeis",
-        "compressorButton": "Comprimir Imagens e PDFs",
+        "compressor": "Compressor de Imagens e PDFs",
         "toolDescriptions": {
           "passwordGenerator": "Crie senhas fortes de forma rápida e segura.",
           "encoder": "Codifique e decodifique texto em Base64.",
@@ -182,7 +163,8 @@
           "emailValidator": "Valide rapidamente a estrutura de um e-mail.",
           "keyboardTester": "Teste se todas as teclas do teclado estão a funcionar.",
           "micWebcamTester": "Verifique o funcionamento do microfone e da câmara.",
-          "pixelConverter": "Converta unidades de pixeis entre diferentes formatos."
+          "pixelConverter": "Converta unidades de pixeis entre diferentes formatos.",
+          "compressor": "Comprima facilmente imagens JPG/PNG e ficheiros PDF."
         }
       },
       "en": {
@@ -201,7 +183,7 @@
         "keyboardTester": "Keyboard Tester",
         "micWebcamTester": "Test Microphone and Webcam",
         "pixelConverter": "Pixel Converter",
-        "compressorButton": "Compress Images and PDFs",
+        "compressor": "Image and PDF Compressor",
         "toolDescriptions": {
           "passwordGenerator": "Create strong passwords quickly and securely.",
           "encoder": "Encode and decode Base64 text.",
@@ -210,7 +192,8 @@
           "emailValidator": "Quickly validate the structure of an email.",
           "keyboardTester": "Test if all keyboard keys are working.",
           "micWebcamTester": "Check your microphone and webcam functionality.",
-          "pixelConverter": "Convert pixel units between different formats."
+          "pixelConverter": "Convert pixel units between different formats.",
+          "compressor": "Easily compress JPG/PNG images and PDF files."
         }
       },
       "es": {
@@ -229,7 +212,7 @@
         "keyboardTester": "Probador de Teclado",
         "micWebcamTester": "Probar Micrófono y Webcam",
         "pixelConverter": "Convertidor de Píxeles",
-        "compressorButton": "Comprimir Imágenes y PDFs",
+        "compressor": "Compresor de Imágenes y PDFs",
         "toolDescriptions": {
           "passwordGenerator": "Cree contraseñas seguras de forma rápida y sencilla.",
           "encoder": "Codifica y decodifica texto en Base64.",
@@ -238,10 +221,18 @@
           "emailValidator": "Valida rápidamente la estructura de un correo.",
           "keyboardTester": "Comprueba si todas las teclas funcionan.",
           "micWebcamTester": "Verifica el funcionamiento del micrófono y la cámara.",
-          "pixelConverter": "Convierte unidades de píxeles entre diferentes formatos."
+          "pixelConverter": "Convierte unidades de píxeles entre diferentes formatos.",
+          "compressor": "Comprime fácilmente imágenes JPG/PNG y archivos PDF."
         }
       }
     };
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
 
     function translatePage() {
       const userLang = navigator.language.substr(0, 2);
@@ -259,6 +250,7 @@
       const lang = translations[userLang] ? userLang : "pt";
       const langData = translations[lang];
 
+      shuffle(tools);
       tools.forEach(tool => {
         const card = document.createElement("a");
         card.href = tool.link;
@@ -278,4 +270,3 @@
   </script>
 </body>
 </html>
-
