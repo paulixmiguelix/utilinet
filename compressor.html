@@ -23,16 +23,9 @@
     input[type="file"] {
       margin-top: 20px;
     }
-    .preview {
+    .download-link, .preview-container, .info {
       margin-top: 20px;
-    }
-    .preview img {
-      max-width: 100%;
-      max-height: 200px;
-      margin-top: 10px;
-    }
-    .info, .download-link, .progress {
-      margin-top: 20px;
+      display: none;
     }
     .btn {
       background: #0073e6;
@@ -47,6 +40,11 @@
     .btn:hover {
       background: #005bb5;
     }
+    img.preview {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -54,16 +52,20 @@
     <h1 data-translate="compressorHeader">Comprimir Imagens e PDFs</h1>
     <p data-translate="compressorDesc">Selecione um ficheiro JPG, PNG ou PDF para reduzir o tamanho. O processamento é feito localmente no seu navegador.</p>
 
-    <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.pdf" onchange="previewFile()" />
-    <div class="preview" id="preview"></div>
-
+    <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.pdf" />
+    <div class="preview-container">
+      <p><strong>Pré-visualização:</strong></p>
+      <img id="imagePreview" class="preview" />
+    </div>
     <button class="btn" onclick="compressFile()" data-translate="compressButton">Comprimir</button>
 
-    <div class="progress" id="progress" style="display:none;">A comprimir...</div>
+    <div class="info">
+      <p id="originalSize"></p>
+      <p id="compressedSize"></p>
+      <p id="compressionRate"></p>
+    </div>
 
-    <div class="info" id="info" style="display:none;"></div>
-
-    <div class="download-link" style="display:none;">
+    <div class="download-link">
       <p data-translate="downloadReady">Ficheiro comprimido pronto:</p>
       <a id="downloadLink" class="btn" download>Download</a>
     </div>
@@ -71,65 +73,49 @@
 
   <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.17/dist/browser-image-compression.js"></script>
   <script>
-    let originalSize = 0;
-
-    function previewFile() {
-      const file = document.getElementById('fileInput').files[0];
-      const preview = document.getElementById('preview');
-      const info = document.getElementById('info');
-      const progress = document.getElementById('progress');
-      const downloadLink = document.querySelector(".download-link");
-      preview.innerHTML = '';
-      info.style.display = 'none';
-      progress.style.display = 'none';
-      downloadLink.style.display = 'none';
-
-      if (!file) return;
-      originalSize = file.size;
-
-      if (file.type.startsWith("image/")) {
-        const img = document.createElement("img");
-        img.src = URL.createObjectURL(file);
-        preview.appendChild(img);
-      } else if (file.type === "application/pdf") {
-        const p = document.createElement("p");
-        p.innerText = `Ficheiro selecionado: ${file.name}`;
-        preview.appendChild(p);
+    const fileInput = document.getElementById('fileInput');
+    const imagePreview = document.getElementById('imagePreview');
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          imagePreview.src = e.target.result;
+          document.querySelector('.preview-container').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
       } else {
-        alert("Tipo de ficheiro não suportado.");
+        document.querySelector('.preview-container').style.display = 'none';
       }
-    }
+    });
 
     async function compressFile() {
-      const file = document.getElementById('fileInput').files[0];
-      const info = document.getElementById('info');
-      const downloadLink = document.querySelector(".download-link");
-      const progress = document.getElementById('progress');
-
+      const file = fileInput.files[0];
       if (!file) return alert('Selecione um ficheiro primeiro.');
 
-      progress.style.display = 'block';
-      info.style.display = 'none';
-      downloadLink.style.display = 'none';
+      const originalSize = file.size / 1024;
 
       if (file.type.startsWith("image/")) {
+        const options = {
+          maxSizeMB: 0.5,
+          useWebWorker: true
+        };
         try {
-          const options = { maxSizeMB: 0.5, useWebWorker: true };
           const compressedFile = await imageCompression(file, options);
-          const compressedSize = compressedFile.size;
           const blobURL = URL.createObjectURL(compressedFile);
-          const ratio = ((1 - compressedSize / originalSize) * 100).toFixed(2);
+
+          const newSize = compressedFile.size / 1024;
+          const rate = 100 - (newSize / originalSize) * 100;
+
+          document.getElementById("originalSize").innerText = `Tamanho original: ${originalSize.toFixed(2)} KB`;
+          document.getElementById("compressedSize").innerText = `Tamanho comprimido: ${newSize.toFixed(2)} KB`;
+          document.getElementById("compressionRate").innerText = `Taxa de compressão: ${rate.toFixed(2)}%`;
+
+          document.querySelector(".info").style.display = "block";
 
           document.getElementById("downloadLink").href = blobURL;
           document.getElementById("downloadLink").download = "imagem_comprimida.jpg";
-
-          info.innerHTML = `
-            <strong>Tamanho original:</strong> ${(originalSize / 1024).toFixed(2)} KB<br>
-            <strong>Tamanho comprimido:</strong> ${(compressedSize / 1024).toFixed(2)} KB<br>
-            <strong>Taxa de compressão:</strong> ${ratio}%`;
-          
-          info.style.display = 'block';
-          downloadLink.style.display = 'block';
+          document.querySelector(".download-link").style.display = "block";
         } catch (e) {
           alert("Erro ao comprimir a imagem.");
         }
@@ -140,21 +126,20 @@
           import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js').then(pdfLib => {
             pdfLib.PDFDocument.load(uint8Array).then(async (pdfDoc) => {
               const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
-              const compressedSize = pdfBytes.length;
               const blob = new Blob([pdfBytes], { type: "application/pdf" });
               const blobURL = URL.createObjectURL(blob);
-              const ratio = ((1 - compressedSize / originalSize) * 100).toFixed(2);
+
+              const newSize = blob.size / 1024;
+              const rate = 100 - (newSize / originalSize) * 100;
+
+              document.getElementById("originalSize").innerText = `Tamanho original: ${originalSize.toFixed(2)} KB`;
+              document.getElementById("compressedSize").innerText = `Tamanho comprimido: ${newSize.toFixed(2)} KB`;
+              document.getElementById("compressionRate").innerText = `Taxa de compressão: ${rate.toFixed(2)}%`;
+              document.querySelector(".info").style.display = "block";
 
               document.getElementById("downloadLink").href = blobURL;
               document.getElementById("downloadLink").download = "ficheiro_comprimido.pdf";
-
-              info.innerHTML = `
-                <strong>Tamanho original:</strong> ${(originalSize / 1024).toFixed(2)} KB<br>
-                <strong>Tamanho comprimido:</strong> ${(compressedSize / 1024).toFixed(2)} KB<br>
-                <strong>Taxa de compressão:</strong> ${ratio}%`;
-
-              info.style.display = 'block';
-              downloadLink.style.display = 'block';
+              document.querySelector(".download-link").style.display = "block";
             });
           });
         };
@@ -162,8 +147,6 @@
       } else {
         alert("Ficheiro não suportado.");
       }
-
-      progress.style.display = 'none';
     }
 
     const translations = {
