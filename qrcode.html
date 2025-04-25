@@ -2,19 +2,9 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
+  <title data-translate="compressorTitle">Comprimir Imagens e PDFs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Codifique informações em QR Code de forma rápida e segura!">
-  <meta name="keywords" content="qr code, gerador de qr code, código qr, ferramenta online">
-  <title data-translate="title">Gerador de QR Code</title>
-  
-  <!-- Incluindo a biblioteca QRCode.js via CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  
-  <!-- Google AdSense -->
- 
-  
   <style>
-    /* Barra de navegação superior */
     .top-nav {
       background: #333;
       padding: 10px;
@@ -32,245 +22,188 @@
     }
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
+      background: #f2f2f2;
       margin: 0;
       padding: 20px;
     }
     .container {
-      max-width: 600px;
-      margin: 20px auto 0;
+      max-width: 800px;
+      margin: auto;
       text-align: center;
       background: #fff;
-      padding: 20px;
+      padding: 30px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h1, h2 {
-      color: #333;
+    input[type="file"] {
+      margin-top: 20px;
     }
-    p {
-      color: #666;
-      font-size: 16px;
-      line-height: 1.5;
+    .download-link, .preview-container, .info {
+      margin-top: 20px;
+      display: none;
     }
-    .update-info {
-      font-size: 14px;
-      color: #777;
-      text-align: right;
-      margin-bottom: 10px;
-    }
-    .dynamic-tip, .reflection {
-      margin: 20px 0;
-      font-style: italic;
-      color: #444;
-      background: #eef;
-      padding: 10px;
+    .btn {
+      background: #0073e6;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
       border-radius: 6px;
-    }
-    .explanation {
-      margin: 20px 0;
-      text-align: left;
-      background: #f0f8ff;
-      padding: 10px;
-      border-radius: 6px;
-      color: #555;
-      font-size: 15px;
-    }
-    input, button {
-      padding: 10px;
+      cursor: pointer;
       font-size: 16px;
-      margin: 5px;
+      margin-top: 15px;
     }
-    #qrcode {
+    .btn:hover {
+      background: #005bb5;
+    }
+    img.preview {
+      max-width: 100%;
+      height: auto;
       margin-top: 20px;
-    }
-    a {
-      display: inline-block;
-      margin-top: 20px;
-      text-decoration: none;
-      color: #007BFF;
-    }
-    .adsense {
-      margin-top: 30px;
-      text-align: center;
-    }
-    .footer {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #777;
     }
   </style>
 </head>
 <body>
-  <!-- Barra de navegação superior -->
+
   <div class="top-nav">
     <a href="index.html" data-translate="home">Início</a>
     <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
     <a href="about.html" data-translate="about">Sobre</a>
     <a href="contact.html" data-translate="contact">Contato</a>
   </div>
-  
+
   <div class="container">
-    <!-- Última atualização dinâmica -->
-    <div class="update-info" id="updateInfo"></div>
-    
-    <h1 data-translate="header">Gerador de QR Code</h1>
-    
-    <!-- Dica do Dia dinâmica -->
-    <p class="dynamic-tip" id="dynamicTip"></p>
-    
-    <!-- Reflexão aleatória -->
-    <p class="reflection" id="reflection"></p>
-    
-    <!-- Explicação extra sobre QR Code -->
-    <div class="explanation" id="explanation"></div>
-    
-    <p data-translate="description">Codifique informações em QR Code de forma rápida e segura!</p>
-    
-    <input type="text" id="textInput" placeholder="" data-translate-placeholder="placeholder">
-    <br>
-    <button onclick="generateQRCode()" data-translate="button">Gerar QR Code</button>
-    <div id="qrcode"></div>
-    <br>
-    <a href="index.html" data-translate="back">Voltar para Página Inicial</a>
-    
-    <div class="adsense">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-4883403187063112"
-           data-ad-slot="7460995783"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <h1 data-translate="compressorHeader">Comprimir Imagens e PDFs</h1>
+    <p data-translate="compressorDesc">Selecione um ficheiro JPG, PNG ou PDF para reduzir o tamanho. O processamento é feito localmente no seu navegador.</p>
+
+    <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.pdf" />
+    <div class="preview-container">
+      <p><strong>Pré-visualização:</strong></p>
+      <img id="imagePreview" class="preview" />
     </div>
-    
-    <div class="footer">
-      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
+    <button class="btn" onclick="compressFile()" data-translate="compressButton">Comprimir</button>
+
+    <div class="info">
+      <p id="originalSize"></p>
+      <p id="compressedSize"></p>
+      <p id="compressionRate"></p>
+    </div>
+
+    <div class="download-link">
+      <p data-translate="downloadReady">Ficheiro comprimido pronto:</p>
+      <a id="downloadLink" class="btn" download>Download</a>
     </div>
   </div>
-  
+
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.17/dist/browser-image-compression.js"></script>
   <script>
-    // Função para gerar o QR Code
-    function generateQRCode() {
-      const text = document.getElementById("textInput").value;
-      const qrCodeDiv = document.getElementById("qrcode");
-      qrCodeDiv.innerHTML = "";
-      if(text.trim() === "") {
-        qrCodeDiv.innerText = "Por favor, digite um texto ou URL.";
-        return;
+    const fileInput = document.getElementById('fileInput');
+    const imagePreview = document.getElementById('imagePreview');
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          imagePreview.src = e.target.result;
+          document.querySelector('.preview-container').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        document.querySelector('.preview-container').style.display = 'none';
       }
-      new QRCode(qrCodeDiv, {
-        text: text,
-        width: 200,
-        height: 200
-      });
+    });
+
+    async function compressFile() {
+      const file = fileInput.files[0];
+      if (!file) return alert('Selecione um ficheiro primeiro.');
+
+      const originalSize = file.size / 1024;
+
+      if (file.type.startsWith("image/")) {
+        const options = {
+          maxSizeMB: 0.5,
+          useWebWorker: true
+        };
+        try {
+          const compressedFile = await imageCompression(file, options);
+          const blobURL = URL.createObjectURL(compressedFile);
+
+          const newSize = compressedFile.size / 1024;
+          const rate = 100 - (newSize / originalSize) * 100;
+
+          document.getElementById("originalSize").innerText = `Tamanho original: ${originalSize.toFixed(2)} KB`;
+          document.getElementById("compressedSize").innerText = `Tamanho comprimido: ${newSize.toFixed(2)} KB`;
+          document.getElementById("compressionRate").innerText = `Taxa de compressão: ${rate.toFixed(2)}%`;
+
+          document.querySelector(".info").style.display = "block";
+
+          document.getElementById("downloadLink").href = blobURL;
+          document.getElementById("downloadLink").download = "imagem_comprimida.jpg";
+          document.querySelector(".download-link").style.display = "block";
+        } catch (e) {
+          alert("Erro ao comprimir a imagem.");
+        }
+      } else if (file.type === "application/pdf") {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const uint8Array = new Uint8Array(e.target.result);
+          import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js').then(pdfLib => {
+            pdfLib.PDFDocument.load(uint8Array).then(async (pdfDoc) => {
+              const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
+              const blob = new Blob([pdfBytes], { type: "application/pdf" });
+              const blobURL = URL.createObjectURL(blob);
+
+              const newSize = blob.size / 1024;
+              const rate = 100 - (newSize / originalSize) * 100;
+
+              document.getElementById("originalSize").innerText = `Tamanho original: ${originalSize.toFixed(2)} KB`;
+              document.getElementById("compressedSize").innerText = `Tamanho comprimido: ${newSize.toFixed(2)} KB`;
+              document.getElementById("compressionRate").innerText = `Taxa de compressão: ${rate.toFixed(2)}%`;
+              document.querySelector(".info").style.display = "block";
+
+              document.getElementById("downloadLink").href = blobURL;
+              document.getElementById("downloadLink").download = "ficheiro_comprimido.pdf";
+              document.querySelector(".download-link").style.display = "block";
+            });
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        alert("Ficheiro não suportado.");
+      }
     }
-    
-    // Atualiza dinamicamente a data de última atualização
-    function updateLastModified() {
-      const updateInfo = document.getElementById("updateInfo");
-      const now = new Date();
-      updateInfo.innerText = "Última atualização: " + now.toLocaleDateString();
-    }
-    
-    // Dica dinâmica para QR Code
-    const dynamicTips = {
-      "pt": [
-        "Dica: Verifique sempre o destino do QR Code para garantir que ele seja seguro.",
-        "Dica: Utilize QR Codes para conectar o mundo físico ao digital de forma prática.",
-        "Dica: Teste seus QR Codes antes de usá-los para evitar links maliciosos."
-      ],
-      "en": [
-        "Tip: Always verify the QR Code destination to ensure it is secure.",
-        "Tip: Use QR Codes to connect the physical and digital worlds effectively.",
-        "Tip: Test your QR Codes before use to avoid malicious links."
-      ],
-      "es": [
-        "Consejo: Verifica siempre el destino del Código QR para asegurarte de que sea seguro.",
-        "Consejo: Utiliza Códigos QR para conectar eficazmente el mundo físico con el digital.",
-        "Consejo: Prueba tus Códigos QR antes de usarlos para evitar enlaces maliciosos."
-      ]
-    };
-    function setDynamicTip() {
-      const userLang = navigator.language.substr(0, 2);
-      const lang = dynamicTips[userLang] ? userLang : "pt";
-      const tipArray = dynamicTips[lang];
-      document.getElementById("dynamicTip").innerText = tipArray[Math.floor(Math.random() * tipArray.length)];
-    }
-    
-    // Explicação extra sobre QR Code
-    const explanationTexts = {
-      "pt": "Os QR Codes são códigos de barras bidimensionais que armazenam informações em formato digital. Eles permitem que dados, como URLs ou textos, sejam rapidamente acessados por meio de dispositivos móveis. É importante validar o destino para evitar links maliciosos.",
-      "en": "QR Codes are two-dimensional barcodes that store information in digital format. They allow data, such as URLs or text, to be quickly accessed via mobile devices. It is important to verify the destination to avoid malicious links.",
-      "es": "Los Códigos QR son códigos de barras bidimensionales que almacenan información en formato digital. Permiten acceder rápidamente a datos, como URLs o texto, mediante dispositivos móviles. Es importante verificar el destino para evitar enlaces maliciosos."
-    };
-    function setExplanation() {
-      const userLang = navigator.language.substr(0, 2);
-      const lang = explanationTexts[userLang] ? userLang : "pt";
-      document.getElementById("explanation").innerText = explanationTexts[lang];
-    }
-    
-    // Reflexão dinâmica sobre QR Codes
-    const reflections = {
-      "pt": [
-        "Verifique sempre o destino do QR Code para garantir que ele seja seguro.",
-        "Os QR Codes conectam o mundo físico e digital; a cautela evita surpresas indesejadas."
-      ],
-      "en": [
-        "Always verify the QR Code destination to ensure it is secure.",
-        "QR Codes connect the physical and digital worlds; caution prevents unwanted surprises."
-      ],
-      "es": [
-        "Verifica siempre el destino del Código QR para asegurarte de que sea seguro.",
-        "Los Códigos QR unen el mundo físico y digital; la precaución evita sorpresas no deseadas."
-      ]
-    };
-    function setReflection() {
-      const userLang = navigator.language.substr(0, 2);
-      const lang = reflections[userLang] ? userLang : "pt";
-      const reflectionArray = reflections[lang];
-      document.getElementById("reflection").innerText = reflectionArray[Math.floor(Math.random() * reflectionArray.length)];
-    }
-    
-    // Traduções multilíngues unificadas
+
     const translations = {
       "pt": {
-        "title": "Gerador de QR Code",
-        "header": "Gerador de QR Code",
-        "description": "Codifique informações em QR Code de forma rápida e segura!",
-        "placeholder": "Digite o texto ou URL",
-        "button": "Gerar QR Code",
-        "back": "Voltar para Página Inicial",
-        "importance": "Os QR Codes facilitam a transmissão de informações entre o mundo físico e digital, mas é fundamental verificar o destino codificado para evitar links maliciosos.",
+        "compressorTitle": "Comprimir Imagens e PDFs",
+        "compressorHeader": "Comprimir Imagens e PDFs",
+        "compressorDesc": "Selecione um ficheiro JPG, PNG ou PDF para reduzir o tamanho. O processamento é feito localmente no seu navegador.",
+        "compressButton": "Comprimir",
+        "downloadReady": "Ficheiro comprimido pronto:",
         "home": "Início",
         "privacyPolicy": "Política de Privacidade",
         "about": "Sobre",
         "contact": "Contato"
       },
       "en": {
-        "title": "QR Code Generator",
-        "header": "QR Code Generator",
-        "description": "Encode information into a QR Code quickly and securely!",
-        "placeholder": "Enter text or URL",
-        "button": "Generate QR Code",
-        "back": "Back to Home Page",
-        "importance": "QR Codes bridge the physical and digital worlds, but it is essential to verify the encoded destination to avoid malicious links.",
+        "compressorTitle": "Compress Images and PDFs",
+        "compressorHeader": "Compress Images and PDFs",
+        "compressorDesc": "Select a JPG, PNG or PDF file to reduce its size. Processing is done locally in your browser.",
+        "compressButton": "Compress",
+        "downloadReady": "Compressed file ready:",
         "home": "Home",
         "privacyPolicy": "Privacy Policy",
         "about": "About",
         "contact": "Contact"
       },
       "es": {
-        "title": "Generador de Código QR",
-        "header": "Generador de Código QR",
-        "description": "¡Codifica información en un Código QR de forma rápida y segura!",
-        "placeholder": "Ingrese texto o URL",
-        "button": "Generar Código QR",
-        "back": "Volver a la Página Principal",
-        "importance": "Los Códigos QR unen el mundo físico y digital, pero es fundamental verificar el destino codificado para evitar enlaces maliciosos.",
+        "compressorTitle": "Comprimir Imágenes y PDFs",
+        "compressorHeader": "Comprimir Imágenes y PDFs",
+        "compressorDesc": "Seleccione un archivo JPG, PNG o PDF para reducir su tamaño. El procesamiento se realiza localmente en su navegador.",
+        "compressButton": "Comprimir",
+        "downloadReady": "Archivo comprimido listo:",
         "home": "Inicio",
         "privacyPolicy": "Política de Privacidad",
-        "about": "Sobre",
+        "about": "Acerca de",
         "contact": "Contacto"
       }
     };
@@ -280,35 +213,14 @@
       const lang = translations[userLang] ? userLang : "pt";
       document.querySelectorAll("[data-translate]").forEach(el => {
         const key = el.getAttribute("data-translate");
-        el.innerText = translations[lang][key];
-      });
-      document.querySelectorAll("[data-translate-placeholder]").forEach(el => {
-        const key = el.getAttribute("data-translate-placeholder");
-        el.setAttribute("placeholder", translations[lang][key]);
-      });
-      document.title = translations[lang]["title"];
-      
-      // Atualiza meta description e keywords se necessário
-      if (lang !== "pt") {
-        const metaDesc = document.querySelector("meta[name='description']");
-        const metaKeywords = document.querySelector("meta[name='keywords']");
-        if (lang === "en") {
-          metaDesc.setAttribute("content", "Encode information into a QR Code quickly and securely!");
-          metaKeywords.setAttribute("content", "qr code, qr code generator, online tool, encode information");
-        } else if (lang === "es") {
-          metaDesc.setAttribute("content", "¡Codifica información en un Código QR de forma rápida y segura!");
-          metaKeywords.setAttribute("content", "código qr, generador de código qr, herramienta online, codificar información");
+        if (translations[lang][key]) {
+          el.innerText = translations[lang][key];
         }
-      }
+      });
+      document.title = translations[lang]["compressorTitle"];
     }
-    
-    document.addEventListener("DOMContentLoaded", function() {
-      updateLastModified();
-      setDynamicTip();
-      setExplanation();
-      setReflection();
-      translatePage();
-    });
+
+    document.addEventListener("DOMContentLoaded", translatePage);
   </script>
 </body>
 </html>
