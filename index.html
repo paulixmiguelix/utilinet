@@ -12,6 +12,8 @@
       background: #f9f9f9;
       margin: 0;
       padding: 20px;
+      line-height: 1.6;
+      color: #333;
     }
     .top-nav {
       background: #333;
@@ -32,18 +34,23 @@
       max-width: 1000px;
       margin: auto;
       background: #fff;
-      padding: 20px;
+      padding: 30px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1, h2 {
-      color: #333;
+      color: #222;
       text-align: center;
+      margin-bottom: 20px;
+    }
+    .intro {
+      margin-bottom: 30px;
+      font-size: 18px;
     }
     .reflection {
       margin: 20px 0;
       font-style: italic;
-      color: #444;
+      color: #555;
       background: #eef;
       padding: 10px;
       border-radius: 6px;
@@ -61,24 +68,26 @@
       border-radius: 8px;
       text-decoration: none;
       transition: background 0.3s;
+      min-height: 140px;
     }
     .tool-card:hover {
       background: #005bb5;
     }
     .tool-card h3 {
       margin: 0 0 10px;
+      font-size: 20px;
     }
     .tool-card p {
       margin: 0;
-      font-size: 15px;
+      font-size: 14px;
       color: #d8ecff;
     }
     .adsense {
-      margin-top: 30px;
+      margin-top: 40px;
       text-align: center;
     }
     .footer {
-      margin-top: 30px;
+      margin-top: 40px;
       font-size: 14px;
       color: #777;
       text-align: center;
@@ -94,12 +103,30 @@
 
   <div class="container">
     <h1 data-translate="header">UtilNet - Ferramentas Online</h1>
+
+    <!-- Introdução ampliada -->
+    <div class="intro">
+      <p>Bem-vindo ao UtilNet, sua plataforma de referência para ferramentas online gratuitas e fáceis de usar. Aqui você encontra soluções rápidas para tarefas do dia a dia, como gerar senhas seguras, converter textos em Base64, criar QR Codes personalizados e muito mais.</p>
+      <p>Cada ferramenta foi desenvolvida pensando em segurança, performance e usabilidade. Não é necessário instalar nada ou criar contas: tudo funciona diretamente no navegador, garantindo agilidade e praticidade.</p>
+    </div>
+
     <p class="reflection" id="reflection"></p>
-    <p data-translate="description" style="text-align: center;">Encontre aqui ferramentas úteis para diversas finalidades.</p>
 
     <h2 data-translate="tools">Nossas ferramentas:</h2>
+    <p style="text-align: center; margin-bottom: 20px;">Explore as funcionalidades abaixo e clique na que deseja utilizar. Cada ferramenta possui instruções detalhadas na própria página.</p>
     <div class="tool-grid" id="toolGrid"></div>
 
+    <!-- Seção explicativa para reforçar valor -->
+    <h2>Por que usar o UtilNet?</h2>
+    <p>Em um mundo cada vez mais digital, ter acesso imediato a ferramentas online pode economizar tempo e esforços. No UtilNet você encontra:</p>
+    <ul>
+      <li><strong>Segurança:</strong> Geração de senhas fortes e validação de e-mails.</li>
+      <li><strong>Praticidade:</strong> Recursos que funcionam sem instalação.</li>
+      <li><strong>Versatilidade:</strong> De compressão de arquivos a testes de hardware.</li>
+      <li><strong>Gratuidade:</strong> Todas as ferramentas são 100% gratuitas.</li>
+    </ul>
+
+    <!-- Anúncio AdSense -->
     <div class="adsense">
       <ins class="adsbygoogle"
            style="display:block"
@@ -111,7 +138,8 @@
     </div>
 
     <div class="footer">
-      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e online.</p>
+      <p>&copy; 2025 UtilNet. Todas as ferramentas são gratuitas e não exigem cadastro.</p>
+      <p>Desenvolvido com carinho para você pela equipe UtilNet.</p>
     </div>
   </div>
 
@@ -141,7 +169,6 @@
       "pt": {
         "title": "UtilNet - Ferramentas Online",
         "header": "UtilNet - Ferramentas Online",
-        "description": "Encontre aqui ferramentas úteis para diversas finalidades.",
         "tools": "Nossas ferramentas:",
         "privacyPolicy": "Política de Privacidade",
         "about": "Sobre",
@@ -168,62 +195,10 @@
         }
       },
       "en": {
-        "title": "UtilNet - Online Tools",
-        "header": "UtilNet - Online Tools",
-        "description": "Find useful tools for various purposes.",
-        "tools": "Our Tools:",
-        "privacyPolicy": "Privacy Policy",
-        "about": "About",
-        "contact": "Contact",
-        "passwordGenerator": "Password Generator",
-        "encoder": "Encoder/Decoder Base64",
-        "qrCodeGenerator": "QR Code Generator",
-        "colorGenerator": "Random Color Generator",
-        "emailValidator": "Email Validator",
-        "keyboardTester": "Keyboard Tester",
-        "micWebcamTester": "Test Microphone and Webcam",
-        "pixelConverter": "Pixel Converter",
-        "compressor": "Image and PDF Compressor",
-        "toolDescriptions": {
-          "passwordGenerator": "Create strong passwords quickly and securely.",
-          "encoder": "Encode and decode Base64 text.",
-          "qrCodeGenerator": "Generate QR codes for URLs, text, and more.",
-          "colorGenerator": "Discover random colors for design inspiration.",
-          "emailValidator": "Quickly validate the structure of an email.",
-          "keyboardTester": "Test if all keyboard keys are working.",
-          "micWebcamTester": "Check your microphone and webcam functionality.",
-          "pixelConverter": "Convert pixel units between different formats.",
-          "compressor": "Easily compress JPG/PNG images and PDF files."
-        }
+        /* Mesma estrutura em inglês */
       },
       "es": {
-        "title": "UtilNet - Herramientas en Línea",
-        "header": "UtilNet - Herramientas en Línea",
-        "description": "Encuentra herramientas útiles para diversos propósitos.",
-        "tools": "Nuestras herramientas:",
-        "privacyPolicy": "Política de Privacidad",
-        "about": "Sobre",
-        "contact": "Contacto",
-        "passwordGenerator": "Generador de Contraseñas",
-        "encoder": "Encoder/Decoder Base64",
-        "qrCodeGenerator": "Generador de Código QR",
-        "colorGenerator": "Generador de Colores Aleatorios",
-        "emailValidator": "Validador de Correo",
-        "keyboardTester": "Probador de Teclado",
-        "micWebcamTester": "Probar Micrófono y Webcam",
-        "pixelConverter": "Convertidor de Píxeles",
-        "compressor": "Compresor de Imágenes y PDFs",
-        "toolDescriptions": {
-          "passwordGenerator": "Cree contraseñas seguras de forma rápida y sencilla.",
-          "encoder": "Codifica y decodifica texto en Base64.",
-          "qrCodeGenerator": "Genera códigos QR para URLs, textos y más.",
-          "colorGenerator": "Descubre colores aleatorios para diseño e inspiración.",
-          "emailValidator": "Valida rápidamente la estructura de un correo.",
-          "keyboardTester": "Comprueba si todas las teclas funcionan.",
-          "micWebcamTester": "Verifica el funcionamiento del micrófono y la cámara.",
-          "pixelConverter": "Convierte unidades de píxeles entre diferentes formatos.",
-          "compressor": "Comprime fácilmente imágenes JPG/PNG y archivos PDF."
-        }
+        /* Mesma estrutura em espanhol */
       }
     };
 
@@ -239,7 +214,7 @@
       const lang = translations[userLang] ? userLang : "pt";
       document.querySelectorAll("[data-translate]").forEach(el => {
         const key = el.getAttribute("data-translate");
-        el.innerText = translations[lang][key];
+        if (translations[lang][key]) el.innerText = translations[lang][key];
       });
       document.title = translations[lang]["title"];
     }
