@@ -5,7 +5,6 @@
   <title data-translate="compressorTitle">Comprimir Imagens e PDFs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-      /* Barra de navegação superior */
     .top-nav {
       background: #333;
       padding: 10px;
@@ -64,8 +63,7 @@
   </style>
 </head>
 <body>
-  
-   <!-- Barra de navegação superior -->
+
   <div class="top-nav">
     <a href="index.html" data-translate="home">Início</a>
     <a href="privacy.html" data-translate="privacyPolicy">Política de Privacidade</a>
@@ -180,21 +178,33 @@
         "compressorHeader": "Comprimir Imagens e PDFs",
         "compressorDesc": "Selecione um ficheiro JPG, PNG ou PDF para reduzir o tamanho. O processamento é feito localmente no seu navegador.",
         "compressButton": "Comprimir",
-        "downloadReady": "Ficheiro comprimido pronto:"
+        "downloadReady": "Ficheiro comprimido pronto:",
+        "home": "Início",
+        "privacyPolicy": "Política de Privacidade",
+        "about": "Sobre",
+        "contact": "Contato"
       },
       "en": {
         "compressorTitle": "Compress Images and PDFs",
         "compressorHeader": "Compress Images and PDFs",
         "compressorDesc": "Select a JPG, PNG or PDF file to reduce its size. Processing is done locally in your browser.",
         "compressButton": "Compress",
-        "downloadReady": "Compressed file ready:"
+        "downloadReady": "Compressed file ready:",
+        "home": "Home",
+        "privacyPolicy": "Privacy Policy",
+        "about": "About",
+        "contact": "Contact"
       },
       "es": {
         "compressorTitle": "Comprimir Imágenes y PDFs",
         "compressorHeader": "Comprimir Imágenes y PDFs",
         "compressorDesc": "Seleccione un archivo JPG, PNG o PDF para reducir su tamaño. El procesamiento se realiza localmente en su navegador.",
         "compressButton": "Comprimir",
-        "downloadReady": "Archivo comprimido listo:"
+        "downloadReady": "Archivo comprimido listo:",
+        "home": "Inicio",
+        "privacyPolicy": "Política de Privacidad",
+        "about": "Acerca de",
+        "contact": "Contacto"
       }
     };
 
@@ -203,7 +213,9 @@
       const lang = translations[userLang] ? userLang : "pt";
       document.querySelectorAll("[data-translate]").forEach(el => {
         const key = el.getAttribute("data-translate");
-        el.innerText = translations[lang][key];
+        if (translations[lang][key]) {
+          el.innerText = translations[lang][key];
+        }
       });
       document.title = translations[lang]["compressorTitle"];
     }
