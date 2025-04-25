@@ -2,10 +2,17 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="UtilNet - Plataforma com ferramentas úteis online, incluindo Gerador de Senhas, Encoder Base64, Gerador de QR Code e muito mais.">
   <title data-translate="title">UtilNet - Ferramentas Online</title>
+
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
     .top-nav {
       background: #333;
       padding: 10px;
@@ -21,17 +28,9 @@
     .top-nav a:hover {
       text-decoration: underline;
     }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 20px;
-    }
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: auto;
-      text-align: center;
       background: #fff;
       padding: 20px;
       border-radius: 8px;
@@ -39,24 +38,54 @@
     }
     h1, h2 {
       color: #333;
+      text-align: center;
     }
-    p {
-      color: #666;
+    .reflection {
+      margin: 20px 0;
+      font-style: italic;
+      color: #444;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .tool-card {
+      background: #0073e6;
+      color: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .tool-card:hover {
+      background: #005bb5;
+    }
+    .tool-card h3 {
+      margin: 0 0 10px;
+    }
+    .tool-card p {
+      margin: 0;
+      font-size: 15px;
+      color: #d8ecff;
+    }
+    .button {
+      display: inline-block;
+      padding: 12px 20px;
+      margin: 10px 0;
       font-size: 16px;
-    }
-    .tool-link {
-      display: block;
-      padding: 12px;
-      margin: 10px auto;
       background: #0073e6;
       color: #fff;
       text-decoration: none;
-      font-size: 18px;
-      border-radius: 6px;
+      border-radius: 8px;
+      text-align: center;
       transition: background 0.3s;
-      max-width: 300px;
     }
-    .tool-link:hover {
+    .button:hover {
       background: #005bb5;
     }
     .adsense {
@@ -67,14 +96,7 @@
       margin-top: 30px;
       font-size: 14px;
       color: #777;
-    }
-    .reflection {
-      margin-top: 20px;
-      font-style: italic;
-      color: #444;
-      background: #eef;
-      padding: 10px;
-      border-radius: 6px;
+      text-align: center;
     }
   </style>
 </head>
@@ -88,12 +110,17 @@
   <div class="container">
     <h1 data-translate="header">UtilNet - Ferramentas Online</h1>
     <p class="reflection" id="reflection"></p>
-    <p data-translate="description">Encontre aqui ferramentas úteis para diversas finalidades.</p>
-    
+    <p data-translate="description" style="text-align: center;">Encontre aqui ferramentas úteis para diversas finalidades.</p>
+
     <h2 data-translate="tools">Nossas ferramentas:</h2>
-    <div id="tools-container"></div>
+    
+    <!-- Botão Compressão de Imagens e PDFs -->
+    <a href="compressor.html" class="button" data-translate="compressorButton">Comprimir Imagens e PDFs</a>
+
+    <div class="tool-grid" id="toolGrid"></div>
 
     <div class="adsense">
+      <!-- Espaço reservado para anúncios -->
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-4883403187063112"
@@ -109,26 +136,25 @@
   </div>
 
   <script>
-    const tools = [
-      { href: "compressor.html", key: "compressor" },
-      { href: "senha.html", key: "passwordGenerator" },
-      { href: "encode.html", key: "encoder" },
-      { href: "qrcode.html", key: "qrCodeGenerator" },
-      { href: "geracor.html", key: "colorGenerator" },
-      { href: "validamail.html", key: "emailValidator" },
-      { href: "keytest.html", key: "keyboardTester" },
-      { href: "camwebcheck.html", key: "micWebcamTester" },
-      { href: "pixconvert.html", key: "pixelConverter" }
-    ];
-
     const reflections = [
       "A Lei de Moore previa que o poder de processamento dobraria a cada dois anos...",
       "Se a Lei de Moore impulsionou uma revolução digital...",
       "Estamos num ponto de inflexão...",
-      "A evolução tecnológica inspira a busca por soluções mais eficientes...",
+      "A evolução tecnológica que acompanhou a Lei de Moore...",
       "A Lei de Moore foi um catalisador para a era digital..."
     ];
     document.getElementById("reflection").innerText = reflections[Math.floor(Math.random() * reflections.length)];
+
+    const tools = [
+      { link: "senha.html", key: "passwordGenerator" },
+      { link: "encode.html", key: "encoder" },
+      { link: "qrcode.html", key: "qrCodeGenerator" },
+      { link: "geracor.html", key: "colorGenerator" },
+      { link: "validamail.html", key: "emailValidator" },
+      { link: "keytest.html", key: "keyboardTester" },
+      { link: "camwebcheck.html", key: "micWebcamTester" },
+      { link: "pixconvert.html", key: "pixelConverter" }
+    ];
 
     const translations = {
       "pt": {
@@ -136,7 +162,9 @@
         "header": "UtilNet - Ferramentas Online",
         "description": "Encontre aqui ferramentas úteis para diversas finalidades.",
         "tools": "Nossas ferramentas:",
-        "compressor": "Compressor de Imagens e PDF",
+        "privacyPolicy": "Política de Privacidade",
+        "about": "Sobre",
+        "contact": "Contato",
         "passwordGenerator": "Gerador de Senhas",
         "encoder": "Encoder/Decoder Base64",
         "qrCodeGenerator": "Gerador de QR Code",
@@ -145,16 +173,26 @@
         "keyboardTester": "Testar Teclado",
         "micWebcamTester": "Testar Microfone e Webcam",
         "pixelConverter": "Converter Pixeis",
-        "privacyPolicy": "Política de Privacidade",
-        "about": "Sobre",
-        "contact": "Contato"
+        "compressorButton": "Comprimir Imagens e PDFs",
+        "toolDescriptions": {
+          "passwordGenerator": "Crie senhas fortes de forma rápida e segura.",
+          "encoder": "Codifique e decodifique texto em Base64.",
+          "qrCodeGenerator": "Gere códigos QR para URLs, textos e mais.",
+          "colorGenerator": "Descubra cores aleatórias para design e inspiração.",
+          "emailValidator": "Valide rapidamente a estrutura de um e-mail.",
+          "keyboardTester": "Teste se todas as teclas do teclado estão a funcionar.",
+          "micWebcamTester": "Verifique o funcionamento do microfone e da câmara.",
+          "pixelConverter": "Converta unidades de pixeis entre diferentes formatos."
+        }
       },
       "en": {
         "title": "UtilNet - Online Tools",
         "header": "UtilNet - Online Tools",
         "description": "Find useful tools for various purposes.",
         "tools": "Our Tools:",
-        "compressor": "Image and PDF Compressor",
+        "privacyPolicy": "Privacy Policy",
+        "about": "About",
+        "contact": "Contact",
         "passwordGenerator": "Password Generator",
         "encoder": "Encoder/Decoder Base64",
         "qrCodeGenerator": "QR Code Generator",
@@ -163,16 +201,26 @@
         "keyboardTester": "Keyboard Tester",
         "micWebcamTester": "Test Microphone and Webcam",
         "pixelConverter": "Pixel Converter",
-        "privacyPolicy": "Privacy Policy",
-        "about": "About",
-        "contact": "Contact"
+        "compressorButton": "Compress Images and PDFs",
+        "toolDescriptions": {
+          "passwordGenerator": "Create strong passwords quickly and securely.",
+          "encoder": "Encode and decode Base64 text.",
+          "qrCodeGenerator": "Generate QR codes for URLs, text, and more.",
+          "colorGenerator": "Discover random colors for design inspiration.",
+          "emailValidator": "Quickly validate the structure of an email.",
+          "keyboardTester": "Test if all keyboard keys are working.",
+          "micWebcamTester": "Check your microphone and webcam functionality.",
+          "pixelConverter": "Convert pixel units between different formats."
+        }
       },
       "es": {
         "title": "UtilNet - Herramientas en Línea",
         "header": "UtilNet - Herramientas en Línea",
         "description": "Encuentra herramientas útiles para diversos propósitos.",
         "tools": "Nuestras herramientas:",
-        "compressor": "Compresor de Imágenes y PDF",
+        "privacyPolicy": "Política de Privacidad",
+        "about": "Sobre",
+        "contact": "Contacto",
         "passwordGenerator": "Generador de Contraseñas",
         "encoder": "Encoder/Decoder Base64",
         "qrCodeGenerator": "Generador de Código QR",
@@ -181,9 +229,17 @@
         "keyboardTester": "Probador de Teclado",
         "micWebcamTester": "Probar Micrófono y Webcam",
         "pixelConverter": "Convertidor de Píxeles",
-        "privacyPolicy": "Política de Privacidad",
-        "about": "Sobre",
-        "contact": "Contacto"
+        "compressorButton": "Comprimir Imágenes y PDFs",
+        "toolDescriptions": {
+          "passwordGenerator": "Cree contraseñas seguras de forma rápida y sencilla.",
+          "encoder": "Codifica y decodifica texto en Base64.",
+          "qrCodeGenerator": "Genera códigos QR para URLs, textos y más.",
+          "colorGenerator": "Descubre colores aleatorios para diseño e inspiración.",
+          "emailValidator": "Valida rápidamente la estructura de un correo.",
+          "keyboardTester": "Comprueba si todas las teclas funcionan.",
+          "micWebcamTester": "Verifica el funcionamiento del micrófono y la cámara.",
+          "pixelConverter": "Convierte unidades de píxeles entre diferentes formatos."
+        }
       }
     };
 
@@ -194,24 +250,32 @@
         const key = el.getAttribute("data-translate");
         el.innerText = translations[lang][key];
       });
-
-      // Preencher ferramentas embaralhadas
-      const toolsContainer = document.getElementById("tools-container");
-      const shuffled = tools.sort(() => 0.5 - Math.random());
-      toolsContainer.innerHTML = "";
-      shuffled.forEach(tool => {
-        const a = document.createElement("a");
-        a.href = tool.href;
-        a.className = "tool-link";
-        a.setAttribute("data-translate", tool.key);
-        a.innerText = translations[lang][tool.key];
-        toolsContainer.appendChild(a);
-      });
-
       document.title = translations[lang]["title"];
     }
 
-    document.addEventListener("DOMContentLoaded", translatePage);
+    function renderTools() {
+      const grid = document.getElementById("toolGrid");
+      const userLang = navigator.language.substr(0, 2);
+      const lang = translations[userLang] ? userLang : "pt";
+      const langData = translations[lang];
+
+      tools.forEach(tool => {
+        const card = document.createElement("a");
+        card.href = tool.link;
+        card.className = "tool-card";
+        card.innerHTML = `
+          <h3>${langData[tool.key]}</h3>
+          <p>${langData.toolDescriptions[tool.key]}</p>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      translatePage();
+      renderTools();
+    });
   </script>
 </body>
 </html>
+
